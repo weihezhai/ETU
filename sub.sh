@@ -7,10 +7,10 @@
 #$ -m be
 #$ -l gpu=1         # request 4 GPUs
 ## $ -l h=sbg4
-#$ -l gpu_type=ampere
+#$ -l centos
 #$ -l cluster=andrena
-#$ -N train_csqa_kl_mlp_0.0lambda
+#$ -N train_qwen2.5_7b_relation
 
-module load gcc/12.1.0
-source /data/home/mpx602/projects/btlnk/bin/activate
-python extract_path.py
+module load gcc/12.2.0
+source /data/home/mpx602/projects/btlnk/btlnk/bin/activate
+bash run_training.sh

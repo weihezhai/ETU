@@ -1,0 +1,9 @@
+
+alias ns='nodestatus -T andrena'
+alias sc='cd /data/scratch/mpx602/'
+alias home='cd /data/home/mpx602/acw664_homedir'
+alias gp='git pull'
+alias qa='cd ~/acw664_homedir/QAGNN1/'
+alias llm='cd /data/scratch/mpx602/model/llm-models'
+alias update='find /data/scratch/mpx602/ -type f -exec touch {} \;'
+alias new='source ~/acw664_homedir/new/bin/activate'
