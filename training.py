@@ -16,7 +16,7 @@ from tqdm.auto import tqdm
 class CustomProgressCallback(TrainerCallback):
     '''
     A custom TrainerCallback that uses tqdm progress bars to monitor training.
-    It shows per‑epoch and per‑step progress. Additionally, on each step it displays
+    It shows perepoch and perstep progress. Additionally, on each step it displays
     current GPU memory usage (if available).
     '''
     def on_train_begin(self, args, state, control, **kwargs):
