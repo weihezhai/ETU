@@ -12,7 +12,7 @@ from transformers import (
 from datasets import load_dataset
 from tqdm.auto import tqdm
 
-# ------------------------ Custom Progress Callback ------------------------
+############## Custom Progress Callback ###############
 class CustomProgressCallback(TrainerCallback):
     '''
     A custom TrainerCallback that uses tqdm progress bars to monitor training.
@@ -31,7 +31,7 @@ class CustomProgressCallback(TrainerCallback):
         return control
 
     def on_epoch_begin(self, args, state, control, **kwargs):
-        # Reset the per‑epoch step progress bar.
+        # Reset the perepoch step progress bar.
         if self.step_bar is not None:
             self.step_bar.close()
         # Use computed steps per epoch or fallback to 100 if undefined.
@@ -61,7 +61,7 @@ class CustomProgressCallback(TrainerCallback):
         print("Training finished!")
         return control
 
-# ------------------------ End Custom Progress Callback ------------------------
+############## End Custom Progress Callback ###############
 
 def preprocess_function(examples, tokenizer):
     """
@@ -73,7 +73,7 @@ def preprocess_function(examples, tokenizer):
 
     Append the target relation to form the full text.
     The tokenization is done for the full text as well as for the prompt alone,
-    and tokens corresponding to the prompt are masked (set to -100) so that only the
+    and tokens corresponding to the prompt are masked (set to  minus 100) so that only the
     target relation tokens contribute to the loss.
     """
     full_texts = []
@@ -142,7 +142,7 @@ def main(args):
         remove_columns=test_dataset.column_names
     )
 
-    # Load model in 16-bit precision using automatic device mapping.
+    # Load model in 16bit precision using automatic device mapping.
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_NAME,
         torch_dtype=torch.float16,
