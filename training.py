@@ -1,139 +1,146 @@
-import json
+import os
 import torch
-from datasets import Dataset
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    TrainingArguments,
     Trainer,
+    TrainingArguments,
     DataCollatorForLanguageModeling,
 )
-from peft import (
-    LoraConfig,
-    get_peft_model,
-    prepare_model_for_kbit_training,
-    TaskType,
-)
-import os
+from datasets import load_dataset
 
-def load_dataset(file_path):
-    """Load and preprocess the relation prediction dataset."""
-    data = []
-    with open(file_path, 'r', encoding='utf-8') as f:
-        for line in f:
-            example = json.loads(line)
-            # Format the input text
-            input_text = (
-                f"Question: {example['question']}\n"
-                f"Current path: {' -> '.join(example['input_trajectory'])}\n"
-                f"Target node: {example['target_node']}\n"
-                f"Predict the relation that connects the last node to the target node:"
-            )
-            # The target is just the relation
-            target_text = f"{example['target_relation']}"
-            
-            data.append({
-                "input": input_text,
-                "output": target_text
-            })
-    
-    return Dataset.from_list(data)
+# Specify the pretrained model name for Qwen2.5 7B.
+# (Replace with the correct repo id if needed.)
+MODEL_NAME = "QwenInc/qwen2.5-7b-hf"
 
-def prepare_training_data(dataset, tokenizer):
-    """Prepare the dataset for training by tokenizing inputs and outputs."""
-    def tokenize_function(examples):
-        # Combine input and output with a separator
-        prompts = examples["input"]
-        completions = examples["output"]
-        
-        # Format as instruction format
-        texts = [
-            f"{prompt}\n{completion}</s>"
-            for prompt, completion in zip(prompts, completions)
-        ]
-        
-        tokenized = tokenizer(
-            texts,
-            truncation=True,
-            max_length=512,
-            padding="max_length",
-            return_tensors="pt",
-        )
-        
-        return tokenized
+# Load the entire dataset from the JSONL file.
+# By default the dataset loads as one split ("train"), so we'll split it into train, develop, and test.
+dataset = load_dataset("json", data_files="relation_prediction_dataset.jsonl")
+
+# First, split off 20% as a temporary test split.
+raw_train_test = dataset["train"].train_test_split(test_size=0.2, seed=42)
+# Then, split that temporary test split equally into develop and test sets.
+dev_test_split = raw_train_test["test"].train_test_split(test_size=0.5, seed=42)
+
+train_dataset = raw_train_test["train"]       # 80% of the data
+develop_dataset = dev_test_split["train"]       # 10% of the data
+test_dataset = dev_test_split["test"]           # 10% of the data
+
+# Load the tokenizer. This tokenizer should match the model.
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, use_fast=True)
+# It is a good idea to set the pad token to eos_token if not already set.
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
+
+def preprocess_function(examples):
+    """
+    For each example, we build a text prompt by concatenating the question,
+    the input trajectory (joined by commas), and the fixed string "Relation:".
+    The target (the relation to predict) is appended after the prompt.
     
-    tokenized_dataset = dataset.map(
-        tokenize_function,
-        batched=True,
-        remove_columns=dataset.column_names,
+    We then tokenize the full text. In order to train the model in a causal LM
+    fashion where only the target relation contributes to the loss, we also text‐tokenize
+    the prompt and set all label tokens corresponding to the prompt portion to -100.
+    """
+    full_texts = []
+    prompt_texts = []
+    for question, trajectory, target_relation in zip(
+        examples["question"], examples["input_trajectory"], examples["target_relation"]
+    ):
+        prompt = f"Question: {question}\nTrajectory: {', '.join(trajectory)}\nRelation: "
+        full_text = prompt + target_relation
+        full_texts.append(full_text)
+        prompt_texts.append(prompt)
+    
+    # Tokenize the full text with truncation and padding.
+    tokenized_full = tokenizer(
+        full_texts, truncation=True, max_length=512, padding="max_length"
     )
     
-    return tokenized_dataset
+    # Tokenize only the prompt to determine its length.
+    tokenized_prompts = tokenizer(
+        prompt_texts, truncation=True, max_length=512, padding="max_length"
+    )
+    
+    # Create labels by copying the input_ids and setting the tokens corresponding to the prompt to -100.
+    labels = []
+    for full_ids, prompt_ids in zip(
+        tokenized_full["input_ids"], tokenized_prompts["input_ids"]
+    ):
+        # Count the effective length of the prompt (stop at pad token)
+        prompt_len = sum(1 for t in prompt_ids if t != tokenizer.pad_token_id)
+        label_ids = full_ids.copy()
+        label_ids[:prompt_len] = [-100] * prompt_len
+        labels.append(label_ids)
+    
+    tokenized_full["labels"] = labels
+    return tokenized_full
+
+# Tokenize each split separately.
+tokenized_train = train_dataset.map(
+    preprocess_function, batched=True, remove_columns=train_dataset.column_names
+)
+tokenized_dev = develop_dataset.map(
+    preprocess_function, batched=True, remove_columns=develop_dataset.column_names
+)
+tokenized_test = test_dataset.map(
+    preprocess_function, batched=True, remove_columns=test_dataset.column_names
+)
+
+# Load model in 16-bit precision and let device_map be automatic
+model = AutoModelForCausalLM.from_pretrained(
+    MODEL_NAME, torch_dtype=torch.float16, device_map="auto", low_cpu_mem_usage=True
+)
+
+# Set up training arguments.
+# Using evaluation and saving strategy "epoch" ensures that the model is evaluated on the
+# development set and a checkpoint is saved at the end of each epoch.
+training_args = TrainingArguments(
+    output_dir="/data/scratch/mpx602/ETU/qwen2.5/qwen2.5-7b-finetuned-relation",
+    per_device_train_batch_size=2,
+    gradient_accumulation_steps=8,  # Effective batch size = 2 * 8 = 16
+    num_train_epochs=3,
+    learning_rate=2e-5,
+    fp16=True,
+    logging_steps=10,
+    evaluation_strategy="epoch",  # Evaluate after each epoch on the dev set.
+    save_strategy="epoch",        # Save checkpoint at the end of each epoch.
+    weight_decay=0.01,
+    save_total_limit=3,
+    report_to=["none"],
+)
+
+# Create a data collator for language modeling (mlm=False because this is a causal LM)
+data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
+
+# Initialize the Trainer.
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_train,
+    eval_dataset=tokenized_dev,
+    data_collator=data_collator,
+)
 
 def main():
-    # Configuration
-    model_name = "Qwen/Qwen1.5-7B"
-    dataset_path = "relation_prediction_dataset_with_target.jsonl"
-    output_dir = "relation_prediction_model"
-    
-    # Training arguments
-    training_args = TrainingArguments(
-        output_dir=output_dir,
-        num_train_epochs=3,
-        per_device_train_batch_size=4,
-        gradient_accumulation_steps=4,
-        learning_rate=2e-4,
-        fp16=True,
-        logging_steps=100,
-        save_steps=500,
-        warmup_steps=100,
-        save_total_limit=2,
-    )
-    
-    # Load tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
-    tokenizer.pad_token = tokenizer.eos_token
-    
-    # Load model
-    model = AutoModelForCausalLM.from_pretrained(
-        model_name,
-        torch_dtype=torch.float16,
-        device_map="auto",
-        trust_remote_code=True,
-    )
-    
-    # Prepare model for training
-    model = prepare_model_for_kbit_training(model)
-    
-    # LoRA configuration
-    lora_config = LoraConfig(
-        task_type=TaskType.CAUSAL_LM,
-        r=16,  # rank
-        lora_alpha=32,
-        lora_dropout=0.1,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
-    )
-    
-    # Apply LoRA
-    model = get_peft_model(model, lora_config)
-    
-    # Load and prepare dataset
-    dataset = load_dataset(dataset_path)
-    train_dataset = prepare_training_data(dataset, tokenizer)
-    
-    # Create trainer
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        train_dataset=train_dataset,
-        data_collator=DataCollatorForLanguageModeling(tokenizer, mlm=False),
-    )
-    
-    # Train
-    trainer.train()
-    
-    # Save the final model
-    trainer.save_model()
+    # Start training. The total training time will depend on your dataset size,
+    # number of epochs, and overall effective batch size.
+    print("Starting training...")
+    trainer.train()  # Trainer will evaluate on the dev set and save checkpoints at each epoch.
+
+    # Save the final model.
+    trainer.save_model("/data/scratch/mpx602/ETU/qwen2.5/qwen2.5-7b-finetuned-relation")
+    print("Training completed and final model saved.")
+
+    # Evaluate the final checkpoint on the development set.
+    dev_results = trainer.evaluate(eval_dataset=tokenized_dev)
+    print("Development Set Evaluation Results:")
+    print(dev_results)
+
+    # Evaluate the final checkpoint on the test set.
+    test_results = trainer.evaluate(eval_dataset=tokenized_test)
+    print("Test Set Evaluation Results:")
+    print(test_results)
 
 if __name__ == "__main__":
     main() 
