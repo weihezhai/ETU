@@ -5,6 +5,7 @@
 #SBATCH --mem=82G
 #SBATCH --mail-user=wzhai2@sheffield.ac.uk
 #SBATCH --job-name=train
+#SBATCH --output=./logs/output.%j.out
 
 module load cuDNN/8.7.0.84-CUDA-11.8.0
 source activate etu
