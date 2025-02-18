@@ -1,4 +1,4 @@
 
 .DS_Store
-/data/home/mpx602/projects/ETU/ETU/GNN-RAG
-/data/home/mpx602/projects/ETU/ETU/logs
+./GNN-RAG
+./logs
