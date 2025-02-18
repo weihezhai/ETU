@@ -36,7 +36,7 @@ class CustomProgressCallback(TrainerCallback):
             self.step_bar.close()
         # Use computed steps per epoch or fallback to 100 if undefined.
         total_steps = self.steps_per_epoch if self.steps_per_epoch > 0 else 100
-        self.step_bar = tqdm(total=total_steps, desc=f"Epoch {state.epoch:.2f} Steps", dynamic_ncols=True)
+        self.step_bar = tqdm(total=total_steps, desc=f'Epoch {state.epoch:.2f} Steps', dynamic_ncols=True)
         return control
 
     def on_step_end(self, args, state, control, **kwargs):
