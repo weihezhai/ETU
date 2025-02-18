@@ -7,10 +7,10 @@
 #$ -m be
 #$ -l gpu=1         # request 4 GPUs
 ## $ -l h=sbg4
-#$ -l centos
+#$ -l rocky
 #$ -l cluster=andrena
 #$ -N train_qwen2.5_7b_relation
 
-module load gcc/12.2.0
-source /data/home/mpx602/projects/btlnk/btlnk/bin/activate
+# module load gcc
+source /data/home/mpx602/projects/py311/bin/activate
 bash run_training.sh
