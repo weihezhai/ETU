@@ -12,5 +12,5 @@
 #$ -N train_csqa_kl_mlp_0.0lambda
 
 module load gcc/12.1.0
-source ~/acw664_homedir/new/bin/activate
+source /data/home/mpx602/projects/btlnk/bin/activate
 python extract_path.py
