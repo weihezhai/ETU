@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --partition=gpu-h100
+#SBATCH --partition=gpu
 #SBATCH --qos=gpu
-#SBATCH --gres=gpu:2
+#SBATCH --gres=gpu:1
 #SBATCH --mem=82G
 #SBATCH --mail-user=wzhai2@sheffield.ac.uk
 #SBATCH --job-name=train
