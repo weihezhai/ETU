@@ -9,5 +9,5 @@
 #SBATCH --output=./logs/output.%j.out
 
 module load cuDNN/8.7.0.84-CUDA-11.8.0
-source activate etu
+source etu/bin/activate
 bash run_training_shef.sh
