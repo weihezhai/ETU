@@ -8,4 +8,4 @@
 
 module load cuDNN/8.7.0.84-CUDA-11.8.0
 source activate etu
-bash run_training.sh
+bash run_training_shef.sh
