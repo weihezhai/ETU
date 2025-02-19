@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -cwd
 #$ -j y
-#$ -pe smp 12      # 32 cores
+#$ -pe smp 8      # 32 cores
 #$ -l h_rt=12:0:0  # 240 hours runtime
 #$ -l h_vmem=7.5G      # 11G RAM per core
 #$ -m be
