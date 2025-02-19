@@ -9,7 +9,7 @@
 #SBATCH --output=./logs/output.%j.out
 #SBATCH --time=0-12:00:00
 
-module load Anaconda3/2022.05
-module load cuDNN/8.7.0.84-CUDA-11.8.0
-source activate etu
+module load Anaconda3/2024.02-1
+module load cuDNN/8.9.2.26-CUDA-12.1.1
+conda activate etu
 bash run_training_shef.sh
