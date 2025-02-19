@@ -36,7 +36,7 @@ echo "  Output Directory:         $OUTPUT_DIR"
 echo "  Model Name:               $MODEL_NAME"
 
 # Run the training script with the provided parameters.
-python training.py \
+python training_shef.py \
     --num_train_epochs "$EPOCHS" \
     --per_device_train_batch_size "$BATCH_SIZE" \
     --gradient_accumulation_steps "$GRAD_ACCUM" \
