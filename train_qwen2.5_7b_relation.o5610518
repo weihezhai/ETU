@@ -1,0 +1,39 @@
+Launching training with the following parameters:
+  Epochs:                   3
+  Per-device Batch Size:    2
+  Gradient Accumulation:    8
+  Learning Rate:            2e-5
+  Output Directory:         /data/scratch/mpx602/ETU/qwen2.5/qwen2.5-7b-finetuned-relation
+  Model Name:               Qwen/Qwen2.5-7B
+Map:   0%|          | 0/1662 [00:00<?, ? examples/s]Map:  60%|██████    | 1000/1662 [00:02<00:01, 343.16 examples/s]Map: 100%|██████████| 1662/1662 [00:04<00:00, 352.20 examples/s]Map: 100%|██████████| 1662/1662 [00:04<00:00, 349.52 examples/s]
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards:  25%|██▌       | 1/4 [01:34<04:42, 94.03s/it]Downloading shards:  50%|█████     | 2/4 [03:06<03:05, 92.88s/it]Downloading shards:  75%|███████▌  | 3/4 [04:38<01:32, 92.71s/it]Downloading shards: 100%|██████████| 4/4 [06:03<00:00, 89.67s/it]Downloading shards: 100%|██████████| 4/4 [06:03<00:00, 90.91s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:10<00:30, 10.12s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:20<00:21, 10.50s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:32<00:11, 11.16s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:39<00:00,  9.34s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:39<00:00,  9.85s/it]
+/data/home/mpx602/projects/py311/lib/python3.11/site-packages/transformers/training_args.py:1575: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead
+  warnings.warn(
+Starting training...
+Training has begun!
+Epoch:   0%|          | 0/3 [00:00<?, ?it/s]
+Epoch 0.00 Steps:   0%|          | 0/831 [00:00<?, ?it/s][ATraceback (most recent call last):
+  File "/data/home/mpx602/projects/ETU/ETU/training.py", line 217, in <module>
+    main(args)
+  File "/data/home/mpx602/projects/ETU/ETU/training.py", line 184, in main
+    trainer.train()  # Trainer will evaluate and save checkpoints at each epoch.
+    ^^^^^^^^^^^^^^^
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/transformers/trainer.py", line 2171, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/transformers/trainer.py", line 2566, in _inner_training_loop
+    _grad_norm = self.accelerator.clip_grad_norm_(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/accelerate/accelerator.py", line 2479, in clip_grad_norm_
+    self.unscale_gradients()
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/accelerate/accelerator.py", line 2423, in unscale_gradients
+    self.scaler.unscale_(opt)
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/torch/amp/grad_scaler.py", line 338, in unscale_
+    optimizer_state["found_inf_per_device"] = self._unscale_grads_(
+                                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/torch/amp/grad_scaler.py", line 260, in _unscale_grads_
+    raise ValueError("Attempting to unscale FP16 gradients.")
+ValueError: Attempting to unscale FP16 gradients.
+Epoch:   0%|          | 0/3 [00:06<?, ?it/s]
+Epoch 0.00 Steps:   0%|          | 0/831 [00:06<?, ?it/s]

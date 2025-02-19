@@ -109,7 +109,7 @@ def main(args):
     MODEL_NAME = args.model_name
 
     # Load the entire dataset from the JSONL file.
-    # The dataset loads as one split ("train"), so we’ll split it into train, develop, and test.
+    # The dataset loads as one split ("train"), so we'll split it into train, develop, and test.
     dataset = load_dataset("json", data_files="relation_prediction_dataset.jsonl")
 
     # Split off 20% for test, then equally split those into development and test.
@@ -151,6 +151,8 @@ def main(args):
     )
 
     # Set up training arguments.
+    # NOTE: max_grad_norm is set to 0.0 to disable gradient clipping. This is a workaround for
+    # the "Attempting to unscale FP16 gradients" error.
     training_args = TrainingArguments(
         output_dir=args.output_dir,
         per_device_train_batch_size=args.per_device_train_batch_size,
@@ -158,13 +160,14 @@ def main(args):
         num_train_epochs=args.num_train_epochs,
         learning_rate=args.learning_rate,
         fp16=True,
+        max_grad_norm=0.0,
         logging_steps=10,
         evaluation_strategy="epoch",  # Evaluate after each epoch on the dev set.
         save_strategy="epoch",        # Save checkpoint at the end of each epoch.
         weight_decay=0.01,
         save_total_limit=3,
         report_to=["none"],
-        disable_tqdm=True,  # Disable default tqdm; we use a custom progress callback.
+        disable_tqdm=True,  # Disable default tqdm; our custom progress callback will handle progress.
     )
 
     # Create a data collator for causal language modeling.
@@ -211,7 +214,7 @@ if __name__ == "__main__":
         default="/data/scratch/mpx602/ETU/qwen2.5/qwen2.5-7b-finetuned-relation",
         help="Directory to save checkpoints and model."
     )
-    parser.add_argument("--model_name", type=str, default="QwenInc/qwen2.5-7b-hf", help="Name of the pretrained model.")
+    parser.add_argument("--model_name", type=str, default="Qwen/Qwen2.5-7B", help="Name of the pretrained model.")
     args = parser.parse_args()
 
     main(args)
