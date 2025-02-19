@@ -159,7 +159,7 @@ def main(args):
         num_train_epochs=args.num_train_epochs,
         learning_rate=args.learning_rate,
         fp16=True,
-        max_grad_norm=0.0,
+        max_grad_norm=1e-6,
         logging_steps=10,
         evaluation_strategy="epoch",  # Evaluate after each epoch on the dev set.
         save_strategy="epoch",        # Save checkpoint at the end of each epoch.
@@ -181,12 +181,6 @@ def main(args):
         data_collator=data_collator,
         callbacks=[CustomProgressCallback()]
     )
-
-    # Monkey-patch the accelerator's gradient clipping to disable it.
-    # This prevents the call to unscale FP16 gradients when max_grad_norm is set to 0.0.
-    if training_args.max_grad_norm == 0.0:
-        print("Disabling gradient clipping to avoid FP16 unscale errors.")
-        trainer.accelerator.clip_grad_norm_ = lambda optimizer, max_norm, norm_type=2: None
 
     print("Starting training...")
     trainer.train()  # Trainer will evaluate and save checkpoints at each epoch.
@@ -220,6 +214,8 @@ if __name__ == "__main__":
         help="Directory to save checkpoints and model."
     )
     parser.add_argument("--model_name", type=str, default="Qwen/Qwen2.5-7B", help="Name of the pretrained model.")
+    # Add to argparse in training.py:
+    parser.add_argument("--max_grad_norm", type=float, default=1e-6, help="Max gradient norm.")
     args = parser.parse_args()
 
     main(args)
