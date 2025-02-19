@@ -5,3 +5,32 @@ Launching training with the following parameters:
   Learning Rate:            2e-5
   Output Directory:         /data/scratch/mpx602/ETU/qwen2.5/qwen2.5-7b-finetuned-relation
   Model Name:               Qwen/Qwen2.5-7B
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:08<00:25,  8.47s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:18<00:18,  9.34s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:27<00:09,  9.39s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:36<00:00,  8.95s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:36<00:00,  9.03s/it]
+/data/home/mpx602/projects/py311/lib/python3.11/site-packages/transformers/training_args.py:1575: FutureWarning: `evaluation_strategy` is deprecated and will be removed in version 4.46 of 🤗 Transformers. Use `eval_strategy` instead
+  warnings.warn(
+Starting training...
+Training has begun!
+Epoch:   0%|          | 0/3 [00:00<?, ?it/s]
+Epoch 0.00 Steps:   0%|          | 0/831 [00:00<?, ?it/s][ATraceback (most recent call last):
+  File "/data/home/mpx602/projects/ETU/ETU/training.py", line 220, in <module>
+    main(args)
+  File "/data/home/mpx602/projects/ETU/ETU/training.py", line 187, in main
+    trainer.train()  # Trainer will evaluate and save checkpoints at each epoch.
+    ^^^^^^^^^^^^^^^
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/transformers/trainer.py", line 2171, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/transformers/trainer.py", line 2584, in _inner_training_loop
+    self.optimizer.step()
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/accelerate/optimizer.py", line 165, in step
+    self.scaler.step(self.optimizer, closure)
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/torch/amp/grad_scaler.py", line 451, in step
+    self.unscale_(optimizer)
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/torch/amp/grad_scaler.py", line 338, in unscale_
+    optimizer_state["found_inf_per_device"] = self._unscale_grads_(
+                                              ^^^^^^^^^^^^^^^^^^^^^
+  File "/data/home/mpx602/projects/py311/lib/python3.11/site-packages/torch/amp/grad_scaler.py", line 260, in _unscale_grads_
+    raise ValueError("Attempting to unscale FP16 gradients.")
+ValueError: Attempting to unscale FP16 gradients.
+Epoch:   0%|          | 0/3 [00:03<?, ?it/s]
+Epoch 0.00 Steps:   0%|          | 0/831 [00:03<?, ?it/s]

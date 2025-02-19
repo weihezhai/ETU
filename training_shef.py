@@ -151,7 +151,8 @@ def main(args):
     )
 
     # Set up training arguments.
-    # NOTE: max_grad_norm is set to 0.0 to disable gradient clipping.
+    # NOTE: max_grad_norm is set to 0.0 to disable gradient clipping. This is a workaround for
+    # the "Attempting to unscale FP16 gradients" error.
     training_args = TrainingArguments(
         output_dir=args.output_dir,
         per_device_train_batch_size=args.per_device_train_batch_size,
@@ -159,7 +160,6 @@ def main(args):
         num_train_epochs=args.num_train_epochs,
         learning_rate=args.learning_rate,
         fp16=True,
-        max_grad_norm=0.0,
         logging_steps=10,
         evaluation_strategy="epoch",  # Evaluate after each epoch on the dev set.
         save_strategy="epoch",        # Save checkpoint at the end of each epoch.
@@ -181,12 +181,6 @@ def main(args):
         data_collator=data_collator,
         callbacks=[CustomProgressCallback()]
     )
-
-    # Monkey-patch the accelerator's gradient clipping to disable it.
-    # This prevents the call to unscale FP16 gradients when max_grad_norm is set to 0.0.
-    if training_args.max_grad_norm == 0.0:
-        print("Disabling gradient clipping to avoid FP16 unscale errors.")
-        trainer.accelerator.clip_grad_norm_ = lambda optimizer, max_norm, norm_type=2: None
 
     print("Starting training...")
     trainer.train()  # Trainer will evaluate and save checkpoints at each epoch.
