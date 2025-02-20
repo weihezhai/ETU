@@ -12,7 +12,7 @@ BATCH_SIZE=2
 GRAD_ACCUM=8
 LEARNING_RATE=2e-5
 OUTPUT_DIR="/users/acr24wz/model/qwen2.5/qwen2.5-7b-finetuned-relation"
-MODEL_NAME="Qwen/Qwen2.5-7B"
+MODEL_NAME="Qwen/Qwen2.5-1.5B"
 
 # Parse command-line arguments.
 while getopts "e:b:g:l:o:m:" opt; do
