@@ -4,7 +4,7 @@
 #                     [-l learning_rate] [-o output_dir] [-m model_name]
 #
 # Example:
-#   ./run_training.sh -e 5 -b 4 -g 4 -l 3e-5 -o "/data/scratch/mpx602/ETU/qwen2.5/my_run" -m "QwenInc/qwen2.5-7b-hf"
+#   ./run_training.sh -e 5 -b 4 -g 4 -l 3e-5 -o "/data/scratch/mpx602/ETU/qwen2.5/my_run" -m "Qwen/Qwen2.5-1.5B"
 
 # Default hyperparameter values
 EPOCHS=3
@@ -12,7 +12,7 @@ BATCH_SIZE=2
 GRAD_ACCUM=8
 LEARNING_RATE=2e-5
 OUTPUT_DIR="/data/scratch/mpx602/ETU/qwen2.5/qwen2.5-7b-finetuned-relation"
-MODEL_NAME="Qwen/Qwen2.5-7B"
+MODEL_NAME="Qwen/Qwen2.5-1.5B"
 
 # Parse command-line arguments.
 while getopts "e:b:g:l:o:m:" opt; do

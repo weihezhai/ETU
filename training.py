@@ -216,7 +216,7 @@ if __name__ == "__main__":
         default="/data/scratch/mpx602/ETU/qwen2.5/qwen2.5-7b-finetuned-relation",
         help="Directory to save checkpoints and model."
     )
-    parser.add_argument("--model_name", type=str, default="Qwen/Qwen2.5-7B", help="Name of the pretrained model.")
+    parser.add_argument("--model_name", type=str, default="Qwen/Qwen2.5-1.5B", help="Name of the pretrained model.")
     # Add to argparse in training.py:
     parser.add_argument("--max_grad_norm", type=float, default=1e-6, help="Max gradient norm.")
     args = parser.parse_args()
