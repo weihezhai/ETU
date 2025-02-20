@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --partition=gpu
 #SBATCH --qos=gpu
-#SBATCH --gres=gpu:1
-#SBATCH --mem=32G
+#SBATCH --gres=gpu:a100:1
+#SBATCH --mem=82G
 #SBATCH --cpus-per-task=12
 #SBATCH --mail-user=wzhai2@sheffield.ac.uk
 #SBATCH --job-name=train
