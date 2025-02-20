@@ -101,7 +101,14 @@ def preprocess_function(examples, tokenizer):
         label_ids[:prompt_len] = [-100] * prompt_len
         labels.append(label_ids)
     
+    # Check if labels have any non-masked tokens
+    for label_ids in labels:
+        if all(l == -100 for l in label_ids):
+            print("WARNING: All labels are masked!")
+            break
+    
     tokenized_full["labels"] = labels
+    print("Label distribution:", [sum(1 for x in label if x != -100) for label in labels][:3])
     return tokenized_full
 
 def main(args):
@@ -158,11 +165,11 @@ def main(args):
         per_device_train_batch_size=args.per_device_train_batch_size,
         gradient_accumulation_steps=args.gradient_accumulation_steps,
         learning_rate=args.learning_rate,
-        fp16=False,  # Disable native FP16 mixed precision
-        bf16=True,   # Use bfloat16 instead for better stability
+        fp16=False,  # Disable FP16 since you're not using AMP
+        bf16=True,   # Enable BF16 if your hardware supports it
         optim="adamw_torch",  # Use PyTorch implementation of AdamW
         gradient_checkpointing=True,
-        max_grad_norm=1e-6,
+        max_grad_norm=1.0,  # Changed from 1e-6 to more reasonable value
         logging_steps=10,
         evaluation_strategy="epoch",  # Evaluate after each epoch on the dev set.
         save_strategy="epoch",        # Save checkpoint at the end of each epoch.
@@ -186,6 +193,7 @@ def main(args):
     )
 
     print("Starting training...")
+    print("Sample targets:", test_dataset[:3]["target_relation"])
     trainer.train()  # Trainer will evaluate and save checkpoints at each epoch.
     
     # Save the final model.

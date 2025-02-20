@@ -6,7 +6,7 @@
 #$ -l h_vmem=7.5G      # 11G RAM per core
 #$ -m be
 #$ -l gpu=1         # request 4 GPUs
-# $ -l h=sbg4
+## $ -l h=sbg4
 #$ -l rocky
 # $ -l cluster=andrena   
 #$ -N train_qwen2.5_1.5b_relation
