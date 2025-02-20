@@ -154,11 +154,14 @@ def main(args):
     # NOTE: max_grad_norm is set to 0.0 to disable gradient clipping.
     training_args = TrainingArguments(
         output_dir=args.output_dir,
+        num_train_epochs=args.num_train_epochs,
         per_device_train_batch_size=args.per_device_train_batch_size,
         gradient_accumulation_steps=args.gradient_accumulation_steps,
-        num_train_epochs=args.num_train_epochs,
         learning_rate=args.learning_rate,
-        fp16=True,
+        fp16=False,  # Disable native FP16 mixed precision
+        bf16=True,   # Use bfloat16 instead for better stability
+        optim="adamw_torch",  # Use PyTorch implementation of AdamW
+        gradient_checkpointing=True,
         max_grad_norm=1e-6,
         logging_steps=10,
         evaluation_strategy="epoch",  # Evaluate after each epoch on the dev set.
