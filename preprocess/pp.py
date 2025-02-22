@@ -63,13 +63,13 @@ def load_model_and_tokenizer(model_name, model_dir=None):
 
 def input_to_path_list(input):
     """
-    Converts a string input to a list of paths.
+    Converts a string input to a list of paths and a list of nodes.
     
     Args:
-        input (str): The input string containing paths.
+        input (str): The input string containing paths and nodes.
     
     Returns:
-        List of valid paths
+        List of valid paths and relevant lists of nodes.
     """
     # Find the reasoning paths section between "Reasoning Paths:" and "Question:"
     pattern = r'Reasoning Paths:\n(.*?)\n\nQuestion:'
