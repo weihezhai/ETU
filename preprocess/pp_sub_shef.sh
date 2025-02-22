@@ -18,4 +18,4 @@ source activate etu
 
 # Run the preprocessing script using the runner
 # You can modify these parameters as needed
-bash ETU/ETU/preprocess/run_pp.sh
+bash ETU/ETU/preprocess/run_pp_shef.sh

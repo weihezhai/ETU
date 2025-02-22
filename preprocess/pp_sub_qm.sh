@@ -9,8 +9,8 @@
 ## $ -l h=sbg4
 #$ -l rocky
 # $ -l cluster=andrena   
-#$ -N train_qwen2.5_1.5b_relation
+#$ -N train_qwen2.5_7b_ppl
 
 # module load gcc
 source /data/home/mpx602/projects/py311/bin/activate
-bash ETU/ETU/preprocess/run_pp.sh
+bash ETU/ETU/preprocess/run_pp_qm.sh
