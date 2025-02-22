@@ -2,9 +2,34 @@ import json
 import math
 import torch
 import argparse
+import os
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from extract_path import extract_path  # Import your path extraction function
+from extract_path import extract_path
+
+def load_model_and_tokenizer(model_name, model_dir=None):
+    """
+    Load model and tokenizer from local directory if available, otherwise download.
+    
+    Args:
+        model_name: Name of the model (e.g., "Qwen/Qwen2.5-7B")
+        model_dir: Directory to check for existing model
+    """
+    if model_dir and os.path.exists(model_dir):
+        print(f"Loading model from local directory: {model_dir}")
+        model = AutoModelForCausalLM.from_pretrained(model_dir)
+        tokenizer = AutoTokenizer.from_pretrained(model_dir)
+    else:
+        print(f"Downloading model from HuggingFace: {model_name}")
+        model = AutoModelForCausalLM.from_pretrained(model_name)
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        # Save model if directory is specified
+        if model_dir:
+            print(f"Saving model to: {model_dir}")
+            model.save_pretrained(model_dir)
+            tokenizer.save_pretrained(model_dir)
+    
+    return model, tokenizer
 
 def compute_perplexity(model, tokenizer, question, path):
     """
@@ -29,21 +54,19 @@ def compute_perplexity(model, tokenizer, question, path):
         neg_log_likelihood = outputs.loss.item()
     return math.exp(neg_log_likelihood)
 
-def filter_paths(input_file, output_file, k=3):
+def filter_paths(input_file, output_file, k=3, model_dir=None):
     """
     Processes the trajectories JSONL file.
     
-    For each entry:
-    1. Computes the perplexity for each candidate path using the formatted prompt.
-    2. Uses extract_path to get the end node of the path.
-    3. Checks if the end node is one of the ground truth answers.
-    4. Sorts paths by perplexity and saves top-k (or all if less than k) with their scores.
-    5. Tracks and prints the overall endnode hit ratio.
+    Args:
+        input_file: Path to input JSONL file
+        output_file: Path to output JSONL file
+        k: Number of top paths to keep
+        model_dir: Directory containing the model (if exists)
     """
-    # Load the Qwen 2.5-7B model and its tokenizer.
+    # Load model and tokenizer
     model_name = "Qwen/Qwen2.5-7B"
-    model = AutoModelForCausalLM.from_pretrained(model_name)
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model, tokenizer = load_model_and_tokenizer(model_name, model_dir)
     
     # Count total lines first for an accurate progress bar.
     with open(input_file, "r", encoding="utf-8") as f:
@@ -122,9 +145,15 @@ def main():
         default=3,
         help="Number of top paths (lowest perplexity) to select for each entry."
     )
+    parser.add_argument(
+        "--model_dir",
+        type=str,
+        default=None,
+        help="Directory containing the pre-trained model (if exists)."
+    )
     args = parser.parse_args()
     
-    filter_paths(args.input_file, args.output_file, args.k)
+    filter_paths(args.input_file, args.output_file, args.k, args.model_dir)
 
 if __name__ == "__main__":
     main()
