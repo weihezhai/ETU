@@ -13,4 +13,4 @@
 
 # module load gcc
 source /data/home/mpx602/projects/py311/bin/activate
-bash ETU/ETU/preprocess/run_pp_qm.sh
+bash run_pp_qm.sh
