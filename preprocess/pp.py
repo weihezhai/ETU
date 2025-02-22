@@ -39,11 +39,11 @@ def load_model_and_tokenizer(model_name, model_dir=None):
 
     if load_local:
         print(f"Loading model from local directory: {model_dir}")
-        model = AutoModelForCausalLM.from_pretrained(model_dir, torch_dtype=torch.float16)
+        model = AutoModelForCausalLM.from_pretrained(model_dir)
         tokenizer = AutoTokenizer.from_pretrained(model_dir)
     else:
         print(f"Downloading model from HuggingFace: {model_name}")
-        model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float16)
+        model = AutoModelForCausalLM.from_pretrained(model_name)
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         if model_dir:
             print(f"Saving model to: {model_dir}")
