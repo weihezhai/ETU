@@ -31,10 +31,12 @@ def load_model_and_tokenizer(model_name, model_dir=None):
     
     load_local = False
     if model_dir is not None and os.path.exists(model_dir):
-        # Check specifically for safetensors model file
-        if os.path.exists(os.path.join(model_dir, ".safetensors")):
-            load_local = True
-
+        # Check for .safetensors files exist in the directory
+        for file in os.listdir(model_dir):
+            if file.endswith('.safetensors'):
+                load_local = True
+                break
+    
     if load_local:
         print(f"Loading model from local directory: {model_dir}")
         model = AutoModelForCausalLM.from_pretrained(
