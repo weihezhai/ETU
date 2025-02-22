@@ -101,12 +101,14 @@ def compute_perplexity(model, tokenizer, question, path):
     The prompt is formatted as:
         "Question: {question}\nThe_Path: {path}"
     """
-
     # Create the full prompt.
     input_text = f"Question: {question}\nThe_Path: {path}"
     
-    # Tokenize the input (with truncation if needed).
-    inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=512)
+    # Get the device where model is located
+    device = next(model.parameters()).device
+    
+    # Tokenize and move inputs to model's device
+    inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=512).to(device)
     
     # Compute negative log likelihood and return perplexity.
     with torch.no_grad():
