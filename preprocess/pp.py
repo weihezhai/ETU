@@ -5,7 +5,7 @@ import argparse
 import os
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from ETU.ETU.preprocess.extract_path import extract_path
+from extract_path import extract_paths
 
 def load_model_and_tokenizer(model_name, model_dir=None):
     """
