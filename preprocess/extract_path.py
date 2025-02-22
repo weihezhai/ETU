@@ -1,7 +1,28 @@
+"""
+Processes KGQA (Knowledge Graph Question Answering) results to extract valid reasoning paths.
+
+This module:
+1. Extracts reasoning paths from LLM-generated text
+2. Filters predictions to only include valid answers (subset of ground truth)
+3. Processes JSONL data to create cleaned datasets of valid question-answer pairs with their reasoning paths
+
+Example usage shown in main block processes input JSONL to create trajectories.jsonl with valid paths.
+"""
+
 import json
 import re
 
 def extract_paths(input_text, prediction):
+    """
+    Extracts valid reasoning paths from input text that end with predicted answers.
+    
+    Args:
+        input_text: Raw text containing reasoning paths
+        prediction: Model's predicted answer(s) used to filter paths
+    
+    Returns:
+        List of valid paths where each path is a list of nodes ending with a prediction
+    """
     # Find the reasoning paths section between "Reasoning Paths:" and "Question:"
     pattern = r'Reasoning Paths:\n(.*?)\n\nQuestion:'
     match = re.search(pattern, input_text, re.DOTALL)
@@ -28,6 +49,16 @@ def extract_paths(input_text, prediction):
     return paths
 
 def is_valid_prediction(prediction, ground_truth):
+    """
+    Validates if model predictions are subset of ground truth answers.
+    
+    Args:
+        prediction: Newline-separated string of predicted answers
+        ground_truth: List of acceptable answers
+    
+    Returns:
+        True if all predictions are valid answers, False otherwise
+    """
     # Convert prediction string to set of items (split by newlines)
     pred_set = set(prediction.split('\n'))
     # Convert ground truth list to set
@@ -37,6 +68,18 @@ def is_valid_prediction(prediction, ground_truth):
     return pred_set.issubset(gt_set)
 
 def process_jsonl(input_file, output_file):
+    """
+    Processes JSONL file to create filtered dataset with valid reasoning paths.
+    
+    Performs:
+    - Validation of predictions against ground truth
+    - Extraction of relevant reasoning paths
+    - Output filtering to only include entries with valid paths
+    
+    Args:
+        input_file: Path to input JSONL with raw QA pairs
+        output_file: Path to write filtered JSONL with paths
+    """
     with open(input_file, 'r', encoding='utf-8') as f_in, \
          open(output_file, 'w', encoding='utf-8') as f_out:
         

@@ -1,0 +1,130 @@
+import json
+import math
+import torch
+import argparse
+from tqdm import tqdm
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from extract_path import extract_path  # Import your path extraction function
+
+def compute_perplexity(model, tokenizer, question, path):
+    """
+    Computes the perplexity for a candidate reasoning path given a question.
+    The prompt is formatted as:
+        "Question: {question}\nThe_Path: {formatted_path}"
+    where formatted_path is obtained by extracting the nodes from 'path' using extract_path.
+    """
+    # Use extract_path to get the nodes of the reasoning path.
+    nodes = extract_path(path)
+    # Join the nodes with an arrow to create a readable path string.
+    formatted_path = " -> ".join(nodes)
+    # Create the full prompt.
+    input_text = f"Question: {question}\nThe_Path: {formatted_path}"
+    
+    # Tokenize the input (with truncation if needed).
+    inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=512)
+    
+    # Compute negative log likelihood and return perplexity.
+    with torch.no_grad():
+        outputs = model(**inputs, labels=inputs.input_ids)
+        neg_log_likelihood = outputs.loss.item()
+    return math.exp(neg_log_likelihood)
+
+def filter_paths(input_file, output_file, k=3):
+    """
+    Processes the trajectories JSONL file.
+    
+    For each entry:
+    1. Computes the perplexity for each candidate path using the formatted prompt.
+    2. Uses extract_path to get the end node of the path.
+    3. Checks if the end node is one of the ground truth answers.
+    4. Sorts paths by perplexity and saves top-k (or all if less than k) with their scores.
+    5. Tracks and prints the overall endnode hit ratio.
+    """
+    # Load the Qwen 2.5-7B model and its tokenizer.
+    model_name = "Qwen/Qwen2.5-7B"
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    
+    # Count total lines first for an accurate progress bar.
+    with open(input_file, "r", encoding="utf-8") as f:
+        total_lines = sum(1 for _ in f)
+    
+    total_candidate_paths = 0
+    total_paths_hits = 0
+    
+    with open(input_file, "r", encoding="utf-8") as f_in, \
+         open(output_file, "w", encoding="utf-8") as f_out:
+        
+        for line in tqdm(f_in, total=total_lines, desc="Processing entries"):
+            data = json.loads(line)
+            question = data["question"]
+            paths = data["paths"]
+            ground_truths = data["ground_truth"]
+            
+            # Count all candidate paths for the ratio computing.
+            total_candidate_paths += len(paths)
+            
+            scored_paths = []
+            for path in paths:
+                perplexity = compute_perplexity(model, tokenizer, question, path)
+                nodes = extract_path(path)
+                # Get the end node of the path (if available)
+                endnode = nodes[-1] if nodes else ""
+                # Determine if the end node is one of the ground truth answers.
+                hit = 1 if endnode in ground_truths else 0
+                total_paths_hits += hit
+                scored_paths.append({
+                    "path": path,
+                    "perplexity": perplexity,
+                    "hit": hit
+                })
+            
+            # Sort paths by perplexity (ascending)
+            scored_paths.sort(key=lambda x: x["perplexity"])
+            
+            # Take top-k paths (or all if less than k)
+            selected_paths = scored_paths[:min(k, len(scored_paths))]
+            
+            # Create output entry in desired format
+            output_entry = {
+                "id": data["id"],
+                "question": question,
+                "ground_truth": ground_truths,
+                "paths": selected_paths
+            }
+            
+            # Write to output file
+            f_out.write(json.dumps(output_entry, ensure_ascii=False) + "\n")
+    
+    # Calculate and display the overall hit ratio over all candidate paths.
+    hit_ratio = total_paths_hits / total_candidate_paths if total_candidate_paths > 0 else 0
+    print(f"Overall endnode hit ratio: {hit_ratio:.2%}")
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Preprocess trajectories to compute perplexity and filter top-k paths."
+    )
+    parser.add_argument(
+        "--input_file",
+        type=str,
+        default="trajectories.jsonl",
+        help="Path to the input trajectories JSONL file."
+    )
+    parser.add_argument(
+        "--output_file",
+        type=str,
+        default="filtered_trajectories.jsonl",
+        help="Path to the output JSONL file."
+    )
+    parser.add_argument(
+        "--k",
+        type=int,
+        default=3,
+        help="Number of top paths (lowest perplexity) to select for each entry."
+    )
+    args = parser.parse_args()
+    
+    filter_paths(args.input_file, args.output_file, args.k)
+
+if __name__ == "__main__":
+    main()
