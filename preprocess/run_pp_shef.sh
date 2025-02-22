@@ -35,7 +35,7 @@ echo "  Top-k Paths:              $TOP_K"
 echo "  Model Directory:          $MODEL_DIR"
 
 # Run the preprocessing script with the provided parameters
-python ETU/ETU/preprocess/pp.py \
+python pp.py \
     --input_file "$INPUT_FILE" \
     --output_file "$OUTPUT_FILE" \
     --k "$TOP_K" \
