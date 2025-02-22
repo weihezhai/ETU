@@ -5,7 +5,7 @@ import argparse
 import os
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from extract_path import extract_paths
+
 
 def load_model_and_tokenizer(model_name, model_dir=None):
     """
@@ -31,11 +31,9 @@ def load_model_and_tokenizer(model_name, model_dir=None):
     
     load_local = False
     if model_dir is not None and os.path.exists(model_dir):
-        # Check if any expected model file exists in the directory.
-        for vf in valid_files:
-            if os.path.exists(os.path.join(model_dir, vf)):
-                load_local = True
-                break
+        # Check specifically for safetensors model file
+        if os.path.exists(os.path.join(model_dir, ".safetensors")):
+            load_local = True
 
     if load_local:
         print(f"Loading model from local directory: {model_dir}")
@@ -63,19 +61,46 @@ def load_model_and_tokenizer(model_name, model_dir=None):
     
     return model, tokenizer
 
+def input_to_path_list(input):
+    """
+    Converts a string input to a list of paths.
+    
+    Args:
+        input (str): The input string containing paths.
+    
+    Returns:
+        List of valid paths
+    """
+    # Find the reasoning paths section between "Reasoning Paths:" and "Question:"
+    pattern = r'Reasoning Paths:\n(.*?)\n\nQuestion:'
+    match = re.search(pattern, input, re.DOTALL)
+    if not match:
+        return []
+    
+    paths_text = match.group(1).strip()
+    if not paths_text:
+        return []
+    
+    paths = paths_text.split('\n')
+    nodes = []
+    # Split each path into nodes and clean up whitespace
+    for path in paths:
+        if '->' in path:
+            # Split path into nodes and clean up whitespace
+            elements = [elem.strip() for elem in path.split('->')]
+            # Only include paths that end with one of the prediction values
+            nodes.append(elements)
+    return paths, nodes
+
 def compute_perplexity(model, tokenizer, question, path):
     """
     Computes the perplexity for a candidate reasoning path given a question.
     The prompt is formatted as:
-        "Question: {question}\nThe_Path: {formatted_path}"
-    where formatted_path is obtained by extracting the nodes from 'path' using extract_paths.
+        "Question: {question}\nThe_Path: {path}"
     """
-    # Use extract_paths to get the nodes of the reasoning path.
-    nodes = extract_paths(path)
-    # Join the nodes with an arrow to create a readable path string.
-    formatted_path = " -> ".join(nodes)
+
     # Create the full prompt.
-    input_text = f"Question: {question}\nThe_Path: {formatted_path}"
+    input_text = f"Question: {question}\nThe_Path: {path}"
     
     # Tokenize the input (with truncation if needed).
     inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=512)
@@ -113,23 +138,22 @@ def filter_paths(input_file, output_file, k=3, model_dir=None):
         for line in tqdm(f_in, total=total_lines, desc="Processing entries"):
             data = json.loads(line)
             question = data["question"]
-            paths = data["input"]
+            # paths and nodes are lists of paths and the relevant nodes of the reasoning paths.
+            paths, nodes = input_to_path_list(data["input"])
             ground_truths = data["ground_truth"]
             
             # Count all candidate paths for the ratio computing.
             total_candidate_paths += len(paths)
             
             scored_paths = []
-            for path in paths:
+            for path, node_list in zip(paths, nodes):
                 perplexity = compute_perplexity(model, tokenizer, question, path)
-                nodes = extract_paths(path)
-                # Get the end node of the path (if available)
-                endnode = nodes[-1] if nodes else ""
                 # Determine if the end node is one of the ground truth answers.
-                hit = 1 if endnode in ground_truths else 0
+                hit = 1 if node_list[-1] in ground_truths else 0
                 total_paths_hits += hit
                 scored_paths.append({
                     "path": path,
+                    "node_list": node_list,
                     "perplexity": perplexity,
                     "hit": hit
                 })
