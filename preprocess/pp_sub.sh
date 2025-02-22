@@ -9,12 +9,13 @@
 #SBATCH --output=./logs/preprocess_pp.%j.out
 #SBATCH --time=0-12:00:00
 
-# Load necessary modules.
+# Load necessary modules
 module load Anaconda3/2024.02-1
 module load cuDNN/8.9.2.26-CUDA-12.1.1
 
-# Activate your conda environment.
+# Activate your conda environment
 source activate etu
 
-# Run the preprocessing script with command-line arguments.
-python ETU/ETU/preprocess/pp.py --input_file trajectories.jsonl --output_file filtered_trajectories.jsonl --k 5
+# Run the preprocessing script using the runner
+# You can modify these parameters as needed
+bash ETU/ETU/preprocess/run_pp.sh
