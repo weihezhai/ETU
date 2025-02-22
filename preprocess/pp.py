@@ -78,11 +78,11 @@ def input_to_path_list(input):
     pattern = r'Reasoning Paths:\n(.*?)\n\nQuestion:'
     match = re.search(pattern, input, re.DOTALL)
     if not match:
-        return []
+        return [], []
     
     paths_text = match.group(1).strip()
     if not paths_text:
-        return []
+        return [], []
     
     paths = paths_text.split('\n')
     nodes = []
@@ -143,8 +143,16 @@ def filter_paths(input_file, output_file, k=3, model_dir=None):
         for line in tqdm(f_in, total=total_lines, desc="Processing entries"):
             data = json.loads(line)
             question = data["question"]
-            # paths and nodes are lists of paths and the relevant nodes of the reasoning paths.
-            paths, nodes = input_to_path_list(data["input"])
+            
+            # Skip entries with empty input
+            if not data.get("input"):
+                continue
+                
+            # Handle empty paths case
+            result = input_to_path_list(data["input"])
+            if not result:  # Empty result
+                continue
+            paths, nodes = result
             ground_truths = data["ground_truth"]
             
             # Count all candidate paths for the ratio computing.
