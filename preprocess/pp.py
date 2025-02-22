@@ -68,10 +68,10 @@ def compute_perplexity(model, tokenizer, question, path):
     Computes the perplexity for a candidate reasoning path given a question.
     The prompt is formatted as:
         "Question: {question}\nThe_Path: {formatted_path}"
-    where formatted_path is obtained by extracting the nodes from 'path' using extract_path.
+    where formatted_path is obtained by extracting the nodes from 'path' using extract_paths.
     """
-    # Use extract_path to get the nodes of the reasoning path.
-    nodes = extract_path(path)
+    # Use extract_paths to get the nodes of the reasoning path.
+    nodes = extract_paths(path)
     # Join the nodes with an arrow to create a readable path string.
     formatted_path = " -> ".join(nodes)
     # Create the full prompt.
@@ -113,7 +113,7 @@ def filter_paths(input_file, output_file, k=3, model_dir=None):
         for line in tqdm(f_in, total=total_lines, desc="Processing entries"):
             data = json.loads(line)
             question = data["question"]
-            paths = data["paths"]
+            paths = data["input"]
             ground_truths = data["ground_truth"]
             
             # Count all candidate paths for the ratio computing.
@@ -122,7 +122,7 @@ def filter_paths(input_file, output_file, k=3, model_dir=None):
             scored_paths = []
             for path in paths:
                 perplexity = compute_perplexity(model, tokenizer, question, path)
-                nodes = extract_path(path)
+                nodes = extract_paths(path)
                 # Get the end node of the path (if available)
                 endnode = nodes[-1] if nodes else ""
                 # Determine if the end node is one of the ground truth answers.
