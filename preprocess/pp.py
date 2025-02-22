@@ -9,13 +9,35 @@ from extract_path import extract_paths
 
 def load_model_and_tokenizer(model_name, model_dir=None):
     """
-    Load model and tokenizer from local directory if available, otherwise download.
-    
+    Loads the model and tokenizer from a local directory if it contains at least one valid 
+    model checkpoint file (such as pytorch_model.bin, model.safetensors, tf_model.h5, 
+    model.ckpt.index or flax_model.msgpack). Otherwise, downloads the model 
+    from HuggingFace and saves it to the given directory (if provided).
+
     Args:
-        model_name: Name of the model (e.g., "Qwen/Qwen2.5-7B")
-        model_dir: Directory to check for existing model
+        model_name (str): Name of the model to load from HuggingFace.
+        model_dir (str or None): Local directory where model is stored (or to save the new model).
+
+    Returns:
+        tuple: (model, tokenizer)
     """
-    if model_dir and os.path.exists(model_dir):
+    valid_files = [
+        "pytorch_model.bin", 
+        "model.safetensors", 
+        "tf_model.h5", 
+        "model.ckpt.index", 
+        "flax_model.msgpack"
+    ]
+    
+    load_local = False
+    if model_dir is not None and os.path.exists(model_dir):
+        # Check if any expected model file exists in the directory.
+        for vf in valid_files:
+            if os.path.exists(os.path.join(model_dir, vf)):
+                load_local = True
+                break
+
+    if load_local:
         print(f"Loading model from local directory: {model_dir}")
         model = AutoModelForCausalLM.from_pretrained(model_dir)
         tokenizer = AutoTokenizer.from_pretrained(model_dir)
@@ -23,9 +45,9 @@ def load_model_and_tokenizer(model_name, model_dir=None):
         print(f"Downloading model from HuggingFace: {model_name}")
         model = AutoModelForCausalLM.from_pretrained(model_name)
         tokenizer = AutoTokenizer.from_pretrained(model_name)
-        # Save model if directory is specified
         if model_dir:
             print(f"Saving model to: {model_dir}")
+            os.makedirs(model_dir, exist_ok=True)
             model.save_pretrained(model_dir)
             tokenizer.save_pretrained(model_dir)
     
