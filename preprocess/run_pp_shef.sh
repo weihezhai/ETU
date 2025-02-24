@@ -7,7 +7,7 @@
 
 # Default parameter values
 INPUT_FILE="/users/acr24wz/ETU/GNN-RAG/llm/results/KGQA-GNN-RAG-RA/rearev-lmsr/RoG-cwq/RoG/test/results_gen_rule_path_RoG-cwq_RoG_test_predictions_3_False_jsonl/False/predictions.jsonl"
-OUTPUT_FILE="/users/acr24wz/ETU/preprocess/topk_path/topk_ppl_path.jsonl"
+OUTPUT_FILE="/users/acr24wz/ETU/preprocess/topk_path/topk_ppl_path_10.jsonl"
 TOP_K=10
 MODEL_DIR="/users/acr24wz/model/qwen2.5/7b_ori"
 
