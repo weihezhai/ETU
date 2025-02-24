@@ -5,6 +5,7 @@
 #SBATCH --mem=82G
 #SBATCH --cpus-per-task=12
 #SBATCH --mail-user=wzhai2@sheffield.ac.uk
+#SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --job-name=preprocess_pp
 #SBATCH --output=./logs/preprocess_pp.%j.out
 #SBATCH --time=0-12:00:00
