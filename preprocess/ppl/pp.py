@@ -206,6 +206,11 @@ def filter_paths(input_file, output_file, k=3, model_dir=None, stats_file=None):
     path_question_ppl = []  # Reversed order: path+question perplexity (for hit paths)
     all_paths_ppl = []  # All paths perplexity scores (hit and non-hit)
     
+    # New statistics for unhit paths
+    unhit_paths_ppl = []  # All unhit paths perplexity scores (just the path)
+    question_unhit_path_ppl = []  # All question+unhit_path perplexity scores
+    path_question_unhit_ppl = []  # Reversed order: unhit_path+question perplexity
+    
     with open(input_file, "r", encoding="utf-8") as f_in, \
          open(output_file, "w", encoding="utf-8") as f_out:
         
@@ -252,6 +257,11 @@ def filter_paths(input_file, output_file, k=3, model_dir=None, stats_file=None):
                     hit_paths_ppl.append(path_only_ppl)
                     question_hit_path_ppl.append(q_path_perplexity)
                     path_question_ppl.append(path_q_perplexity)
+                else:
+                    # This is an unhit path, store its statistics
+                    unhit_paths_ppl.append(path_only_ppl)
+                    question_unhit_path_ppl.append(q_path_perplexity)
+                    path_question_unhit_ppl.append(path_q_perplexity)
                 
                 scored_paths.append({
                     "path": path,
@@ -281,7 +291,7 @@ def filter_paths(input_file, output_file, k=3, model_dir=None, stats_file=None):
     hit_ratio = total_paths_hits / total_candidate_paths if total_candidate_paths > 0 else 0
     print(f"Overall endnode hit ratio: {hit_ratio:.2%}")
     
-    # Calculate statistics for the three requested metrics
+    # Calculate statistics for all metrics
     stats_results = {}
     
     # 1. Statistics for hit paths only
@@ -311,7 +321,7 @@ def filter_paths(input_file, output_file, k=3, model_dir=None, stats_file=None):
         "max": float(max(questions_only_ppl)) if questions_only_ppl else float('nan')
     }
     
-    # 4. Statistics for path + question (reversed order)
+    # 4. Statistics for path + question (reversed order for hit paths)
     stats_results["path_question_reversed"] = {
         "count": len(path_question_ppl),
         "mean": float(np.mean(path_question_ppl)) if path_question_ppl else float('nan'),
@@ -327,6 +337,33 @@ def filter_paths(input_file, output_file, k=3, model_dir=None, stats_file=None):
         "std": float(np.std(all_paths_ppl)) if all_paths_ppl else float('nan'),
         "min": float(min(all_paths_ppl)) if all_paths_ppl else float('nan'),
         "max": float(max(all_paths_ppl)) if all_paths_ppl else float('nan')
+    }
+    
+    # 6. Statistics for unhit paths only
+    stats_results["unhit_paths"] = {
+        "count": len(unhit_paths_ppl),
+        "mean": float(np.mean(unhit_paths_ppl)) if unhit_paths_ppl else float('nan'),
+        "std": float(np.std(unhit_paths_ppl)) if unhit_paths_ppl else float('nan'),
+        "min": float(min(unhit_paths_ppl)) if unhit_paths_ppl else float('nan'),
+        "max": float(max(unhit_paths_ppl)) if unhit_paths_ppl else float('nan')
+    }
+    
+    # 7. Statistics for question + unhit path
+    stats_results["question_unhit_path"] = {
+        "count": len(question_unhit_path_ppl),
+        "mean": float(np.mean(question_unhit_path_ppl)) if question_unhit_path_ppl else float('nan'),
+        "std": float(np.std(question_unhit_path_ppl)) if question_unhit_path_ppl else float('nan'),
+        "min": float(min(question_unhit_path_ppl)) if question_unhit_path_ppl else float('nan'),
+        "max": float(max(question_unhit_path_ppl)) if question_unhit_path_ppl else float('nan')
+    }
+    
+    # 8. Statistics for unhit path + question (reversed order)
+    stats_results["unhit_path_question_reversed"] = {
+        "count": len(path_question_unhit_ppl),
+        "mean": float(np.mean(path_question_unhit_ppl)) if path_question_unhit_ppl else float('nan'),
+        "std": float(np.std(path_question_unhit_ppl)) if path_question_unhit_ppl else float('nan'),
+        "min": float(min(path_question_unhit_ppl)) if path_question_unhit_ppl else float('nan'),
+        "max": float(max(path_question_unhit_ppl)) if path_question_unhit_ppl else float('nan')
     }
     
     # Output statistics
