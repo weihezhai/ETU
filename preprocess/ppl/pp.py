@@ -155,6 +155,28 @@ def compute_path_perplexity(model, tokenizer, path):
         neg_log_likelihood = outputs.loss.item()
     return math.exp(neg_log_likelihood)
 
+def compute_perplexity_reversed(model, tokenizer, question, path):
+    """
+    Computes the perplexity for a candidate reasoning path given a question,
+    but with the path appearing before the question in the prompt.
+    The prompt is formatted as:
+        "The_Path: {path}\nQuestion: {question}"
+    """
+    # Create the full prompt with reversed order
+    input_text = f"The_Path: {path}\nQuestion: {question}"
+    
+    # Get the device where model is located
+    device = next(model.parameters()).device
+    
+    # Tokenize and move inputs to model's device
+    inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=512).to(device)
+    
+    # Compute negative log likelihood and return perplexity.
+    with torch.no_grad():
+        outputs = model(**inputs, labels=inputs.input_ids)
+        neg_log_likelihood = outputs.loss.item()
+    return math.exp(neg_log_likelihood)
+
 def filter_paths(input_file, output_file, k=3, model_dir=None, stats_file=None):
     """
     Processes the trajectories JSONL file.
@@ -181,6 +203,8 @@ def filter_paths(input_file, output_file, k=3, model_dir=None, stats_file=None):
     hit_paths_ppl = []  # All hit paths perplexity scores (just the path)
     question_hit_path_ppl = []  # All question+hit_path perplexity scores
     questions_only_ppl = []  # All questions-only perplexity scores
+    path_question_ppl = []  # Reversed order: path+question perplexity (for hit paths)
+    all_paths_ppl = []  # All paths perplexity scores (hit and non-hit)
     
     with open(input_file, "r", encoding="utf-8") as f_in, \
          open(output_file, "w", encoding="utf-8") as f_out:
@@ -212,16 +236,22 @@ def filter_paths(input_file, output_file, k=3, model_dir=None, stats_file=None):
                 # Get question+path perplexity (original functionality)
                 q_path_perplexity = compute_perplexity(model, tokenizer, question, path)
                 
+                # Calculate path-only perplexity (for all paths)
+                path_only_ppl = compute_path_perplexity(model, tokenizer, path)
+                all_paths_ppl.append(path_only_ppl)
+                
+                # Get path+question perplexity (reversed order)
+                path_q_perplexity = compute_perplexity_reversed(model, tokenizer, question, path)
+                
                 # Determine if the end node is one of the ground truth answers.
                 hit = 1 if node_list[-1] in ground_truths else 0
                 total_paths_hits += hit
                 
                 # If this is a hit path, store its statistics
                 if hit == 1:
-                    # Calculate path-only perplexity for hit paths
-                    path_only_ppl = compute_path_perplexity(model, tokenizer, path)
                     hit_paths_ppl.append(path_only_ppl)
                     question_hit_path_ppl.append(q_path_perplexity)
+                    path_question_ppl.append(path_q_perplexity)
                 
                 scored_paths.append({
                     "path": path,
@@ -279,6 +309,24 @@ def filter_paths(input_file, output_file, k=3, model_dir=None, stats_file=None):
         "std": float(np.std(questions_only_ppl)) if questions_only_ppl else float('nan'),
         "min": float(min(questions_only_ppl)) if questions_only_ppl else float('nan'),
         "max": float(max(questions_only_ppl)) if questions_only_ppl else float('nan')
+    }
+    
+    # 4. Statistics for path + question (reversed order)
+    stats_results["path_question_reversed"] = {
+        "count": len(path_question_ppl),
+        "mean": float(np.mean(path_question_ppl)) if path_question_ppl else float('nan'),
+        "std": float(np.std(path_question_ppl)) if path_question_ppl else float('nan'),
+        "min": float(min(path_question_ppl)) if path_question_ppl else float('nan'),
+        "max": float(max(path_question_ppl)) if path_question_ppl else float('nan')
+    }
+    
+    # 5. Statistics for all paths (hit and non-hit)
+    stats_results["all_paths"] = {
+        "count": len(all_paths_ppl),
+        "mean": float(np.mean(all_paths_ppl)) if all_paths_ppl else float('nan'),
+        "std": float(np.std(all_paths_ppl)) if all_paths_ppl else float('nan'),
+        "min": float(min(all_paths_ppl)) if all_paths_ppl else float('nan'),
+        "max": float(max(all_paths_ppl)) if all_paths_ppl else float('nan')
     }
     
     # Output statistics
