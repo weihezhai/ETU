@@ -42,6 +42,17 @@ def extract_paths(input_text, prediction):
         if '->' in path:
             # Split path into nodes and clean up whitespace
             elements = [elem.strip() for elem in path.split('->')]
+            
+            # Process each element - for relation elements (typically at odd indices),
+            # keep only the last two parts of the relation name
+            for i in range(len(elements)):
+                # Assuming relations are at odd indices (1, 3, 5, etc.)
+                if i % 2 == 1 and '.' in elements[i]:
+                    parts = elements[i].split('.')
+                    if len(parts) > 2:
+                        # Keep only the last two parts
+                        elements[i] = '.'.join(parts[-2:])
+            
             # Only include paths that end with one of the prediction values
             if elements[-1] in pred_values:
                 paths.append(elements)

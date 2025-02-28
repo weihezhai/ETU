@@ -90,10 +90,16 @@ def input_to_path_list(input):
     # Split each path into nodes and clean up whitespace
     for path in paths:
         if '->' in path:
-            # Split path into nodes and clean up whitespace
             elements = [elem.strip() for elem in path.split('->')]
-            # Only include paths that end with one of the prediction values
+            # Process each element - for relation elements (typically at odd indices),
+            # keep only the last two parts of the relation name
+            for i in range(len(elements)):
+                if i % 2 == 1 and '.' in elements[i]:
+                    parts = elements[i].split('.')
+                    if len(parts) > 2:
+                        elements[i] = '.'.join(parts[-2:])
             nodes.append(elements)
+    paths = [' -> '.join(node_list) for node_list in nodes]
     return paths, nodes
 
 def compute_perplexity(model, tokenizer, question, path):
@@ -172,6 +178,25 @@ def compute_perplexity_reversed(model, tokenizer, question, path):
     inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=512).to(device)
     
     # Compute negative log likelihood and return perplexity.
+    with torch.no_grad():
+        outputs = model(**inputs, labels=inputs.input_ids)
+        neg_log_likelihood = outputs.loss.item()
+    return math.exp(neg_log_likelihood)
+
+def compute_node_perplexity(model, tokenizer, node):
+    """
+    Computes the perplexity for an individual node.
+    """
+    # Create the node-only prompt
+    input_text = f"The_Node: {node}"
+    
+    # Get the device where model is located
+    device = next(model.parameters()).device
+    
+    # Tokenize and move inputs to model's device
+    inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=512).to(device)
+    
+    # Compute negative log likelihood and return perplexity
     with torch.no_grad():
         outputs = model(**inputs, labels=inputs.input_ids)
         neg_log_likelihood = outputs.loss.item()
@@ -407,6 +432,9 @@ def save_ppl_details(input_file, output_file, model_dir=None):
             data = json.loads(line)
             question = data["question"]
             
+            # Calculate perplexity for question-only
+            question_ppl = compute_question_perplexity(model, tokenizer, question)
+            
             # Skip entries with empty input
             if not data.get("input"):
                 continue
@@ -426,6 +454,12 @@ def save_ppl_details(input_file, output_file, model_dir=None):
                 # Calculate path+question perplexity (reversed order)
                 path_question_ppl = compute_perplexity_reversed(model, tokenizer, question, path)
                 
+                # Calculate perplexity for each individual node
+                node_ppls = []
+                for node in node_list:
+                    node_ppl = compute_node_perplexity(model, tokenizer, node)
+                    node_ppls.append(node_ppl)
+                
                 # Determine if the end node is one of the ground truth answers
                 hit = 1 if node_list[-1] in ground_truths else 0
                 
@@ -435,6 +469,7 @@ def save_ppl_details(input_file, output_file, model_dir=None):
                     "node_list": node_list,
                     "path_ppl": path_ppl,
                     "path_question_ppl": path_question_ppl,
+                    "node_ppls": node_ppls,
                     "hit": hit
                 })
             
@@ -442,6 +477,7 @@ def save_ppl_details(input_file, output_file, model_dir=None):
             output_entry = {
                 "id": data["id"],
                 "question": question,
+                "question_ppl": question_ppl,
                 "ground_truth": ground_truths,
                 "paths": detailed_paths
             }

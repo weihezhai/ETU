@@ -1,0 +1,2362 @@
+{
+  "WebQTest-1384_744a496b907e407b16bc5d7c197dc3f0": {
+    "question": "What is the predominant religion where the leader is Ovadia Yosef?",
+    "ranked_paths": [
+      [
+        "Ovadia Yosef",
+        "person.religion",
+        "Judaism"
+      ]
+    ],
+    "predictions": "Judaism"
+  },
+  "WebQTrn-241_dfb6c97ac9bf2f0ac07f27dd80f9edc2": {
+    "question": "What country bordering France contains an airport that serves Nijmegen?",
+    "ranked_paths": [
+      [
+        "Nijmegen",
+        "location.nearby_airports",
+        "Weeze Airport",
+        "location.containedby",
+        "Germany"
+      ],
+      [
+        "Nijmegen",
+        "river.cities",
+        "Rhine",
+        "river.basin_countries",
+        "Germany"
+      ],
+      [
+        "Nijmegen",
+        "location.time_zones",
+        "Central European Time Zone",
+        "location.time_zones",
+        "Germany"
+      ],
+      [
+        "Nijmegen",
+        "film_location.featured_in_films",
+        "A Bridge Too Far",
+        "film.featured_film_locations",
+        "Germany"
+      ],
+      [
+        "France",
+        "location.adjoin_s",
+        "m.02wrxl5",
+        "location.adjoin_s",
+        "Germany"
+      ]
+    ],
+    "predictions": "Germany"
+  },
+  "WebQTest-576_01e2da60a2779c4ae4b5d1547499a4f8": {
+    "question": "Which nation has the Alta Verapaz Department and is in Central America?",
+    "ranked_paths": [
+      [
+        "Alta Verapaz Department",
+        "country.administrative_divisions",
+        "Guatemala"
+      ],
+      [
+        "Central America",
+        "location.containedby",
+        "Guatemala"
+      ],
+      [
+        "Country",
+        "topic.notable_types",
+        "Guatemala"
+      ]
+    ],
+    "predictions": "Guatemala"
+  },
+  "WebQTrn-3251_d8cddfe5e947e414b7735780ef1efff8": {
+    "question": "What educational institution has a football sports team named Northern Colorado Bears is in Greeley, Colorado?",
+    "ranked_paths": [
+      [
+        "Northern Colorado Bears football",
+        "educational_institution.sports_teams",
+        "University of Northern Colorado"
+      ],
+      [
+        "Greeley",
+        "location.contains",
+        "University of Northern Colorado"
+      ],
+      [
+        "College/University",
+        "topic.notable_types",
+        "University of Northern Colorado"
+      ]
+    ],
+    "predictions": "University of Northern Colorado"
+  },
+  "WebQTrn-2069_0fa727f3b282196eb1097410b4be6818": {
+    "question": "What language is spoken in the location that appointed Michelle Bachelet to a governmental position speak?",
+    "ranked_paths": [
+      [
+        "Michelle Bachelet",
+        "person.nationality",
+        "Chile",
+        "human_language.countries_spoken_in",
+        "Spanish Language"
+      ],
+      [
+        "Michelle Bachelet",
+        "person.ethnicity",
+        "Chileans",
+        "ethnicity.languages_spoken",
+        "Spanish Language"
+      ]
+    ],
+    "predictions": "Spanish Language"
+  },
+  "WebQTrn-1938_7322a2a4d46bf36b95bfab4418c9a32b": {
+    "question": "What type of government is used in the country with Northern District?",
+    "ranked_paths": [
+      [
+        "Northern District",
+        "administrative_division.first_level_division_of",
+        "Israel",
+        "form_of_government.countries",
+        "Parliamentary system"
+      ]
+    ],
+    "predictions": "Parliamentary system"
+  },
+  "WebQTrn-962_032f61bfcfed69da8b215bb8f058c24e": {
+    "question": "What actor played the a kid in the movie with a character named Jenny's Father?",
+    "ranked_paths": [
+      [
+        "Jenny's Father -> film_character.portrayed_in_films -> m.0y54dnx -> performance.film -> Forrest Gump -> film_character.portrayed_in_films -> m.02xgww5 -> performance.actor -> Michael Connor Humphreys"
+      ],
+      [
+        "Jenny's Father -> topic.notable_types -> Film character -> topic.notable_types -> Forrest Gump -> film_character.portrayed_in_films -> m.02xgww5 -> performance.actor -> Michael Connor Humphreys"
+      ],
+      [
+        "Forrest Gump -> film_character.portrayed_in_films -> m.02xgww5 -> performance.actor -> Michael Connor Humphreys"
+      ],
+      [
+        "Jenny's Father -> film_character.portrayed_in_films -> m.0y54dnx -> performance.film -> Forrest Gump -> fictional_character.gender -> Male -> person.gender -> Michael Connor Humphreys"
+      ],
+      [
+        "Jenny's Father -> topic.notable_types -> Film character -> topic.notable_types -> Forrest Gump -> fictional_character.gender -> Male -> person.gender -> Michael Connor Humphreys"
+      ]
+    ],
+    "predictions": "Michael Connor Humphreys"
+  },
+  "WebQTrn-849_586aae7703d62aa44eb79759e1563309": {
+    "question": "What European Union country sharing borders with Germany contains the Lejre Municipality?",
+    "ranked_paths": [
+      [
+        "Lejre Municipality -> administrative_division.second_level_division_of -> Denmark"
+      ],
+      [
+        "Germany -> adjoining_relationship.adjoins -> m.02wrxld -> adjoining_relationship.adjoins -> Denmark"
+      ],
+      [
+        "Germany -> location.partially_containedby -> Vidå -> location.partially_contains -> Denmark"
+      ],
+      [
+        "Germany -> countries.continent -> Europe -> location.containedby -> Denmark"
+      ],
+      [
+        "Germany -> location.time_zones -> Central European Time Zone -> location.time_zones -> Denmark"
+      ]
+    ],
+    "predictions": "Denmark"
+  },
+  "WebQTrn-2209_c1374f388d9cc7a78365860c91218362": {
+    "question": "What year did the basketball team coached by Brad Stevens win the championship?",
+    "ranked_paths": [
+      [
+        "Brad Stevens -> basketball_team.head_coach -> Boston Celtics -> sports_championship_event.champion -> 2008 NBA Finals"
+      ],
+      [
+        "Brad Stevens -> basketball_team.head_coach -> Boston Celtics -> sports_championship_event.champion -> 1986 NBA Finals"
+      ],
+      [
+        "Brad Stevens -> basketball_team.head_coach -> Boston Celtics -> sports_team.championships -> 1984 NBA Finals"
+      ],
+      [
+        "Brad Stevens -> basketball_team.head_coach -> Boston Celtics -> sports_championship_event.champion -> 1981 NBA Finals"
+      ],
+      [
+        "Brad Stevens -> basketball_team.head_coach -> Boston Celtics -> sports_championship_event.champion -> 1976 NBA Finals"
+      ]
+    ],
+    "predictions": "2008 NBA Finals\n1969 NBA Finals\n1986 NBA Finals\n1984 NBA Finals\n1981 NBA Finals\n1976 NBA Finals\n1974 NBA Finals\n1968 NBA Finals\n1966 NBA Finals\n1965 NBA Finals\n1964 NBA Finals\n1963 NBA Finals\n1962 NBA Finals\n1961 NBA Finals\n1960 NBA Finals\n1957 NBA Finals"
+  },
+  "WebQTest-1251_cbf2f20f6caf754bc49d672ca7b150b7": {
+    "question": "What country speaks Germanic languages and uses the East German mark as currency?",
+    "ranked_paths": [
+      [
+        "East German mark",
+        "country.currency_formerly_used",
+        "East Germany"
+      ],
+      [
+        "German Language",
+        "country.languages_spoken",
+        "East Germany"
+      ]
+    ],
+    "predictions": "East Germany"
+  },
+  "WebQTest-743_0a8cdba29cf260283b7c890b3609c0b9": {
+    "question": "Which of JFK's brother held the latest governmental position?",
+    "ranked_paths": [
+      [
+        "John F. Kennedy -> sibling_relationship.sibling -> m.03hs9fc -> sibling_relationship.sibling -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> political_appointer.appointees -> m.03hs9g8 -> politician.government_positions_held -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> family.members -> Kennedy family -> family.members -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> person.parents -> Joseph P. Kennedy, Sr. -> person.children -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> person.parents -> Rose Kennedy -> person.children -> Robert F. Kennedy"
+      ]
+    ],
+    "predictions": "Robert F. Kennedy"
+  },
+  "WebQTest-1797_68a33792b0a1e18937dcd4b3f50d941e": {
+    "question": "What group fought in the Battle of Vicksburg that was based in Montgomery?",
+    "ranked_paths": [
+      [
+        "Montgomery",
+        "country.capital",
+        "Confederate States of America"
+      ],
+      [
+        "Siege of Vicksburg",
+        "event.entity_involved",
+        "Confederate States of America"
+      ]
+    ],
+    "predictions": "Confederate States of America"
+  },
+  "WebQTest-983_ccda690fb745939d0a62c3fbcf3e3769": {
+    "question": "Where did Tennessee Williams go to college where the newspaper is \"The Maneater\"?",
+    "ranked_paths": [
+      [
+        "Tennessee Williams",
+        "person.education",
+        "m.02wpn3_",
+        "education.institution",
+        "University of Missouri"
+      ],
+      [
+        "The Maneater",
+        "educational_institution.newspaper",
+        "University of Missouri"
+      ],
+      [
+        "College/University",
+        "topic.notable_types",
+        "University of Missouri"
+      ],
+      [
+        "Tennessee Williams",
+        "person.nationality",
+        "United States of America",
+        "location.containedby",
+        "University of Missouri"
+      ]
+    ],
+    "predictions": "University of Missouri"
+  },
+  "WebQTrn-849_1eb0f1ddd5074471fbe3a7f6b575f202": {
+    "question": "Copenhagen is the capital of which German neighboring country?",
+    "ranked_paths": [
+      [
+        "Copenhagen -> country.administrative_divisions -> Denmark"
+      ],
+      [
+        "Germany -> adjoining_relationship.adjoins -> m.02wrxld -> adjoining_relationship.adjoins -> Denmark"
+      ],
+      [
+        "Germany -> location.partially_containedby -> Vidå -> location.partially_contains -> Denmark"
+      ],
+      [
+        "Germany -> continents.countries_within -> Europe -> countries.continent -> Denmark"
+      ],
+      [
+        "Germany -> location.time_zones -> Central European Time Zone -> location.time_zones -> Denmark"
+      ]
+    ],
+    "predictions": "Denmark"
+  },
+  "WebQTest-1686_29e74083744b3631541b29b4094fb273": {
+    "question": "Who was the governor of Arizona in 2009 that held his governmental position before 1998?",
+    "ranked_paths": [
+      [
+        "Arizona -> government_position_held.jurisdiction_of_office -> m.04j8y5g -> politician.government_positions_held -> Janet Napolitano"
+      ],
+      [
+        "Governor -> government_position_held.basic_title -> m.04j8y5g -> politician.government_positions_held -> Janet Napolitano"
+      ],
+      [
+        "Arizona -> location.containedby -> United States of America -> person.nationality -> Janet Napolitano"
+      ]
+    ],
+    "predictions": "Janet Napolitano"
+  },
+  "WebQTest-626_8c6b952c6bd963f0ece4e401c9eb731a": {
+    "question": "What does the Missouri River bisect in the Central Time Zone?",
+    "ranked_paths": [
+      [
+        "Missouri River -> location.partially_contains -> South Dakota",
+        "Central Time Zone -> location.time_zones -> South Dakota"
+      ],
+      [
+        "Missouri River -> location.partially_contains -> Nebraska",
+        "Central Time Zone -> location.time_zones -> Nebraska"
+      ],
+      [
+        "Missouri River -> location.partially_contains -> Missouri",
+        "Central Time Zone -> location.time_zones -> Missouri"
+      ],
+      [
+        "Missouri River -> location.partially_contains -> Kansas",
+        "Central Time Zone -> location.time_zones -> Kansas"
+      ],
+      [
+        "Missouri River -> location.partially_containedby -> North Dakota",
+        "Central Time Zone -> location.time_zones -> North Dakota"
+      ]
+    ],
+    "predictions": "Iowa\nKansas\nMissouri\nNebraska\nNorth Dakota\nSouth Dakota"
+  },
+  "WebQTest-576_906ad6be7bec9d208f4dde4f7721c261": {
+    "question": "Which of the seven Central American countries had co2 emissions per capita once of 2009 metric ton?",
+    "ranked_paths": [
+      [
+        "Central America",
+        "location.contains",
+        "Honduras"
+      ],
+      [
+        "Central America",
+        "location.contains",
+        "Costa Rica"
+      ],
+      [
+        "Central America",
+        "location.contains",
+        "Panama"
+      ],
+      [
+        "Central America",
+        "location.containedby",
+        "Guatemala"
+      ],
+      [
+        "Central America",
+        "location.containedby",
+        "El Salvador"
+      ]
+    ],
+    "predictions": "El Salvador\nEl Salvador\nGuatemala\nHonduras\nPanama\nCosta Rica"
+  },
+  "WebQTrn-2152_3cdf60c15a8355981dd92e3c57ac2eed": {
+    "question": "What team that has a mascot named Mariner Moose is in the American League West?",
+    "ranked_paths": [
+      [
+        "Mariner Moose",
+        "mascot.team",
+        "Seattle Mariners"
+      ],
+      [
+        "American League West",
+        "baseball_team.division",
+        "Seattle Mariners"
+      ]
+    ],
+    "predictions": "Seattle Mariners"
+  },
+  "WebQTest-61_09020cbb000c86fda5910ec084690246": {
+    "question": "What religion is practiced in Indonesia and has a sacred site of Mecca?",
+    "ranked_paths": [
+      [
+        "Indonesia",
+        "statistical_region.religions",
+        "m.03xf2_w",
+        "religion_percentage.religion",
+        "Islam"
+      ],
+      [
+        "Mecca",
+        "religion.sacred_sites",
+        "Islam"
+      ],
+      [
+        "Indonesia",
+        "person.nationality",
+        "B. J. Habibie",
+        "person.religion",
+        "Islam"
+      ],
+      [
+        "Indonesia",
+        "book_subject.works",
+        "Islam Observed",
+        "written_work.subjects",
+        "Islam"
+      ]
+    ],
+    "predictions": "Islam"
+  },
+  "WebQTrn-3136_a2debf685e0c50491e35a9cf7a1e9ade": {
+    "question": "Of the four regions which make up the United Kingdom, which is the country that includes the location, Down District Council?",
+    "ranked_paths": [
+      [
+        "Down District Council",
+        "country.administrative_divisions",
+        "Northern Ireland"
+      ],
+      [
+        "United Kingdom",
+        "bibs_location.country",
+        "Northern Ireland"
+      ]
+    ],
+    "predictions": "Northern Ireland"
+  },
+  "WebQTest-998_f693ae2cb9aa6b8ffdf0f103a6777b62": {
+    "question": "What is the most recent event in which the sports team owned by James L. Dolan won the championship?",
+    "ranked_paths": [
+      [
+        "James L. Dolan",
+        "professional_sports_team.owner_s",
+        "New York Knicks",
+        "sports_championship_event.champion",
+        "1973 NBA Finals"
+      ]
+    ],
+    "predictions": "1973 NBA Finals"
+  },
+  "WebQTrn-557_960c16ffdb29e173df0577fc76c7455d": {
+    "question": "In the film with teh character named Winged Monkey #7, who played Dorothy?",
+    "ranked_paths": [
+      [
+        "Winged Monkey #7 -> performance.character -> m.0yj6tr7 -> performance.film -> The Wizard of Oz -> performance.film -> m.0k6y72 -> performance.actor -> Judy Garland"
+      ],
+      [
+        "Dorothy Gale -> performance.character -> m.0zd8kkl -> actor.film -> Judy Garland"
+      ],
+      [
+        "Winged Monkey #7 -> performance.character -> m.0yj6tr7 -> performance.film -> The Wizard of Oz -> film.language -> English Language -> person.languages -> Judy Garland"
+      ],
+      [
+        "Winged Monkey #7 -> topic.notable_types -> Film character -> topic.notable_types -> Wizard of Oz -> film.language -> English Language -> person.languages -> Judy Garland"
+      ],
+      [
+        "Winged Monkey #7 -> topic.notable_types -> Film character -> topic.notable_types -> Wizard of Oz -> film.country -> United States of America -> person.nationality -> Judy Garland"
+      ]
+    ],
+    "predictions": "Judy Garland"
+  },
+  "WebQTrn-2286_e0906c845ea8b2e22e08e1b0e6eb9b43": {
+    "question": "Where is the state with the capitol of Frankfort located?",
+    "ranked_paths": [
+      [
+        "Frankfort",
+        "bibs_location.state",
+        "Kentucky",
+        "location.containedby",
+        "United States, with Territories"
+      ],
+      [
+        "Frankfort",
+        "location.containedby",
+        "United States of America"
+      ],
+      [
+        "Frankfort",
+        "location.containedby",
+        "United States of America",
+        "location.containedby",
+        "United States, with Territories"
+      ]
+    ],
+    "predictions": "United States of America\nUnited States, with Territories"
+  },
+  "WebQTrn-568_d54918e8e89ad97237bce821087a9818": {
+    "question": "In which US county is the TV program NBC Nightside filmed in?",
+    "ranked_paths": [
+      [
+        "NBC Nightside",
+        "tv_program.filming_locations",
+        "Charlotte",
+        "us_county.county_seat",
+        "Mecklenburg County"
+      ],
+      [
+        "NBC Nightside",
+        "tv_program.country_of_origin",
+        "United States of America",
+        "location.containedby",
+        "Mecklenburg County"
+      ]
+    ],
+    "predictions": "Mecklenburg County"
+  },
+  "WebQTrn-2215_11c4cd5a25fd84f3980d7013c0329bad": {
+    "question": "Where was the artist that had This Summer Tour raised?",
+    "ranked_paths": [
+      [
+        "Beat This Summer Tour",
+        "artist.concert_tours",
+        "Brad Paisley",
+        "person.place_of_birth",
+        "Glen Dale"
+      ]
+    ],
+    "predictions": "Glen Dale"
+  },
+  "WebQTrn-2834_6a27420dcf0528ae017dd74e40cfd38a": {
+    "question": "What major US religions has a religious organization named Tamil Nadu Thowheed Jamath?",
+    "ranked_paths": [
+      [
+        "Tamil Nadu Thowheed Jamath",
+        "religion.organizations",
+        "Islam"
+      ],
+      [
+        "United States of America",
+        "statistical_region.religions",
+        "m.03q1lw4",
+        "religion_percentage.religion",
+        "Islam"
+      ],
+      [
+        "United States of America",
+        "person.nationality",
+        "Bruce Bawer",
+        "thing_of_disputed_value.disparagement",
+        "Islam"
+      ]
+    ],
+    "predictions": "Islam"
+  },
+  "WebQTest-484_ac67410188d0f2258139a3c84773885e": {
+    "question": "What languiages are spoken by residents of the Central Western Time Zone?",
+    "ranked_paths": [
+      [
+        "Central Western Time Zone",
+        "time_zone.locations_in_this_time_zone",
+        "Australia",
+        "country.languages_spoken",
+        "English Language"
+      ],
+      [
+        "Central Western Time Zone",
+        "time_zone.locations_in_this_time_zone",
+        "Australia",
+        "country.languages_spoken",
+        "Esperanto Language"
+      ],
+      [
+        "Central Western Time Zone",
+        "time_zone.locations_in_this_time_zone",
+        "Australia",
+        "human_language.countries_spoken_in",
+        "Lojban"
+      ]
+    ],
+    "predictions": "English Language\nEsperanto Language\nLojban"
+  },
+  "WebQTrn-3744_26401b4c33bcb760afd734acaa0a1869": {
+    "question": "The Daily Cardinal is the school newspaper at which university that Russell Wilson attended?",
+    "ranked_paths": [
+      [
+        "The Daily Cardinal",
+        "school_newspaper.school",
+        "University of Wisconsin-Madison"
+      ],
+      [
+        "Russell Wilson",
+        "person.education",
+        "m.0hpny13",
+        "education.institution",
+        "University of Wisconsin-Madison"
+      ],
+      [
+        "Russell Wilson",
+        "person.nationality",
+        "United States of America",
+        "location.containedby",
+        "University of Wisconsin-Madison"
+      ],
+      [
+        "College/University",
+        "topic.notable_types",
+        "University of Wisconsin-Madison"
+      ]
+    ],
+    "predictions": "University of Wisconsin-Madison"
+  },
+  "WebQTest-538_92e606ef9c0429ad6820797ad2950730": {
+    "question": "What movie was Taylor Swift in that had a character named Once-ler?",
+    "ranked_paths": [
+      [
+        "Taylor Swift",
+        "performance.actor",
+        "m.0gwnx7m",
+        "performance.film",
+        "The Lorax"
+      ],
+      [
+        "Once-ler",
+        "book_character.appears_in_book",
+        "The Lorax"
+      ],
+      [
+        "Taylor Swift",
+        "person.languages",
+        "English Language",
+        "film.language",
+        "The Lorax"
+      ],
+      [
+        "Taylor Swift",
+        "award_winner.awards_won",
+        "m.0z83sdc",
+        "award_winning_work.awards_won",
+        "The Lorax"
+      ],
+      [
+        "Taylor Swift",
+        "person.nationality",
+        "United States of America",
+        "film.country",
+        "The Lorax"
+      ]
+    ],
+    "predictions": "The Lorax"
+  },
+  "WebQTrn-3744_b9bd90569bb7912ec3ea180bf164663c": {
+    "question": "What educational institution with men's  sports team named Wisconsin Badgers did Russell Wilson go to?",
+    "ranked_paths": [
+      [
+        "Russell Wilson",
+        "person.education",
+        "m.0hpny13",
+        "education.institution",
+        "University of Wisconsin-Madison"
+      ],
+      [
+        "Wisconsin Badgers men's basketball",
+        "educational_institution.sports_teams",
+        "University of Wisconsin-Madison"
+      ],
+      [
+        "College/University",
+        "topic.notable_types",
+        "University of Wisconsin-Madison"
+      ],
+      [
+        "Russell Wilson",
+        "person.nationality",
+        "United States of America",
+        "location.containedby",
+        "University of Wisconsin-Madison"
+      ]
+    ],
+    "predictions": "University of Wisconsin-Madison"
+  },
+  "WebQTest-712_6099ea03f4fd2476605c4a513318d29c": {
+    "question": "What country  that appointed Liberal Government of New Zealand to governmental position is an Oceania territory?",
+    "ranked_paths": [
+      "Liberal Government of New Zealand -> government_position_held.appointed_by -> m.0wzvl9f -> government_position_held.jurisdiction_of_office -> New Zealand",
+      "Liberal Government of New Zealand -> government_position_held.appointed_by -> m.0wzvlqr -> government_position_held.jurisdiction_of_office -> New Zealand",
+      "Oceania -> location.containedby -> New Zealand",
+      "Liberal Government of New Zealand -> political_appointer.appointees -> m.0wpwwvp -> government_position_held.jurisdiction_of_office -> New Zealand",
+      "Liberal Government of New Zealand -> political_appointer.appointees -> m.0wznkl8 -> government_position_held.jurisdiction_of_office -> New Zealand"
+    ],
+    "predictions": "New Zealand\nNew Zealand\nNew Zealand\nNew Zealand\nNew Zealand\nNew Zealand"
+  },
+  "WebQTrn-1557_edfd3507d32929ce0e9d844f7a2674de": {
+    "question": "What educational institution with Le Delit Francais newspaper did Charles Drew attend?",
+    "ranked_paths": [
+      [
+        "Le Délit français",
+        "educational_institution.newspaper",
+        "McGill University"
+      ],
+      [
+        "Charles R. Drew",
+        "education.student",
+        "m.03l72fl",
+        "education.institution",
+        "McGill University"
+      ],
+      [
+        "College/University",
+        "topic.notable_types",
+        "McGill University"
+      ]
+    ],
+    "predictions": "McGill University"
+  },
+  "WebQTrn-846_a29552911617e890ca2e1d6564e0990e": {
+    "question": "What is the birthplace of the artist that went on The Avril Lavinge Tour?",
+    "ranked_paths": [
+      [
+        "The Avril Lavigne Tour",
+        "album.supporting_tours",
+        "Avril Lavigne",
+        "location.people_born_here",
+        "Belleville"
+      ]
+    ],
+    "predictions": "Belleville"
+  },
+  "WebQTest-626_47b990334f91b6d3bd042f82b81740f6": {
+    "question": "What location appointed Dennis Daugaard to governmental position and is bisected by the Missouri River?",
+    "ranked_paths": [
+      [
+        "Dennis Daugaard",
+        "government_position_held.appointed_by",
+        "m.0_hhwdl",
+        "governmental_jurisdiction.governing_officials",
+        "South Dakota"
+      ],
+      [
+        "Missouri River",
+        "location.partially_contains",
+        "South Dakota"
+      ],
+      [
+        "Dennis Daugaard",
+        "politician.government_positions_held",
+        "m.0jskk6b",
+        "government_position_held.jurisdiction_of_office",
+        "South Dakota"
+      ],
+      [
+        "Dennis Daugaard",
+        "politician.government_positions_held",
+        "m.010hbrrk",
+        "governmental_jurisdiction.governing_officials",
+        "South Dakota"
+      ],
+      [
+        "Dennis Daugaard",
+        "topic.image",
+        "Lieutenant Governor of South Dakota",
+        "governmental_jurisdiction.government_positions",
+        "South Dakota"
+      ]
+    ],
+    "predictions": "South Dakota"
+  },
+  "WebQTest-1528_25853c768670cd164d7793f094ba7cbb": {
+    "question": "What film with character Luke Castelland does Logan Lerman play in?",
+    "ranked_paths": [
+      [
+        "Logan Lerman",
+        "performance.actor",
+        "m.0646ffc",
+        "performance.film",
+        "Percy Jackson & the Olympians: The Lightning Thief"
+      ],
+      [
+        "g.122sg15v",
+        "performance.character",
+        "m.0646ffj",
+        "performance.film",
+        "Percy Jackson & the Olympians: The Lightning Thief"
+      ],
+      [
+        "g.122sg15v",
+        "book.characters",
+        "The Lightning Thief",
+        "adaptation.adapted_from",
+        "Percy Jackson & the Olympians: The Lightning Thief"
+      ],
+      [
+        "g.122sg15v",
+        "fictional_character_creator.fictional_characters_created",
+        "Rick Riordan",
+        "film.story_by",
+        "Percy Jackson & the Olympians: The Lightning Thief"
+      ],
+      [
+        "Logan Lerman",
+        "award_nominee.award_nominations",
+        "m.0z8hqdm",
+        "award_nominated_work.award_nominations",
+        "Percy Jackson & the Olympians: The Lightning Thief"
+      ]
+    ],
+    "predictions": "Percy Jackson & the Olympians: The Lightning Thief"
+  },
+  "WebQTest-626_bd2c9bc1c0a692218e7c4182a1d52f85": {
+    "question": "Mike Johanns was elected governor of what area that is bisected by the Missouri River?",
+    "ranked_paths": [
+      [
+        "Mike Johanns",
+        "politician.government_positions_held",
+        "m.05kfds4",
+        "political_district.representatives",
+        "Nebraska"
+      ],
+      [
+        "Mike Johanns",
+        "politician.government_positions_held",
+        "m.04l4prr",
+        "government_position_held.jurisdiction_of_office",
+        "Nebraska"
+      ],
+      [
+        "Missouri River",
+        "location.partially_containedby",
+        "Nebraska"
+      ],
+      [
+        "Mike Johanns",
+        "election.winner",
+        "United States Senate election in Nebraska, 2008",
+        "political_district.elections",
+        "Nebraska"
+      ],
+      [
+        "Mike Johanns",
+        "political_appointer.appointees",
+        "m.0hz71sg",
+        "government_position_held.jurisdiction_of_office",
+        "Nebraska"
+      ]
+    ],
+    "predictions": "Nebraska"
+  },
+  "WebQTrn-1841_6bf772ee1b388c1b3c226b02c8244aa7": {
+    "question": "Which popular sports team in Spain, that won the 2014 Eurocup Finals championship?",
+    "ranked_paths": [
+      [
+        "2014 Eurocup Finals",
+        "sports_team.championships",
+        "Valencia BC"
+      ],
+      [
+        "Spain",
+        "sports_team_location.teams",
+        "Valencia BC"
+      ]
+    ],
+    "predictions": "Valencia BC"
+  },
+  "WebQTrn-1394_dc71f08a76d71762a0cfd30f11f66535": {
+    "question": "What country does Turkey trade with that contains the Annaba Province?",
+    "ranked_paths": [
+      [
+        "Turkey",
+        "statistical_region.places_exported_to",
+        "m.04fhpk4",
+        "statistical_region.places_imported_from",
+        "Algeria"
+      ],
+      [
+        "Annaba Province",
+        "administrative_area.administrative_parent",
+        "Algeria"
+      ],
+      [
+        "Turkey",
+        "country.languages_spoken",
+        "Arabic Language",
+        "country.languages_spoken",
+        "Algeria"
+      ],
+      [
+        "Turkey",
+        "topic.notable_types",
+        "Country",
+        "topic.notable_types",
+        "Algeria"
+      ],
+      [
+        "Turkey",
+        "administrative_area.administrative_area_type",
+        "Sovereign state",
+        "administrative_area.administrative_area_type",
+        "Algeria"
+      ]
+    ],
+    "predictions": "Algeria"
+  },
+  "WebQTest-1812_c29807a955ea46fa79cdc9f7aeacba18": {
+    "question": "Where was the main artist featured in the Rihanna: Live in Concert Tour raised?",
+    "ranked_paths": [
+      [
+        "Rihanna: Live in Concert Tour",
+        "concert_tour.artist",
+        "Rihanna",
+        "location.people_born_here",
+        "Saint Michael Parish"
+      ]
+    ],
+    "predictions": "Saint Michael Parish"
+  },
+  "WebQTrn-2057_b64f996ceca972c0d6fea3de2705ce63": {
+    "question": "The country that contains Alta Verapaz Department uses what money?",
+    "ranked_paths": [
+      [
+        "Alta Verapaz Department",
+        "administrative_area.administrative_parent",
+        "Guatemala",
+        "country.currency_used",
+        "Guatemalan quetzal"
+      ]
+    ],
+    "predictions": "Guatemalan quetzal"
+  },
+  "WebQTest-1348_3bddf705b2a346fbdc2f00e9a02b84f3": {
+    "question": "What team did Payton Manning's father play for that has a mascot named Viktor the Viking?",
+    "ranked_paths": [
+      [
+        "Peyton Manning -> person.parents -> Archie Manning -> sports_team_roster.player -> m.0hpq5rc -> sports_team_roster.team -> Minnesota Vikings"
+      ],
+      [
+        "Viktor the Viking -> mascot.team -> Minnesota Vikings"
+      ],
+      [
+        "Peyton Manning -> pro_sports_played.athlete -> m.0c53yf6 -> pro_sports_played.sport -> American football -> sports_team.sport -> Minnesota Vikings"
+      ],
+      [
+        "Peyton Manning -> football_player.position_s -> Quarterback -> sport.positions -> American football -> sports_team.sport -> Minnesota Vikings"
+      ],
+      [
+        "Peyton Manning -> person.nationality -> United States of America -> location.containedby -> Minneapolis -> sports_team.location -> Minnesota Vikings"
+      ]
+    ],
+    "predictions": "Minnesota Vikings"
+  },
+  "WebQTrn-3100_d059b24adec4064377b957ca598769be": {
+    "question": "What part is the country with the capital named Santo Domingo?",
+    "ranked_paths": [
+      [
+        "Santo Domingo -> country.capital -> Dominican Republic -> location.containedby -> North America"
+      ],
+      [
+        "Santo Domingo -> country.capital -> Dominican Republic -> location.contains -> Greater Antilles"
+      ],
+      [
+        "Santo Domingo -> location.containedby -> Hispaniola -> location.contains -> Greater Antilles"
+      ],
+      [
+        "Santo Domingo -> airport.serves -> Las Américas International Airport -> location.containedby -> Greater Antilles"
+      ],
+      [
+        "Santo Domingo -> location.containedby -> Universidad Nacional Pedro Henríquez Ureña -> location.containedby -> North America"
+      ]
+    ],
+    "predictions": "North America\nGreater Antilles"
+  },
+  "WebQTest-983_b3520a12fe059da8ffda55e381a14f14": {
+    "question": "What educational institution with the mascot named Washington University Bear did Tennessee Williams go to?",
+    "ranked_paths": [
+      [
+        "Tennessee Williams",
+        "education.student",
+        "m.0n1m266",
+        "education.institution",
+        "Washington University in St. Louis"
+      ],
+      [
+        "Washington University Bear",
+        "school_mascot.school",
+        "Washington University in St. Louis"
+      ],
+      [
+        "College/University",
+        "topic.notable_types",
+        "Washington University in St. Louis"
+      ],
+      [
+        "Tennessee Williams",
+        "person.nationality",
+        "United States of America",
+        "location.containedby",
+        "Washington University in St. Louis"
+      ]
+    ],
+    "predictions": "Washington University in St. Louis"
+  },
+  "WebQTrn-2570_354fb646be304159441f2497ab0a9c62": {
+    "question": "Which was the earliest President during WW2 in the United States?",
+    "ranked_paths": [
+      [
+        "World War II",
+        "speech_or_presentation.speech_topic",
+        "m.05rln07",
+        "speech_or_presentation.speaker_s",
+        "Franklin D. Roosevelt"
+      ],
+      [
+        "President of the United States",
+        "government_office_or_title.office_holders",
+        "m.03q2h_9",
+        "government_position_held.office_holder",
+        "Franklin D. Roosevelt"
+      ],
+      [
+        "President of the United States",
+        "government_office_or_title.jurisdiction",
+        "United States of America",
+        "person.nationality",
+        "Franklin D. Roosevelt"
+      ],
+      [
+        "President of the United States",
+        "type_profile.equivalent_topic",
+        "US President",
+        "topic.notable_types",
+        "Franklin D. Roosevelt"
+      ]
+    ],
+    "predictions": "Franklin D. Roosevelt"
+  },
+  "WebQTrn-465_784f88e61337c424ca3d7be0719e3649": {
+    "question": "What to see in the country that has Gozo?",
+    "ranked_paths": [
+      [
+        "Gozo",
+        "location.containedby",
+        "Malta",
+        "travel_destination.tourist_attractions",
+        "Megalithic Temples of Malta"
+      ],
+      [
+        "Gozo",
+        "location.containedby",
+        "Malta",
+        "travel_destination.tourist_attractions",
+        "St. Paul's Catacombs"
+      ],
+      [
+        "Gozo",
+        "location.containedby",
+        "Malta",
+        "travel_destination.tourist_attractions",
+        "Fort Rinella"
+      ],
+      [
+        "Gozo",
+        "location.containedby",
+        "Malta",
+        "travel_destination.tourist_attractions",
+        "Casa Rocca Piccola"
+      ],
+      [
+        "Gozo",
+        "location.containedby",
+        "Malta",
+        "travel_destination.tourist_attractions",
+        "Gozo 360° Multivision Show"
+      ]
+    ],
+    "predictions": "Manoel Theatre\nNational Museum of Archaeology, Malta\nNational Museum of Fine Arts, Malta\nSt. Paul's Catacombs\nThe Armoury and the Maritime Museum\nCasa Rocca Piccola\nDingli Cliffs\nMegalithic Temples of Malta\nGozo 360° Multivision Show\nFort Rinella"
+  },
+  "WebQTest-1091_c2f4807a175372c3e75691b565d1936d": {
+    "question": "What religion with notable figure Athanasius of Alexandria is in the United States?",
+    "ranked_paths": [
+      [
+        "Athanasius of Alexandria",
+        "religion.notable_figures",
+        "Christianity"
+      ],
+      [
+        "United States of America",
+        "statistical_region.religions",
+        "m.03q1lvq",
+        "religion_percentage.religion",
+        "Christianity"
+      ]
+    ],
+    "predictions": "Christianity"
+  },
+  "WebQTest-1091_9be8c18e016b713cbb7f7feb6badebc7": {
+    "question": "What religion that is practiced in the United States has The Bible as its religious text?",
+    "ranked_paths": [
+      [
+        "The Bible",
+        "religious_text.religious_text_of",
+        "Christianity"
+      ],
+      [
+        "United States of America",
+        "statistical_region.religions",
+        "m.03q1lvq",
+        "religion_percentage.religion",
+        "Christianity"
+      ]
+    ],
+    "predictions": "Christianity"
+  },
+  "WebQTrn-849_f6e8b7149f2e422640a49beb753be4ef": {
+    "question": "What country uss the Swiss Franc as currency and shares a border with Germany?",
+    "ranked_paths": [
+      [
+        "Swiss franc -> country.currency_used -> Switzerland"
+      ],
+      [
+        "Germany -> location.adjoin_s -> m.02wrxkz -> adjoining_relationship.adjoins -> Switzerland"
+      ],
+      [
+        "Germany -> location.partially_contains -> Alps -> location.partially_containedby -> Switzerland"
+      ],
+      [
+        "Germany -> location.partially_contains -> Regio TriRhena -> location.partially_containedby -> Switzerland"
+      ],
+      [
+        "Germany -> location.partially_contains -> Inn -> location.partially_containedby -> Switzerland"
+      ]
+    ],
+    "predictions": "Switzerland"
+  },
+  "WebQTest-302_f051fbe657aaa023d74839c8e8029bef": {
+    "question": "What are official colors of the champion of Super Bowl XXX?",
+    "ranked_paths": [
+      [
+        "Super Bowl XXX",
+        "sports_team.championships",
+        "Dallas Cowboys",
+        "sports_team.colors",
+        "Navy Blue"
+      ],
+      [
+        "Super Bowl XXX",
+        "sports_team.championships",
+        "Dallas Cowboys",
+        "sports_team.colors",
+        "Silver"
+      ],
+      [
+        "Super Bowl XXX",
+        "sports_team.championships",
+        "Dallas Cowboys",
+        "sports_team.colors",
+        "Blue"
+      ]
+    ],
+    "predictions": "Blue\nNavy Blue\nSilver"
+  },
+  "WebQTrn-2664_513d3d27fdbcf5130896177ea2dd146f": {
+    "question": "Who are the main trading partners of China that use the Lao Kip as its currency?",
+    "ranked_paths": [
+      [
+        "Lao kip -> country.currency_used -> Laos"
+      ],
+      [
+        "China -> imports_and_exports.exported_to -> m.04c__kz -> statistical_region.places_exported_to -> Laos"
+      ],
+      [
+        "China -> imports_and_exports.imported_from -> m.04c__l8 -> imports_and_exports.exported_to -> Laos"
+      ],
+      [
+        "China -> adjoining_relationship.adjoins -> m.043w4ks -> location.adjoin_s -> Laos"
+      ],
+      [
+        "China -> location.partially_contains -> Mekong -> location.partially_containedby -> Laos"
+      ]
+    ],
+    "predictions": "Laos"
+  },
+  "WebQTest-743_81f7ed541ce951e30c3d90697cb83dec": {
+    "question": "Which of JFK's brothers held his governmental position before November 6, 1962?",
+    "ranked_paths": [
+      [
+        "John F. Kennedy -> sibling_relationship.sibling -> m.03hs9fc -> sibling_relationship.sibling -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> political_appointer.appointees -> m.03hs9g8 -> politician.government_positions_held -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> family.members -> Kennedy family -> family.members -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> person.parents -> Joseph P. Kennedy, Sr. -> person.children -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> person.parents -> Rose Kennedy -> person.children -> Robert F. Kennedy"
+      ]
+    ],
+    "predictions": "Robert F. Kennedy"
+  },
+  "WebQTrn-3535_dfcf84e9ba3b9baef4ee1f2cc51994b6": {
+    "question": "Who did the voice of character Kovu?",
+    "ranked_paths": [
+      [
+        "Kovu",
+        "performance.character",
+        "m.0k5qr5",
+        "performance.actor",
+        "Jason Marsden"
+      ],
+      [
+        "Kovu",
+        "fictional_character.gender",
+        "Male",
+        "person.gender",
+        "Jason Marsden"
+      ]
+    ],
+    "predictions": "Jason Marsden"
+  },
+  "WebQTest-996_7c4c41654239ed0a5b99ba5e6481ad5c": {
+    "question": "Where does the Ireland team that won the 2003 Rugby World Cup championship play?",
+    "ranked_paths": [
+      [
+        "2003 Rugby World Cup",
+        "sports_team.championships",
+        "Ireland national rugby union team",
+        "sports_facility.teams",
+        "Aviva Stadium"
+      ]
+    ],
+    "predictions": "Aviva Stadium"
+  },
+  "WebQTest-1012_7ee41dcd5e0ee726e65a46d891982c8f": {
+    "question": "What Hollywood studio produced the American Gladiators TV movie?",
+    "ranked_paths": [
+      [
+        "American Gladiators",
+        "tv_location.tv_shows_filmed_here",
+        "Universal Studios Hollywood"
+      ],
+      [
+        "Hollywood",
+        "travel_destination.tourist_attractions",
+        "Universal Studios Hollywood"
+      ]
+    ],
+    "predictions": "Universal Studios Hollywood"
+  },
+  "WebQTrn-1841_cac535ea48922ba42c75ec7ac67cf454": {
+    "question": "What popular Spanish sport has a basketball team with head coach Joan Plaza?",
+    "ranked_paths": [
+      [
+        "Joan Plaza",
+        "basketball_team.head_coach",
+        "Baloncesto Málaga"
+      ],
+      [
+        "Spain",
+        "sports_team.location",
+        "Baloncesto Málaga"
+      ]
+    ],
+    "predictions": "Baloncesto Málaga"
+  },
+  "WebQTrn-2319_67d6828a804cdeef38928c85cb93bb03": {
+    "question": "What are the official languages of used in the country that uses Ukrainian Hyrvnia?",
+    "ranked_paths": [
+      [
+        "Ukrainian hryvnia -> country.currency_used -> Ukraine -> country.official_language -> Ukrainian Language"
+      ],
+      [
+        "Ukrainian hryvnia -> country.currency_used -> Ukraine -> country.languages_spoken -> Russian Language"
+      ],
+      [
+        "Ukrainian hryvnia -> country.currency_used -> Ukraine -> country.languages_spoken -> Moldovan language"
+      ],
+      [
+        "Ukrainian hryvnia -> country.currency_used -> Ukraine -> country.languages_spoken -> Albanian language"
+      ],
+      [
+        "Ukrainian hryvnia -> country.currency_used -> Ukraine -> human_language.countries_spoken_in -> Romanian Language"
+      ]
+    ],
+    "predictions": "Albanian language\nTatar Language\nMoldovan language\nRomanian Language\nHungarian language\nRussian Language\nUkrainian Language"
+  },
+  "WebQTrn-2026_84e5ab7013a2c0dd11f7f61db45df94c": {
+    "question": "If you are visiting a country and in the San Pedro De Marcois Province, what form of currency would you spend?",
+    "ranked_paths": [
+      [
+        "San Pedro de Macorís Province",
+        "administrative_area.administrative_parent",
+        "Dominican Republic",
+        "currency.countries_used",
+        "Dominican peso"
+      ]
+    ],
+    "predictions": "Dominican peso"
+  },
+  "WebQTrn-1812_25c9be422f1472e5cdf7358613ad93cf": {
+    "question": "What country in the Caribbean contains Saint Michael Parish?",
+    "ranked_paths": [
+      [
+        "Saint Michael Parish",
+        "administrative_division.first_level_division_of",
+        "Barbados"
+      ],
+      [
+        "Caribbean",
+        "location.containedby",
+        "Barbados"
+      ],
+      [
+        "Country",
+        "topic.notable_types",
+        "Barbados"
+      ]
+    ],
+    "predictions": "Barbados"
+  },
+  "WebQTest-1376_b1915c7cd7f743656108611e5095c2e0": {
+    "question": "Which Canadian Province was the locatiuon for the TV show the Lottery?",
+    "ranked_paths": [
+      [
+        "The Lottery",
+        "->",
+        "tv_program.filming_locations",
+        "->",
+        "Montreal",
+        "->",
+        "location.containedby",
+        "->",
+        "Québec"
+      ]
+    ],
+    "predictions": "Québec"
+  },
+  "WebQTest-1817_e8393a7bc14f9c91e0813aacbc6d7c05": {
+    "question": "What educational institution with the Cherwell newspaper did JRR Tolkien go to?",
+    "ranked_paths": [
+      [
+        "Cherwell",
+        "->",
+        "educational_institution.newspaper",
+        "->",
+        "University of Oxford"
+      ],
+      [
+        "J. R. R. Tolkien",
+        "->",
+        "person.education",
+        "->",
+        "m.0n1m7cd",
+        "->",
+        "education.institution",
+        "->",
+        "University of Oxford"
+      ],
+      [
+        "J. R. R. Tolkien",
+        "->",
+        "employment_tenure.person",
+        "->",
+        "m.02ht_80",
+        "->",
+        "employment_tenure.company",
+        "->",
+        "University of Oxford"
+      ],
+      [
+        "J. R. R. Tolkien",
+        "->",
+        "person.employment_history",
+        "->",
+        "m.02ht_8b",
+        "->",
+        "employment_tenure.company",
+        "->",
+        "University of Oxford"
+      ],
+      [
+        "J. R. R. Tolkien",
+        "->",
+        "person.nationality",
+        "->",
+        "United Kingdom",
+        "->",
+        "location.containedby",
+        "->",
+        "University of Oxford"
+      ]
+    ],
+    "predictions": "University of Oxford"
+  },
+  "WebQTrn-493_c8b99bb380a7f157039bdf6c7b8df764": {
+    "question": "What region is the country whose national anthem is BrabanÃ§onne located in?",
+    "ranked_paths": [
+      [
+        "Brabançonne",
+        "composition.language",
+        "French",
+        "human_language.region",
+        "Europe"
+      ],
+      [
+        "Brabançonne",
+        "composition.language",
+        "Dutch Language",
+        "human_language.region",
+        "Europe"
+      ],
+      [
+        "Brabançonne",
+        "composition.language",
+        "German Language",
+        "human_language.region",
+        "Europe"
+      ]
+    ],
+    "predictions": "Europe"
+  },
+  "WebQTrn-2664_9f8fc8341d7c53fe16d94a6a23638ec4": {
+    "question": "Which nation is a major trading partner with China and has the Malagasy ariary as its unit of currency?",
+    "ranked_paths": [
+      [
+        "China",
+        "->",
+        "imports_and_exports.imported_from",
+        "->",
+        "m.04bfg2f",
+        "->",
+        "imports_and_exports.exported_to",
+        "->",
+        "Madagascar"
+      ],
+      [
+        "Malagasy ariary",
+        "->",
+        "country.currency_used",
+        "->",
+        "Madagascar"
+      ],
+      [
+        "China",
+        "->",
+        "administrative_area.administrative_area_type",
+        "->",
+        "Sovereign state",
+        "->",
+        "administrative_area.administrative_area_type",
+        "->",
+        "Madagascar"
+      ],
+      [
+        "China",
+        "->",
+        "topic.notable_types",
+        "->",
+        "Country",
+        "->",
+        "topic.notable_types",
+        "->",
+        "Madagascar"
+      ],
+      [
+        "China",
+        "->",
+        "olympic_participating_country.olympics_participated_in",
+        "->",
+        "2008 Summer Olympics",
+        "->",
+        "olympic_participating_country.olympics_participated_in",
+        "->",
+        "Madagascar"
+      ]
+    ],
+    "predictions": "Madagascar"
+  },
+  "WebQTrn-710_a188aff4a054e1ec66fafba1b8021f67": {
+    "question": "When was the last World Series won by team owner Bill Neukom's sports team?",
+    "ranked_paths": [
+      [
+        "Bill Neukom",
+        "sports_team_owner.teams_owned",
+        "San Francisco Giants",
+        "sports_championship_event.champion",
+        "2014 World Series"
+      ]
+    ],
+    "predictions": "2014 World Series"
+  },
+  "WebQTest-212_8fc460cf564c16a47877b92a7c156528": {
+    "question": "What state, that the Colorado River flows through, appointed Bruce Babbitt to a governmental position?",
+    "ranked_paths": [
+      [
+        "Bruce Babbitt -> government_position_held.office_holder -> m.04j8y4v -> government_position_held.jurisdiction_of_office -> Arizona"
+      ],
+      [
+        "Colorado River -> location.partially_containedby -> Arizona"
+      ],
+      [
+        "Bruce Babbitt -> place_lived.person -> m.03pdxmp -> place_lived.location -> Arizona"
+      ],
+      [
+        "Bruce Babbitt -> government_position_held.appointed_by -> m.05kj9k6 -> government_position_held.jurisdiction_of_office -> Arizona"
+      ],
+      [
+        "Bruce Babbitt -> person.nationality -> United States of America -> location.containedby -> Arizona"
+      ]
+    ],
+    "predictions": "Arizona"
+  },
+  "WebQTest-576_7280a830b2275c6024614d5ba2adae18": {
+    "question": "What country in Central America appointed Otto PÃ©rez Molina to a governmental position?",
+    "ranked_paths": [
+      [
+        "Otto Pérez Molina",
+        "person.nationality",
+        "Guatemala"
+      ],
+      [
+        "Country",
+        "topic.notable_types",
+        "Guatemala"
+      ],
+      [
+        "Central America",
+        "location.containedby",
+        "Guatemala"
+      ]
+    ],
+    "predictions": "Guatemala"
+  },
+  "WebQTest-1686_73c4a5625dc9db03b2331d9937b0fe71": {
+    "question": "Who was the Arizona's Governor in 2009 who also suffered with Breast cancer?",
+    "ranked_paths": [
+      [
+        "Arizona",
+        "->",
+        "government_position_held.jurisdiction_of_office",
+        "->",
+        "m.04j8y5g",
+        "->",
+        "politician.government_positions_held",
+        "->",
+        "Janet Napolitano"
+      ],
+      [
+        "Breast cancer",
+        "->",
+        "notable_person_with_medical_condition.condition",
+        "->",
+        "Janet Napolitano"
+      ],
+      [
+        "Governor",
+        "->",
+        "government_position_held.basic_title",
+        "->",
+        "m.04j8y5g",
+        "->",
+        "politician.government_positions_held",
+        "->",
+        "Janet Napolitano"
+      ],
+      [
+        "Arizona",
+        "->",
+        "location.containedby",
+        "->",
+        "United States of America",
+        "->",
+        "person.nationality",
+        "->",
+        "Janet Napolitano"
+      ]
+    ],
+    "predictions": "Janet Napolitano"
+  },
+  "WebQTest-534_c5498ca807d2e1ec30d4c8fdd41f0bf7": {
+    "question": "What team's mascot is name Hank?",
+    "ranked_paths": [
+      [
+        "Hank",
+        "mascot.team",
+        "Milwaukee Brewers",
+        "mascot.team",
+        "Bonnie Brewer"
+      ],
+      [
+        "Hank",
+        "topic.notable_types",
+        "Mascot",
+        "topic.notable_types",
+        "Bonnie Brewer"
+      ]
+    ],
+    "predictions": "Bonnie Brewer"
+  },
+  "WebQTrn-1532_cbf60f0a8068d6c5464651a537e93b13": {
+    "question": "What college with men's basketball sports team named UMKC Kangaroos did Harry S. Truman attend?",
+    "ranked_paths": [
+      [
+        "UMKC Kangaroos men's basketball",
+        "educational_institution.sports_teams",
+        "University of Missouri–Kansas City"
+      ],
+      [
+        "Harry S. Truman",
+        "person.education",
+        "m.04t5ls_",
+        "educational_institution.students_graduates",
+        "University of Missouri–Kansas City"
+      ],
+      [
+        "Harry S. Truman",
+        "deceased_person.place_of_death",
+        "Kansas City",
+        "location.containedby",
+        "University of Missouri–Kansas City"
+      ],
+      [
+        "Harry S. Truman",
+        "written_work.subjects",
+        "Missouri",
+        "location.containedby",
+        "University of Missouri–Kansas City"
+      ],
+      [
+        "Harry S. Truman",
+        "written_work.subjects",
+        "United States of America",
+        "location.containedby",
+        "University of Missouri–Kansas City"
+      ]
+    ],
+    "predictions": "University of Missouri–Kansas City"
+  },
+  "WebQTrn-3048_ae9a833cf2cca30c1c9725fc6a167794": {
+    "question": "The country that contains Africa Proconsularis has what political system ?",
+    "ranked_paths": [
+      [
+        "Africa Proconsularis",
+        "country.administrative_divisions",
+        "Roman Empire",
+        "form_of_government.countries",
+        "Autocracy"
+      ]
+    ],
+    "predictions": "Autocracy"
+  },
+  "WebQTest-837_c4e06c3a9e4b4f10bd1ae97f1742c198": {
+    "question": "In what year did a team win the superbowl and the 2013 AFC Championship Game ?",
+    "ranked_paths": [
+      [
+        "2013 AFC Championship Game",
+        "sports_team.championships",
+        "Baltimore Ravens",
+        "sports_team.championships",
+        "Super Bowl XLVII"
+      ],
+      [
+        "2013 AFC Championship Game",
+        "sports_league_season.championship",
+        "2012 NFL season",
+        "sports_championship_event.season",
+        "Super Bowl XLVII"
+      ],
+      [
+        "2013 AFC Championship Game",
+        "valuenotation.is_reviewed",
+        "Location(s)",
+        "valuenotation.is_reviewed",
+        "Super Bowl XLVII"
+      ],
+      [
+        "2013 AFC Championship Game",
+        "valuenotation.is_reviewed",
+        "End date",
+        "valuenotation.is_reviewed",
+        "Super Bowl XLVII"
+      ],
+      [
+        "2013 AFC Championship Game",
+        "valuenotation.is_reviewed",
+        "Start date",
+        "valuenotation.is_reviewed",
+        "Super Bowl XLVII"
+      ]
+    ],
+    "predictions": "Super Bowl XLVII\nSuper Bowl XXXV"
+  },
+  "WebQTest-212_3c65a82425ff4488504b53ba502d0eb7": {
+    "question": "What is the name of the state that has the elected official Jan Brewer and also has the colorado river flow through it?",
+    "ranked_paths": [
+      "Jan Brewer -> politician.government_positions_held -> m.0hz834l -> governmental_jurisdiction.governing_officials -> Arizona",
+      "Jan Brewer -> government_position_held.office_holder -> m.010f0rgh -> governmental_jurisdiction.governing_officials -> Arizona",
+      "Jan Brewer -> government_position_held.appointed_by -> m.0hz6x2f -> governmental_jurisdiction.governing_officials -> Arizona",
+      "Colorado River -> location.partially_containedby -> Arizona",
+      "Jan Brewer -> place_lived.person -> m.04hbp34 -> place_lived.location -> Arizona"
+    ],
+    "predictions": "Arizona"
+  },
+  "WebQTrn-237_e42fb4a1fc4d571f6d9172eb77fe5b24": {
+    "question": "Who is the current head coach of the NFL squad owned by the Rooney family?",
+    "ranked_paths": [
+      [
+        "Rooney family",
+        "professional_sports_team.owner_s",
+        "Pittsburgh Steelers",
+        "football_team.current_head_coach",
+        "Mike Tomlin"
+      ]
+    ],
+    "predictions": "Mike Tomlin"
+  },
+  "WebQTrn-3251_ca0263d77825d6237cf0a27c79d25e45": {
+    "question": "What college in Greeley, Colorado has a sports team called the Northern Colorado Bears?",
+    "ranked_paths": [
+      [
+        "Northern Colorado Bears men's basketball",
+        "educational_institution.sports_teams",
+        "University of Northern Colorado"
+      ],
+      [
+        "Greeley",
+        "location.contains",
+        "University of Northern Colorado"
+      ],
+      [
+        "College/University",
+        "topic.notable_types",
+        "University of Northern Colorado"
+      ]
+    ],
+    "predictions": "University of Northern Colorado"
+  },
+  "WebQTest-837_d95da5fb8a16d81fe56cd4ce00843254": {
+    "question": "What Superbowl was won by the team with the \"Baltimore Fight Song\"?",
+    "ranked_paths": [
+      [
+        "The Baltimore Fight Song",
+        "sports_team.fight_song",
+        "Baltimore Ravens",
+        "sports_team.championships",
+        "Super Bowl XXXV"
+      ],
+      [
+        "The Baltimore Fight Song",
+        "sports_team.fight_song",
+        "Baltimore Ravens",
+        "sports_championship_event.champion",
+        "Super Bowl XLVII"
+      ],
+      [
+        "Super Bowl",
+        "recurring_event.instances",
+        "Super Bowl XXXV"
+      ],
+      [
+        "Super Bowl",
+        "recurring_event.instances",
+        "Super Bowl XLVII"
+      ]
+    ],
+    "predictions": "Super Bowl XLVII\nSuper Bowl XXXV"
+  },
+  "WebQTrn-962_f0c57985929ee8b823983f6e5f104971": {
+    "question": "What actor played a kid in the film with a character named Veteran at War Rally?",
+    "ranked_paths": [
+      [
+        "Veteran at War Rally",
+        "performance.character",
+        "m.0y55311",
+        "performance.film",
+        "Forrest Gump",
+        "film_character.portrayed_in_films",
+        "m.02xgww5",
+        "performance.actor",
+        "Michael Connor Humphreys"
+      ],
+      [
+        "Forrest Gump",
+        "film_character.portrayed_in_films",
+        "m.02xgww5",
+        "performance.actor",
+        "Michael Connor Humphreys"
+      ],
+      [
+        "Veteran at War Rally",
+        "topic.notable_types",
+        "Film character",
+        "topic.notable_types",
+        "Forrest Gump",
+        "film_character.portrayed_in_films",
+        "m.02xgww5",
+        "performance.actor",
+        "Michael Connor Humphreys"
+      ],
+      [
+        "Veteran at War Rally",
+        "performance.character",
+        "m.0y55311",
+        "performance.film",
+        "Forrest Gump",
+        "fictional_character.gender",
+        "Male",
+        "person.gender",
+        "Michael Connor Humphreys"
+      ],
+      [
+        "Veteran at War Rally",
+        "topic.notable_types",
+        "Film character",
+        "topic.notable_types",
+        "Forrest Gump",
+        "fictional_character.gender",
+        "Male",
+        "person.gender",
+        "Michael Connor Humphreys"
+      ]
+    ],
+    "predictions": "Michael Connor Humphreys"
+  },
+  "WebQTrn-237_abc143e50fcf4915c8267215915795b5": {
+    "question": "Stelly McBeam is the team mascot for the sports team with who as head coach?",
+    "ranked_paths": [
+      [
+        "Steely McBeam",
+        "mascot.team",
+        "Pittsburgh Steelers",
+        "football_coach.current_team_head_coached",
+        "Mike Tomlin"
+      ]
+    ],
+    "predictions": "Mike Tomlin"
+  },
+  "WebQTrn-3100_84e5ab7013a2c0dd11f7f61db45df94c": {
+    "question": "What geographic regions is the country that has the San Pedro De Marcos province considered a part of?",
+    "ranked_paths": [
+      "San Pedro de Macorís Province -> administrative_area.administrative_parent -> Dominican Republic -> location.containedby -> North America",
+      "San Pedro de Macorís Province -> administrative_area.administrative_parent -> Dominican Republic -> location.containedby -> Latin America",
+      "San Pedro de Macorís Province -> administrative_area.administrative_parent -> Dominican Republic -> location.contains -> Greater Antilles",
+      "San Pedro de Macorís Province -> administrative_area.administrative_parent -> Dominican Republic -> location.contains -> Americas",
+      "San Pedro de Macorís Province -> location.containedby -> Hispaniola -> island.island_group -> Greater Antilles"
+    ],
+    "predictions": "North America\nLatin America\nPaís\nGreater Antilles\nAmericas"
+  },
+  "WebQTrn-3335_a9b18d079f29555cbd1e1740c7d6e40e": {
+    "question": "The country that contains Krasnodar Krai uses what type of currency?",
+    "ranked_paths": [
+      [
+        "Krasnodar Krai",
+        "country.administrative_divisions",
+        "Russia",
+        "currency.countries_used",
+        "Russian ruble"
+      ]
+    ],
+    "predictions": "Russian ruble"
+  },
+  "WebQTrn-372_84e2829fbb765ceaa2993b50acbf4587": {
+    "question": "What does the religion that believes in Transubstantiation call their God?",
+    "ranked_paths": [
+      [
+        "Transubstantiation",
+        "belief.belief_of",
+        "Catholicism",
+        "deity.deity_of",
+        "God"
+      ],
+      [
+        "Transubstantiation",
+        "belief.belief_of",
+        "Catholicism",
+        "deity.deity_of",
+        "The Father"
+      ],
+      [
+        "Transubstantiation",
+        "belief.belief_of",
+        "Catholicism",
+        "religion.deities",
+        "Jesus Christ"
+      ],
+      [
+        "Transubstantiation",
+        "belief.belief_of",
+        "Catholicism",
+        "religion.deities",
+        "Holy Spirit"
+      ]
+    ],
+    "predictions": "Holy Spirit\nJesus Christ\nThe Father\nGod"
+  },
+  "WebQTrn-710_e3d40457273785e46c5b71732713a5f4": {
+    "question": "When is the last time the team whose mascot is called Crazy Cab win the World Series?",
+    "ranked_paths": [
+      [
+        "Crazy Crab",
+        "->",
+        "sports_team.team_mascot",
+        "->",
+        "San Francisco Giants",
+        "->",
+        "sports_championship_event.champion",
+        "->",
+        "2014 World Series"
+      ]
+    ],
+    "predictions": "2014 World Series"
+  },
+  "WebQTrn-372_5d454dfb6a760c162b099d736eecff1a": {
+    "question": "Which diety is worshipped in the holy place of Santa Cecilia in Trastevere?",
+    "ranked_paths": [
+      [
+        "Santa Cecilia in Trastevere",
+        "place_of_worship.religion",
+        "Catholicism",
+        "religion.deities",
+        "God"
+      ],
+      [
+        "Santa Cecilia in Trastevere",
+        "place_of_worship.religion",
+        "Catholicism",
+        "religion.deities",
+        "Jesus Christ"
+      ],
+      [
+        "Santa Cecilia in Trastevere",
+        "place_of_worship.religion",
+        "Catholicism",
+        "deity.deity_of",
+        "The Father"
+      ],
+      [
+        "Santa Cecilia in Trastevere",
+        "place_of_worship.religion",
+        "Catholicism",
+        "religion.deities",
+        "Holy Spirit"
+      ]
+    ],
+    "predictions": "Holy Spirit\nJesus Christ\nThe Father\nGod"
+  },
+  "WebQTest-1785_87df014c2b1d5440ea39f0d94fe211cb": {
+    "question": "Which movie has a character named Margie and featured Kim Richards as an Actor?",
+    "ranked_paths": [
+      [
+        "Kim Richards",
+        "actor.film",
+        "m.0gm2jw7",
+        "performance.film",
+        "The Car"
+      ],
+      [
+        "Margie",
+        "performance.character",
+        "m.010ntpls",
+        "performance.film",
+        "The Car"
+      ],
+      [
+        "Kim Richards",
+        "person.nationality",
+        "United States of America",
+        "film.country",
+        "The Car"
+      ]
+    ],
+    "predictions": "The Car"
+  },
+  "WebQTest-1251_f6e8b7149f2e422640a49beb753be4ef": {
+    "question": "Which countries with a currency of Swiss Franc do people speak Germanic languages?",
+    "ranked_paths": [
+      [
+        "Swiss franc -> currency.countries_used -> Switzerland"
+      ],
+      [
+        "Swiss franc -> currency.countries_used -> Liechtenstein"
+      ],
+      [
+        "German Language -> country.languages_spoken -> Switzerland"
+      ],
+      [
+        "German Language -> human_language.countries_spoken_in -> Liechtenstein"
+      ]
+    ],
+    "predictions": "Liechtenstein\nSwitzerland"
+  },
+  "WebQTrn-2834_c2f4807a175372c3e75691b565d1936d": {
+    "question": "What major US religion has a notable figure named Athanasius of Alexandria?",
+    "ranked_paths": [
+      [
+        "Athanasius of Alexandria",
+        "->",
+        "religion.notable_figures",
+        "->",
+        "Christianity"
+      ],
+      [
+        "United States of America",
+        "->",
+        "statistical_region.religions",
+        "->",
+        "m.03q1lvq",
+        "->",
+        "religion_percentage.religion",
+        "->",
+        "Christianity"
+      ]
+    ],
+    "predictions": "Christianity"
+  },
+  "WebQTrn-3766_3e65e28b17506cb5116b2460467ea42f": {
+    "question": "What money is used in the Ancash Region?",
+    "ranked_paths": [
+      [
+        "Ancash Region",
+        "country.administrative_divisions",
+        "Peru",
+        "country.currency_used",
+        "Peruvian nuevo sol"
+      ]
+    ],
+    "predictions": "Peruvian nuevo sol"
+  },
+  "WebQTrn-60_58beabafc76cc44d5cb1ed5ca2799436": {
+    "question": "What European Union country's people speak Portuguese also once had an energy usage record of  per capita in KGOE 1022.464?",
+    "ranked_paths": [
+      [
+        "Portuguese Language",
+        "->",
+        "country.languages_spoken",
+        "->",
+        "Portugal"
+      ]
+    ],
+    "predictions": "Portugal"
+  },
+  "WebQTest-1923_53fa50559ec52976eb1f02fc6bd5ae76": {
+    "question": "What movie was Miley Cyrus in with a character named Theresa Russo?",
+    "ranked_paths": [
+      [
+        "Miley Cyrus",
+        "actor.film",
+        "m.010tw6z6",
+        "film.starring",
+        "Wizards on Deck with Hannah Montana"
+      ],
+      [
+        "g.121sxjvg",
+        "performance.character",
+        "m.010tvsqx",
+        "film.starring",
+        "Wizards on Deck with Hannah Montana"
+      ],
+      [
+        "Miley Cyrus",
+        "topic.notable_types",
+        "TV Episode",
+        "topic.notable_types",
+        "Wizards on Deck with Hannah Montana"
+      ],
+      [
+        "Miley Cyrus",
+        "person.languages",
+        "English Language",
+        "film.language",
+        "Wizards on Deck with Hannah Montana"
+      ],
+      [
+        "Miley Cyrus",
+        "person.nationality",
+        "United States of America",
+        "film.country",
+        "Wizards on Deck with Hannah Montana"
+      ]
+    ],
+    "predictions": "Wizards on Deck with Hannah Montana"
+  },
+  "WebQTest-493_91486f8ce518ad60645488b0b298ff11": {
+    "question": "What type of government is run in the area that is under the Heard and McDonals Islands Time Zone?",
+    "ranked_paths": [
+      [
+        "Heard and McDonald Islands Time Zone",
+        "location.time_zones",
+        "Australia",
+        "country.form_of_government",
+        "Parliamentary system"
+      ],
+      [
+        "Heard and McDonald Islands Time Zone",
+        "location.time_zones",
+        "Australia",
+        "country.form_of_government",
+        "Federal monarchy"
+      ]
+    ],
+    "predictions": "Parliamentary system\nFederal monarchy"
+  },
+  "WebQTest-837_6b1c0c0fb24a34937f450fdc16a3387b": {
+    "question": "In which year was the Super Bowl won by the sports team whose fight song was Seven Nation Army?",
+    "ranked_paths": [
+      [
+        "Seven Nation Army",
+        "sports_team.fight_song",
+        "Baltimore Ravens",
+        "sports_championship_event.champion",
+        "Super Bowl XLVII"
+      ],
+      [
+        "Seven Nation Army",
+        "sports_team.fight_song",
+        "Baltimore Ravens",
+        "sports_championship_event.champion",
+        "Super Bowl XXXV"
+      ],
+      [
+        "Super Bowl",
+        "recurring_event.instances",
+        "Super Bowl XLVII"
+      ],
+      [
+        "Super Bowl",
+        "sports_championship.events",
+        "Super Bowl XXXV"
+      ]
+    ],
+    "predictions": "Super Bowl XLVII\nSuper Bowl XXXV"
+  },
+  "WebQTrn-3084_ca8d129cc42cf94b681a91fb5ed94522": {
+    "question": "What country does Japan export to that contains the Phoenix Islands?",
+    "ranked_paths": [
+      [
+        "Japan -> statistical_region.places_exported_to -> m.04c6sl7 -> imports_and_exports.exported_to -> Kiribati"
+      ],
+      [
+        "Phoenix Islands -> location.contains -> Kiribati"
+      ],
+      [
+        "Japan -> statistical_region.places_imported_from -> m.04c6sj8 -> imports_and_exports.imported_from -> Kiribati"
+      ],
+      [
+        "Japan -> topic.notable_types -> Country -> topic.notable_types -> Kiribati"
+      ],
+      [
+        "Japan -> administrative_area.administrative_area_type -> Sovereign state -> administrative_area.administrative_area_type -> Kiribati"
+      ]
+    ],
+    "predictions": "Kiribati"
+  },
+  "WebQTest-576_8c6b952c6bd963f0ece4e401c9eb731a": {
+    "question": "Which of the 7 Central American Countries is in the Central Time Zone?",
+    "ranked_paths": [
+      [
+        "Central Time Zone",
+        "location.time_zones",
+        "Guatemala"
+      ],
+      [
+        "Central Time Zone",
+        "location.time_zones",
+        "Honduras"
+      ],
+      [
+        "Central America",
+        "location.contains",
+        "Honduras"
+      ],
+      [
+        "Central America",
+        "location.containedby",
+        "Guatemala"
+      ],
+      [
+        "Country",
+        "topic.notable_types",
+        "Honduras"
+      ]
+    ],
+    "predictions": "Honduras\nGuatemala"
+  },
+  "WebQTrn-493_471b83eade9707a4dba68e201bf29d73": {
+    "question": "Where in the Greenwich Mean Time Zone is Belgium located?",
+    "ranked_paths": [
+      [
+        "Greenwich Mean Time Zone",
+        "location.time_zones",
+        "Europe"
+      ],
+      [
+        "Belgium",
+        "continents.countries_within",
+        "Europe"
+      ]
+    ],
+    "predictions": "Europe"
+  },
+  "WebQTrn-3694_4089d6d7ba86121ff285b80865682a7c": {
+    "question": "Which system of money is utilized in the country that includes, Santiago de Cuba Province?",
+    "ranked_paths": [
+      [
+        "Santiago de Cuba Province",
+        "administrative_area.administrative_children",
+        "Cuba",
+        "currency.countries_used",
+        "Cuban peso"
+      ]
+    ],
+    "predictions": "Cuban peso\nCuban convertible peso"
+  },
+  "WebQTrn-372_1d9de30923c30fb46431b28e67c4b45c": {
+    "question": "What do the people who worship at places including Cathedrals call their god?",
+    "ranked_paths": [
+      [
+        "Cathedral",
+        "religion.types_of_places_of_worship",
+        "Catholicism",
+        "religion.deities",
+        "God"
+      ],
+      [
+        "Cathedral",
+        "religion.types_of_places_of_worship",
+        "Catholicism",
+        "deity.deity_of",
+        "The Father"
+      ],
+      [
+        "Cathedral",
+        "religion.types_of_places_of_worship",
+        "Catholicism",
+        "deity.deity_of",
+        "Jesus Christ"
+      ],
+      [
+        "Cathedral",
+        "religion.types_of_places_of_worship",
+        "Catholicism",
+        "deity.deity_of",
+        "Holy Spirit"
+      ]
+    ],
+    "predictions": "Holy Spirit\nJesus Christ\nThe Father\nGod"
+  },
+  "WebQTrn-3151_3ae7bbdbfe6f6d601941c3cf406229a7": {
+    "question": "People from the country that contains Corfu speak what language?",
+    "ranked_paths": [
+      [
+        "Corfu -> administrative_division.country -> Greece -> human_language.main_country -> Greek Language"
+      ],
+      [
+        "Corfu -> administrative_division.country -> Greece -> human_language.countries_spoken_in -> Albanian language"
+      ]
+    ],
+    "predictions": "Albanian language\nGreek Language"
+  },
+  "WebQTrn-412_8f39780bf44690321c49823643e6438d": {
+    "question": "South Holland is located in the nation where which languages are spoken?",
+    "ranked_paths": [
+      [
+        "South Holland",
+        "location.containedby",
+        "Kingdom of the Netherlands",
+        "country.official_language",
+        "Frisian languages"
+      ],
+      [
+        "South Holland",
+        "administrative_division.first_level_division_of",
+        "Netherlands",
+        "human_language.main_country",
+        "Frisian languages"
+      ]
+    ],
+    "predictions": "Frisian languages\nWest Flemish"
+  },
+  "WebQTrn-105_cf2c2ca737c00135df125459635a368a": {
+    "question": "The country that contains Al Sharqia Governorate's best for of currency in 2013 was what?",
+    "ranked_paths": [
+      [
+        "Al Sharqia Governorate",
+        "location.containedby",
+        "Egypt",
+        "currency.countries_used",
+        "Egyptian pound"
+      ]
+    ],
+    "predictions": "Egyptian pound"
+  },
+  "WebQTrn-2280_9e5afb3d15099a1354f9df60428e1f91": {
+    "question": "Where are the headquarters of the United Nations Security Council?",
+    "ranked_paths": [
+      [
+        "United Nations Security Council",
+        "organization.headquarters",
+        "m.0gx3r3d",
+        "mailing_address.citytown",
+        "New York City"
+      ]
+    ],
+    "predictions": "New York City"
+  },
+  "WebQTest-743_5a9d56a15bd5f8c951df7d967444f8ec": {
+    "question": "Who was JFK's brother and held a governmental position from 1961?",
+    "ranked_paths": [
+      [
+        "John F. Kennedy -> sibling_relationship.sibling -> m.03hs9fc -> sibling_relationship.sibling -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> political_appointer.appointees -> m.03hs9g8 -> politician.government_positions_held -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> family.members -> Kennedy family -> family.members -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> person.parents -> Joseph P. Kennedy, Sr. -> person.children -> Robert F. Kennedy"
+      ],
+      [
+        "John F. Kennedy -> person.parents -> Rose Kennedy -> person.children -> Robert F. Kennedy"
+      ]
+    ],
+    "predictions": "Robert F. Kennedy"
+  },
+  "WebQTrn-25_5bbab94cc6dc1cc59a76eb19aed3832f": {
+    "question": "What film has a character named Kate and Taylor Lautner played in?",
+    "ranked_paths": [
+      [
+        "Taylor Lautner",
+        "performance.actor",
+        "m.0djz10s",
+        "performance.film",
+        "The Twilight Saga: Breaking Dawn - Part 2"
+      ],
+      [
+        "g.11h1t_mtf",
+        "performance.character",
+        "m.0y60gfp",
+        "performance.film",
+        "The Twilight Saga: Breaking Dawn - Part 2"
+      ],
+      [
+        "g.11h1t_mtf",
+        "book.characters",
+        "Breaking Dawn",
+        "adapted_work.adaptations",
+        "The Twilight Saga: Breaking Dawn - Part 2"
+      ],
+      [
+        "Taylor Lautner",
+        "award_nominee.award_nominations",
+        "m.0r9hvx9",
+        "award_nominated_work.award_nominations",
+        "The Twilight Saga: Breaking Dawn - Part 2"
+      ],
+      [
+        "Taylor Lautner",
+        "award_nominee.award_nominations",
+        "m.0wjc4x6",
+        "award_nominated_work.award_nominations",
+        "The Twilight Saga: Breaking Dawn - Part 2"
+      ]
+    ],
+    "predictions": "The Twilight Saga: Breaking Dawn - Part 2"
+  }
+}
