@@ -6,8 +6,8 @@
 #   ./run_calculate_path_ppl.sh -i "no_middle_entity.jsonl" -o "path_ppl_scores.jsonl" -m "/path/to/model"
 
 # Default parameter values
-INPUT_FILE="/users/acr24wz/ETU/fppl/no_middle_entity.jsonl"
-OUTPUT_FILE="/users/acr24wz/ETU/fppl/path_ppl_scores.jsonl"
+INPUT_FILE="/mnt/parscratch/users/acr24wz/ETU/fppl/no_middle_entity.jsonl"
+OUTPUT_FILE="/mnt/parscratch/users/acr24wz/ETU/fppl/path_ppl_scores.jsonl"
 MODEL_DIR="$model/qwen2.5/7b_ori"
 
 # Parse command-line arguments
