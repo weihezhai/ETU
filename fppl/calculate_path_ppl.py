@@ -111,30 +111,40 @@ def format_path(path_list):
     return formatted
 
 
-def calculate_path_ppl_scores(input_file, output_file, model_dir=None):
+def calculate_path_ppl_scores(input_file, output_file, model_dir=None, prompt_format="path_then_question"):
     """
-    Calculate perplexity scores for path+question combinations in no_middle_entity.jsonl.
+    Calculate perplexity scores for path+question combinations in no_middle_entity.jsonl
+    using a specific prompt format.
     
     Args:
         input_file: Path to the no_middle_entity.jsonl file
         output_file: Path to save the output with perplexity scores
         model_dir: Directory containing the model (if exists)
+        prompt_format: Which prompt format to use for testing
     """
     # Load model and tokenizer
     model_name = "Qwen/Qwen2.5-7B"
     model, tokenizer = load_model_and_tokenizer(model_name, model_dir)
     
+    # Validate prompt format
+    valid_formats = ["path_then_question", "question_then_path", "integrated", "path_context", "explicit_reasoning"]
+    if prompt_format not in valid_formats:
+        print(f"Warning: Invalid prompt format '{prompt_format}'. Using 'path_then_question' instead.")
+        prompt_format = "path_then_question"
+    
+    print(f"Using prompt format: {prompt_format}")
+    
     # Count total lines for progress bar
     with open(input_file, "r", encoding="utf-8") as f:
         total_lines = sum(1 for _ in f)
     
-    # Statistics tracking
-    all_path_question_ppl = []
+    # Track statistics
+    all_ppl_scores = []
     
     with open(input_file, "r", encoding="utf-8") as f_in, \
          open(output_file, "w", encoding="utf-8") as f_out:
         
-        for line in tqdm(f_in, total=total_lines, desc="Calculating perplexity"):
+        for line in tqdm(f_in, total=total_lines, desc=f"Calculating perplexity ({prompt_format})"):
             entry = json.loads(line)
             question = entry["question"]
             
@@ -144,18 +154,29 @@ def calculate_path_ppl_scores(input_file, output_file, model_dir=None):
                 # Format path as a string with arrow notation
                 path_str = format_path(path_list)
                 
-                # Calculate perplexity for path + question
-                path_question_prompt = f"The_Path: {path_str}\nQuestion: {question}"
-                ppl_score = compute_perplexity(model, tokenizer, path_question_prompt)
+                # Create prompt based on specified format
+                if prompt_format == "path_then_question":
+                    prompt = f"The_Path: {path_str}\nQuestion: {question}"
+                elif prompt_format == "question_then_path":
+                    prompt = f"Question: {question}\nThe_Path: {path_str}"
+                elif prompt_format == "integrated":
+                    prompt = f"To answer the question '{question}', consider the reasoning path: {path_str}"
+                elif prompt_format == "path_context":
+                    prompt = f"Given the knowledge path {path_str}, answer this question: {question}"
+                elif prompt_format == "explicit_reasoning":
+                    prompt = f"The reasoning path {path_str} provides information to answer: {question}"
                 
-                # Track statistics
-                all_path_question_ppl.append(ppl_score)
+                # Calculate perplexity for the prompt
+                ppl_score = compute_perplexity(model, tokenizer, prompt)
+                all_ppl_scores.append(ppl_score)
                 
                 # Save path with its perplexity score
                 paths_with_ppl.append({
                     "path": path_list,
                     "path_str": path_str,
-                    "ppl_score": ppl_score
+                    "ppl_score": ppl_score,
+                    "prompt_format": prompt_format,
+                    "prompt": prompt
                 })
             
             # Sort paths by perplexity (ascending)
@@ -166,6 +187,7 @@ def calculate_path_ppl_scores(input_file, output_file, model_dir=None):
                 "id": entry["id"],
                 "question": question,
                 "prediction": entry["prediction"],
+                "prompt_format": prompt_format,
                 "paths": paths_with_ppl
             }
             
@@ -173,13 +195,13 @@ def calculate_path_ppl_scores(input_file, output_file, model_dir=None):
             f_out.write(json.dumps(output_entry, ensure_ascii=False) + "\n")
     
     # Calculate and display statistics
-    if all_path_question_ppl:
-        print("\nPerplexity Statistics for Path + Question:")
-        print(f"  Count: {len(all_path_question_ppl)}")
-        print(f"  Mean: {np.mean(all_path_question_ppl):.4f}")
-        print(f"  Std Dev: {np.std(all_path_question_ppl):.4f}")
-        print(f"  Min: {min(all_path_question_ppl):.4f}")
-        print(f"  Max: {max(all_path_question_ppl):.4f}")
+    if all_ppl_scores:
+        print(f"\nPerplexity Statistics for '{prompt_format}' format:")
+        print(f"  Count: {len(all_ppl_scores)}")
+        print(f"  Mean: {np.mean(all_ppl_scores):.4f}")
+        print(f"  Std Dev: {np.std(all_ppl_scores):.4f}")
+        print(f"  Min: {min(all_ppl_scores):.4f}")
+        print(f"  Max: {max(all_ppl_scores):.4f}")
 
 
 def main():
@@ -204,9 +226,21 @@ def main():
         default=None,
         help="Directory containing the pre-trained model (if exists)."
     )
+    parser.add_argument(
+        "--prompt_format",
+        type=str,
+        default="path_then_question",
+        choices=["path_then_question", "question_then_path", "integrated", "path_context", "explicit_reasoning"],
+        help="Format of prompt to use for path+question."
+    )
     args = parser.parse_args()
     
-    calculate_path_ppl_scores(args.input_file, args.output_file, args.model_dir)
+    calculate_path_ppl_scores(
+        args.input_file, 
+        args.output_file, 
+        args.model_dir,
+        args.prompt_format
+    )
 
 
 if __name__ == "__main__":

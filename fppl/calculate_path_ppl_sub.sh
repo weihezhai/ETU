@@ -7,8 +7,9 @@
 #SBATCH --mail-user=wzhai2@sheffield.ac.uk
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --job-name=path_ppl
-#SBATCH --output=./logs/path_ppl.%j.out
+#SBATCH --output=./logs/path_ppl_%A_%a.out
 #SBATCH --time=0-12:00:00
+#SBATCH --array=0-4
 
 # Load necessary modules
 module load Anaconda3/2024.02-1
@@ -20,5 +21,20 @@ source activate etu
 # Create logs directory if it doesn't exist
 mkdir -p ./logs
 
-# Run the path perplexity calculation script using the runner
-bash run_calculate_path_ppl.sh 
+# Define the prompt formats to test
+PROMPT_FORMATS=(
+  "path_then_question"
+  "question_then_path"
+  "integrated"
+  "path_context"
+  "explicit_reasoning"
+)
+
+# Get the current format based on array task ID
+CURRENT_FORMAT=${PROMPT_FORMATS[$SLURM_ARRAY_TASK_ID]}
+
+# Set output file based on format
+OUTPUT_FILE="/mnt/parscratch/users/acr24wz/ETU/fppl/path_ppl_scores_${CURRENT_FORMAT}.jsonl"
+
+# Run the path perplexity calculation script with the current format
+bash run_calculate_path_ppl.sh -f "$CURRENT_FORMAT" -o "$OUTPUT_FILE" 
