@@ -1,4 +1,6 @@
 import json
+import argparse
+from tqdm import tqdm
 
 def transform_paths(input_file, output_file):
     """
@@ -10,10 +12,15 @@ def transform_paths(input_file, output_file):
         input_file: Path to input JSONL with paths
         output_file: Path to write transformed JSONL
     """
+    # Count total lines for progress bar
+    with open(input_file, 'r', encoding='utf-8') as f:
+        total_lines = sum(1 for _ in f)
+    
     with open(input_file, 'r', encoding='utf-8') as f_in, \
          open(output_file, 'w', encoding='utf-8') as f_out:
         
-        for line in f_in:
+        # Add tqdm progress bar
+        for line in tqdm(f_in, total=total_lines, desc="Transforming paths"):
             entry = json.loads(line)
             transformed_paths = []
             
@@ -51,8 +58,32 @@ def transform_paths(input_file, output_file):
             json.dump(new_entry, f_out, ensure_ascii=False)
             f_out.write('\n')
 
+def main():
+    parser = argparse.ArgumentParser(
+        description="Transform paths by removing intermediate entities and duplicate relations."
+    )
+    parser.add_argument(
+        "--input_file",
+        type=str,
+        required=True,
+        help="Path to the input JSONL file with paths."
+    )
+    parser.add_argument(
+        "--output_file",
+        type=str,
+        required=True,
+        help="Path to the output transformed JSONL file."
+    )
+    parser.add_argument(
+        "--model_dir",
+        type=str,
+        default=None,
+        help="Placeholder for model directory (not used by this script)."
+    )
+    args = parser.parse_args()
+    
+    transform_paths(args.input_file, args.output_file)
+    print(f"Transformed paths written to {args.output_file}")
+
 if __name__ == "__main__":
-    input_file = "/data/home/mpx602/projects/ETU/ETU/fppl/all_paths.jsonl"  # Update with your input file path
-    output_file = "/data/home/mpx602/projects/ETU/ETU/fppl/no_middle_entity.jsonl"  # Update with your desired output path
-    transform_paths(input_file, output_file)
-    print(f"Transformed paths written to {output_file}")
+    main()
