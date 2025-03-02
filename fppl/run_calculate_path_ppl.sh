@@ -29,7 +29,7 @@ echo "  Output File:              $OUTPUT_FILE"
 echo "  Model Directory:          $MODEL_DIR"
 
 # Run the script with the provided parameters
-python calculate_path_ppl.py \
+python remove_middle_entity.py \
     --input_file "$INPUT_FILE" \
     --output_file "$OUTPUT_FILE" \
     --model_dir "$MODEL_DIR" 
