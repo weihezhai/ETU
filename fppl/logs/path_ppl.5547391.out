@@ -1,0 +1,5 @@
+Launching path perplexity calculation with the following parameters:
+  Input File:               /mnt/parscratch/users/acr24wz/ETU/fppl/no_middle_entity.jsonl
+  Output File:              /mnt/parscratch/users/acr24wz/ETU/fppl/path_ppl_scores.jsonl
+  Model Directory:          /mnt/parscratch/users/acr24wz/etu//qwen2.5/7b_ori
+python: can't open file '/mnt/parscratch/users/acr24wz/ETU/fppl/calculate_path_ppl.py': [Errno 2] No such file or directory
