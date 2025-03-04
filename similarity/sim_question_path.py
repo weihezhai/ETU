@@ -90,37 +90,27 @@ def get_embedding(model, tokenizer, text):
     
     return embedding
 
-def compute_similarity(model, tokenizer, question, path_str):
+def compute_similarity(model, tokenizer, question, prompt):
     """
-    Computes the cosine similarity between question and path_str.
-    Removes the last node from the path string before calculating similarity.
+    Computes the cosine similarity between question and prompt.
     
     Args:
         model: The embedding model
         tokenizer: The tokenizer for the model
         question: Question text
-        path_str: Path string
+        prompt: Prompt text
     
     Returns:
         float: Cosine similarity score
     """
-    # Remove the last node from the path
-    path_parts = path_str.split(" -> ")
-    if len(path_parts) > 1:
-        # Keep all nodes except the last one
-        shortened_path = " -> ".join(path_parts[:-1])
-    else:
-        # If there's only one node, keep it as is
-        shortened_path = path_str
-    
     # Get embeddings
     question_embedding = get_embedding(model, tokenizer, question)
-    path_embedding = get_embedding(model, tokenizer, shortened_path)
+    prompt_embedding = get_embedding(model, tokenizer, prompt)
     
     # Compute cosine similarity
-    similarity = cosine_similarity(question_embedding, path_embedding)[0][0]
+    similarity = cosine_similarity(question_embedding, prompt_embedding)[0][0]
     
-    return similarity, shortened_path
+    return similarity
 
 def calculate_similarity_scores(input_file, output_file, model_dir=None):
     """
@@ -150,15 +140,14 @@ def calculate_similarity_scores(input_file, output_file, model_dir=None):
             question = entry["question"]
             
             for path_entry in entry["paths"]:
-                path_str = path_entry["path_str"]
+                prompt = path_entry["prompt"]
                 
-                # Calculate similarity score with shortened path
-                similarity_score, shortened_path = compute_similarity(model, tokenizer, question, path_str)
+                # Calculate similarity score with prompt
+                similarity_score = compute_similarity(model, tokenizer, question, prompt)
                 all_similarity_scores.append(similarity_score)
                 
-                # Add similarity score and shortened path to path entry
+                # Add similarity score to path entry
                 path_entry["similarity_score"] = float(similarity_score)
-                path_entry["shortened_path"] = shortened_path
             
             # Write to output file
             f_out.write(json.dumps(entry, ensure_ascii=False) + "\n")

@@ -6,9 +6,6 @@
 #   ./run_calculate_path_similarity.sh -i "path_ppl_scores.jsonl" -o "path_similarity_scores.jsonl" -m "/path/to/model"
 
 # Default parameter values
-INPUT_FILE="/mnt/parscratch/users/acr24wz/ETU/fppl/path_ppl_scores_explicit_reasoning.jsonl"
-OUTPUT_FILE="/mnt/parscratch/users/acr24wz/ETU/similarity/path_similarity_scores.jsonl"
-MODEL_DIR="/mnt/parscratch/users/acr24wz/etu/qwen2.5/gte_qwen2_7b_instruct"
 
 # Parse command-line arguments
 while getopts "i:o:m:" opt; do
