@@ -32,7 +32,7 @@ INPUT_FILES=(
 )
 
 # Default model directory
-MODEL_DIR="/mnt/parscratch/users/acr24wz/etu/qwen2.5/alibaba_nlp_gte_qwen2_7b_instruct"
+MODEL_DIR="/mnt/parscratch/users/acr24wz/etu/qwen2.5/gte_qwen2_7b_instruct"
 
 # Get the current input file based on array task ID
 CURRENT_INPUT=${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}
