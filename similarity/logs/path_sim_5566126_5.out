@@ -1,0 +1,20 @@
+Processing file 6 of 6: /mnt/parscratch/users/acr24wz/ETU/fppl/all_ppl_path_with_gt_only_relation/path_ppl_scores.jsonl
+Output will be saved to: /mnt/parscratch/users/acr24wz/ETU/similarity/results/path_ppl_scores_with_sim.jsonl
+Model directory: /mnt/parscratch/users/acr24wz/etu/qwen2.5/gte_qwen2_7b_instruct
+Launching path similarity calculation with the following parameters:
+  Input File:               /mnt/parscratch/users/acr24wz/ETU/fppl/all_ppl_path_with_gt_only_relation/path_ppl_scores.jsonl
+  Output File:              /mnt/parscratch/users/acr24wz/ETU/similarity/results/path_ppl_scores_with_sim.jsonl
+  Model Directory:          /mnt/parscratch/users/acr24wz/etu/qwen2.5/gte_qwen2_7b_instruct
+Sliding Window Attention is enabled but not implemented for `sdpa`; unexpected results may be encountered.
+Loading model from local directory: /mnt/parscratch/users/acr24wz/etu/qwen2.5/gte_qwen2_7b_instruct
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:03<00:07,  3.84s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:07<00:03,  3.81s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:09<00:00,  3.06s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:09<00:00,  3.26s/it]
+Calculating similarity scores:   0%|          | 0/3317 [00:00<?, ?it/s]Calculating similarity scores:   0%|          | 0/3317 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/mnt/parscratch/users/acr24wz/ETU/similarity/sim_question_path.py", line 195, in <module>
+    main()
+  File "/mnt/parscratch/users/acr24wz/ETU/similarity/sim_question_path.py", line 188, in main
+    calculate_similarity_scores(
+  File "/mnt/parscratch/users/acr24wz/ETU/similarity/sim_question_path.py", line 143, in calculate_similarity_scores
+    prompt = path_entry["prompt"]
+             ~~~~~~~~~~^^^^^^^^^^
+KeyError: 'prompt'
