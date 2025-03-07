@@ -9,7 +9,7 @@
 #SBATCH --job-name=kg_zero_shot
 #SBATCH --output=./logs/kg_zero_shot_%A_%a.out
 #SBATCH --time=0-12:00:00
-#SBATCH --array=0-1
+## SBATCH --array=0-1
 
 # Load necessary modules
 module load Anaconda3/2024.02-1
@@ -24,13 +24,13 @@ mkdir -p ./logs
 
 # Define array of models to test (HF model name and local cache path)
 MODEL_SOURCES=(
-  "Qwen/Qwen2.5-7B-Instruct" 
+  # "Qwen/Qwen2.5-7B-Instruct" 
   "meta-llama/Llama-3.1-8B-Instruct"
 )
 
 MODEL_CACHE_DIRS=(
-  "/mnt/parscratch/users/acr24wz/etu/qwen2.5/7b_ori" 
-  "/mnt/parscratch/users/acr24wz/etu/llama3/llama-3.1-8b-instruct"
+  # "/mnt/parscratch/users/acr24wz/etu/qwen2.5/7b_ori" 
+  "/mnt/parscratch/users/acr24wz/etu/llama3/"
 )
 
 # Default parameters that can be overridden
