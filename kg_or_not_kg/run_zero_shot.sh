@@ -17,7 +17,7 @@ declare -a MODEL_SOURCES=(
 )
 
 declare -a MODEL_CACHE_DIRS=(
-  "/mnt/parscratch/users/acr24wz/etu/qwen2.5/gte_qwen2_7b_instruct" 
+  "/mnt/parscratch/users/acr24wz/etu/qwen2.5/7b_ori" 
   "/mnt/parscratch/users/acr24wz/etu/llama3/llama-3.1-8b-instruct"
 )
 

@@ -71,10 +71,10 @@ def calculate_perplexity(model, tokenizer, text, device):
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Zero-shot evaluation on knowledge graph QA tasks")
-    model_group = parser.add_mutually_exclusive_group(required=True)
-    model_group.add_argument("--model_name", type=str, default=None, 
+    # Remove the mutually exclusive group to allow both arguments to be provided
+    parser.add_argument("--model_name", type=str, default=None, 
                         help="Model name from Hugging Face Hub to use for evaluation")
-    model_group.add_argument("--model_path", type=str, default=None,
+    parser.add_argument("--model_path", type=str, default=None,
                         help="Path to local model directory to use for evaluation")
     
     parser.add_argument("--output_file", type=str, default="rog_cwq_results.json", 
@@ -94,7 +94,13 @@ def parse_args():
                         help="Top-p (nucleus) sampling parameter")
     parser.add_argument("--batch_size", type=int, default=1, 
                         help="Batch size for processing (currently only batch_size=1 is supported)")
-    return parser.parse_args()
+    
+    args = parser.parse_args()
+    # Check that at least one of model_name or model_path is provided
+    if args.model_name is None and args.model_path is None:
+        parser.error("At least one of --model_name or --model_path must be specified")
+    
+    return args
 
 def get_gold_answers(example):
     """
