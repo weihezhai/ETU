@@ -4,19 +4,31 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem=82G
 #SBATCH --cpus-per-task=12
+#SBATCH --mail-user=wzhai2@sheffield.ac.uk
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --job-name=kg_zero_shot
 #SBATCH --output=./logs/kg_zero_shot_%A_%a.out
 #SBATCH --time=0-12:00:00
 #SBATCH --array=0-1
 
+# Load necessary modules
+module load Anaconda3/2024.02-1
+module load cuDNN/8.9.2.26-CUDA-12.1.1
+
+# Activate your conda environment
+source activate etu
+
+# Create logs directory if it doesn't exist
+mkdir -p ./logs
+
+
 # Define array of models to test (HF model name and local cache path)
-declare -a MODEL_SOURCES=(
+MODEL_SOURCES=(
   "Qwen/Qwen2.5-7B-Instruct" 
   "meta-llama/Llama-3.1-8B-Instruct"
 )
 
-declare -a MODEL_CACHE_DIRS=(
+MODEL_CACHE_DIRS=(
   "/mnt/parscratch/users/acr24wz/etu/qwen2.5/7b_ori" 
   "/mnt/parscratch/users/acr24wz/etu/llama3/llama-3.1-8b-instruct"
 )
@@ -71,24 +83,12 @@ while [[ $# -gt 0 ]]; do
       BATCH_SIZE="$2"
       shift 2
       ;;
-    --mail_user)
-      # Update the SBATCH mail-user setting
-      sed -i "s/^#SBATCH --mail-user=.*/#SBATCH --mail-user=$2/" $0
-      shift 2
-      ;;
     *)
       echo "Unknown option: $1"
       exit 1
       ;;
   esac
 done
-
-# Load necessary modules (adjust as needed for your environment)
-module load Anaconda3/2024.02-1
-module load cuDNN/8.9.2.26-CUDA-12.1.1
-
-# Activate your conda environment
-source activate etu
 
 # Get the current array task ID
 TASK_ID=${SLURM_ARRAY_TASK_ID}
