@@ -56,11 +56,22 @@ def load_model_and_tokenizer(model_name, model_dir=None):
             model.save_pretrained(model_dir)
             tokenizer.save_pretrained(model_dir)
     
+    # Ensure the tokenizer has proper padding settings
+    if tokenizer.pad_token is None:
+        # If no pad token, set it to eos_token
+        if tokenizer.eos_token is not None:
+            tokenizer.pad_token = tokenizer.eos_token
+            logger.info(f"Set pad_token to eos_token: {tokenizer.eos_token}")
+        else:
+            # If no eos token either, set a default
+            tokenizer.pad_token = tokenizer.eos_token = "</s>"
+            logger.info("Set pad_token and eos_token to default '</s>'")
+    
     return model, tokenizer
 
 def calculate_perplexity(model, tokenizer, text, device):
     """Calculate the perplexity of a text using the model."""
-    inputs = tokenizer(text, return_tensors="pt").to(device)
+    inputs = tokenizer(text, return_tensors="pt", padding=True).to(device)
     with torch.no_grad():
         outputs = model(**inputs, labels=inputs["input_ids"])
     
@@ -203,15 +214,17 @@ def main():
         ppl = calculate_perplexity(model, tokenizer, prompt, device)
         
         # Generate answer
-        inputs = tokenizer(prompt, return_tensors="pt").to(device)
+        inputs = tokenizer(prompt, return_tensors="pt", padding=True).to(device)
         with torch.no_grad():
             output_tokens = model.generate(
                 inputs["input_ids"],
+                attention_mask=inputs["attention_mask"],
                 max_new_tokens=args.max_new_tokens,
                 do_sample=True,
                 temperature=args.temperature,
                 top_p=args.top_p,
                 num_return_sequences=1,
+                pad_token_id=tokenizer.pad_token_id
             )
         
         generated_text = tokenizer.decode(output_tokens[0], skip_special_tokens=True)

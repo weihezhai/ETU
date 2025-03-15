@@ -1,0 +1,11 @@
+PATH FILTERING ANALYSIS RESULTS
+========================================
+Total questions: 3317
+Total paths (original): 58514
+Total paths (filtered): 22418
+Average paths per question (original): 17.64
+Average paths per question (filtered): 6.76
+Reduction percentage: 61.69%
+Questions with NO paths selected: 427 (12.87%)
+Questions with ALL paths retained: 889 (26.80%)
+Questions with SOME paths filtered: 2001 (60.33%)
