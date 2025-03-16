@@ -7,7 +7,8 @@ import re
 
 
 def extract_answer(response):
-    pattern = r'\[(.*?)\]'
+    """Extract answers from the [ANS][/ANS] tags in the response"""
+    pattern = r'\[ANS\](.*?)\[/ANS\]'
     matches = re.findall(pattern, response, re.DOTALL)
     
     if matches:
