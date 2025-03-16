@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #SBATCH --partition=gpu
 #SBATCH --qos=gpu
 #SBATCH --gres=gpu:1
@@ -31,16 +30,16 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Create a directory for results
-mkdir -p /data/home/mpx602/projects/ETU/ETU/similarity/topsim/evaluation_results
+mkdir -p /mnt/parscratch/users/acr24wz/ETU/similarity/topsim/evaluation_results
 
 # Get all prompt files
-FILES=($(ls /data/home/mpx602/projects/ETU/ETU/similarity/topsim/topk_paths_prompts/top*_sim_filtered_paths_with_prompts.jsonl))
+FILES=($(ls /mnt/parscratch/users/acr24wz/ETU/similarity/topsim/topk_paths_prompts/top*_sim_filtered_paths_with_prompts.jsonl))
 
 # Get the specific file for this array task
 file=${FILES[$SLURM_ARRAY_TASK_ID]}
 filename=$(basename "$file")
 base_filename="${filename%_with_prompts.jsonl}"
-output="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/evaluation_results/${base_filename}_llm_results.json"
+output="/mnt/parscratch/users/acr24wz/ETU/similarity/topsim/evaluation_results/${base_filename}_llm_results.json"
 
 echo -e "${BLUE}Task ID: $SLURM_ARRAY_TASK_ID - Evaluating $filename...${NC}"
 
@@ -48,7 +47,7 @@ echo -e "${BLUE}Task ID: $SLURM_ARRAY_TASK_ID - Evaluating $filename...${NC}"
 # MAX_SAMPLES="--max-samples 10"
 MAX_SAMPLES=""
 
-python /data/home/mpx602/projects/ETU/ETU/similarity/topsim/test_prompts_with_llm.py \
+python /mnt/parscratch/users/acr24wz/ETU/similarity/llm/test_prompts_with_llm.py \
   --model "$MODEL_PATH" \
   --input "$file" \
   --output "$output" \
