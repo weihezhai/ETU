@@ -35,10 +35,17 @@ def test_prompts_with_llm(model_path, input_file, output_file, batch_size=1, max
     """
     print(f"Loading model and tokenizer from {model_path}...")
     tokenizer = AutoTokenizer.from_pretrained(model_path)
+    
+    # Set pad_token to eos_token if it doesn't exist
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+        print(f"Set pad_token_id to eos_token_id: {tokenizer.pad_token_id}")
+    
     model = AutoModelForCausalLM.from_pretrained(
         model_path, 
         device_map="auto",
-        torch_dtype="auto"
+        torch_dtype="auto",
+        pad_token_id=tokenizer.pad_token_id  # Explicitly pass pad_token_id
     )
     
     # Read input data
@@ -62,16 +69,18 @@ def test_prompts_with_llm(model_path, input_file, output_file, batch_size=1, max
             question = sample.get('question', '')
             prompt = sample.get('prompt', '')
             
-            # Generate response from the model
-            inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+            # Generate response from the model - now with attention_mask
+            inputs = tokenizer(prompt, return_tensors="pt", padding=True).to(model.device)
             
             with torch.no_grad():
                 outputs = model.generate(
-                    inputs.input_ids,
+                    input_ids=inputs.input_ids,
+                    attention_mask=inputs.attention_mask,  # Pass attention_mask explicitly
                     max_new_tokens=256,
                     temperature=0.7,
                     top_p=0.9,
-                    do_sample=True
+                    do_sample=True,
+                    pad_token_id=tokenizer.pad_token_id  # Explicitly set pad_token_id
                 )
             
             # Decode the response
@@ -110,9 +119,6 @@ def main():
     # Create output directory if it doesn't exist
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
-    # Import torch here to avoid importing it if the script is not run
-    import torch
     
     test_prompts_with_llm(
         args.model,
