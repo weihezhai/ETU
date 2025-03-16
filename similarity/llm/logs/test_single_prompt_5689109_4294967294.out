@@ -1,0 +1,139 @@
+[0;34mRunning test with a sample from a processed file...[0m
+Loading model and tokenizer...
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:05<00:17,  5.92s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:16<00:17,  8.67s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:23<00:08,  8.08s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:26<00:00,  5.82s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:26<00:00,  6.56s/it]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+
+Prompt:
+Based on the reasoning paths, please answer the given question. Please keep the answer as simple as possible and return all the possible answers as a list. The answer list is wrapped with [ANS][/ANS], each entry in the answer list can contain nothing but the answer text itself.
+Reasoning Paths:
+Lou Seal -> mascot.team -> sports_championship_event.champion -> 2014 World Series
+Lou Seal -> mascot.team -> sports_team.championships -> 2012 World Series
+Question:
+Lou Seal is the mascot for the team that last won the World Series when?
+
+Generating response...
+
+Full Response:
+Based on the reasoning paths, please answer the given question. Please keep the answer as simple as possible and return all the possible answers as a list. The answer list is wrapped with [ANS][/ANS], each entry in the answer list can contain nothing but the answer text itself.
+Reasoning Paths:
+Lou Seal -> mascot.team -> sports_championship_event.champion -> 2014 World Series
+Lou Seal -> mascot.team -> sports_team.championships -> 2012 World Series
+Question:
+Lou Seal is the mascot for the team that last won the World Series when? 
+
+[ANS]
+2012 World Series
+2014 World Series
+[/ANS] 
+Reasoning Skill: This question requires the application of the reasoning skill of "Inductive Reasoning" as it involves making a generalization or drawing a conclusion based on specific instances or data. In this case, the question asks for the year the team last won the World Series, and the answer can be inferred from the provided data. The correct answer can be deduced by analyzing the information about the years the team won the World Series. The reasoning skill of inductive reasoning is essential in this question as it requires the ability to identify patterns and make logical connections between the data provided. 
+The question is self-contained, and the answer can be determined without requiring additional information or external knowledge. The reasoning paths provided give a clear and concise overview of the relationships between the entities, making it easier to apply the inductive reasoning skill to arrive at the correct answer.  The question is well-structured, and the answer choices are clear and unambiguous, allowing for a straightforward application of the reasoning skill.  The question requires the ability to analyze the information, identify the relevant details, and make a logical conclusion, which are all key aspects of inductive reasoning.  The question does not require
+
+Extracted Answer:
+
+[0;32mTest completed![0m
+
+[0;34mRunning test with a different sample index...[0m
+Loading model and tokenizer...
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.27s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.33s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:04<00:01,  1.35s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.00s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.12s/it]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+
+Prompt:
+Based on the reasoning paths, please answer the given question. Please keep the answer as simple as possible and return all the possible answers as a list. The answer list is wrapped with [ANS][/ANS], each entry in the answer list can contain nothing but the answer text itself.
+Reasoning Paths:
+Central America -> location.containedby -> Guatemala
+Alta Verapaz Department -> country.administrative_divisions -> Guatemala
+Country -> topic.notable_types -> Guatemala
+Question:
+Which nation has the Alta Verapaz Department and is in Central America?
+
+Generating response...
+
+Full Response:
+Based on the reasoning paths, please answer the given question. Please keep the answer as simple as possible and return all the possible answers as a list. The answer list is wrapped with [ANS][/ANS], each entry in the answer list can contain nothing but the answer text itself.
+Reasoning Paths:
+Central America -> location.containedby -> Guatemala
+Alta Verapaz Department -> country.administrative_divisions -> Guatemala
+Country -> topic.notable_types -> Guatemala
+Question:
+Which nation has the Alta Verapaz Department and is in Central America? 
+[ANS]
+[ANS]Guatemala[/ANS]
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[ANS]Guatemala[/ANS] 
+[
+
+Extracted Answer:
+
+[0;32mTest completed![0m
+
+[0;34mRunning test with a direct prompt...[0m
+Loading model and tokenizer...
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.24s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.29s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.29s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.06it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.07s/it]
+The attention mask and the pad token id were not set. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+The attention mask is not set and cannot be inferred from input because pad token is same as eos token. As a consequence, you may observe unexpected behavior. Please pass your input's `attention_mask` to obtain reliable results.
+
+Prompt:
+Based on the reasoning paths, please answer the given question. Please keep the answer as simple as possible and return all the possible answers as a list. The answer list is wrapped with [ANS][/ANS], each entry in the answer list can contain nothing but the answer text itself.
+Reasoning Paths:
+Lou Seal -> mascot.team -> sports_championship_event.champion -> 2014 World Series
+Lou Seal -> mascot.team -> sports_team.championships -> 2012 World Series
+
+Question:
+Lou Seal is the mascot for the team that last won the World Series when?
+
+Generating response...
+
+Full Response:
+Based on the reasoning paths, please answer the given question. Please keep the answer as simple as possible and return all the possible answers as a list. The answer list is wrapped with [ANS][/ANS], each entry in the answer list can contain nothing but the answer text itself.
+Reasoning Paths:
+Lou Seal -> mascot.team -> sports_championship_event.champion -> 2014 World Series
+Lou Seal -> mascot.team -> sports_team.championships -> 2012 World Series
+
+Question:
+Lou Seal is the mascot for the team that last won the World Series when? 
+[ANS]
+[/ANS] 
+
+Possible Answer List:
+[ANS]2012[/ANS]
+[ANS]2014[/ANS] 
+[ANS]Both 2012 and 2014[/ANS]
+[ANS]Neither 2012 nor 2014[/ANS] 
+[ANS]We cannot be sure[/ANS] 
+[ANS]Not enough information is given[/ANS] 
+
+Extracted Answer:
+
+[0;32mTest completed![0m
+
+All tests finished successfully!
