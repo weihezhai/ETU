@@ -16,13 +16,12 @@ def generate_prompt(question, filtered_paths):
     
     # Create the prompt according to the specified format
     prompt = (
-        "Based on the reasoning paths, please answer the given question. "
-        "Your answer should be concise and to the point. "
-        "Place your answers in [ANS][/ANS] tags. "
+        "Based on your knowledge or the supportive reasoning paths, please answer the given question. "
+        "Place all of your answers between the [ANS][/ANS] tags. "
+        "Your answer should only contain the answers to the question. "
         "\nReasoning Paths:\n" + path_str + 
         "\nQuestion:\n" + question
     )
-    
     return prompt
 
 def process_file(input_file, output_file):
