@@ -10,13 +10,16 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 def extract_answer(response):
     """Extract answers from the [ANS][/ANS] tags in the response"""
     pattern = r'\[ANS\](.*?)\[/ANS\]'
-    match = re.search(pattern, response, re.DOTALL)
+    matches = re.findall(pattern, response, re.DOTALL)
     
-    if match:
-        return match.group(1).strip()
-    else:
-        # If no tags found, return the full response
-        return response.strip()
+    if matches:
+        # Join multiple answers if found, filtering out empty ones
+        answers = [match.strip() for match in matches if match.strip()]
+        if answers:
+            return '\n'.join(answers)
+    
+    # If no valid tags found, return the full response
+    return response.strip()
 
 def test_prompts_with_llm(model_path, input_file, output_file, batch_size=1, max_samples=None):
     """
