@@ -18,7 +18,7 @@ def generate_prompt(question, filtered_paths):
     prompt = (
         "Based on the reasoning paths, please answer the given question. "
         "Please keep the answer as simple as possible and return all the possible answers as a list. "
-        "The answer list is wrapped with [ANS][/ANS], each entry in the answer list can contain nothing but the answer text itself."
+        "The answer list [] is wrapped with [ANS][/ANS] and answers are seperated by commas, each entry in the answer list can contain nothing but the answer text itself."
         "\nReasoning Paths:\n" + path_str + 
         "\nQuestion:\n" + question
     )
