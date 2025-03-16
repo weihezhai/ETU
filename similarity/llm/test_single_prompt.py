@@ -5,9 +5,9 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import re
 
+
 def extract_answer(response):
-    """Extract answers from the [ANS][/ANS] tags in the response"""
-    pattern = r'\[ANS\](.*?)\[/ANS\]'
+    pattern = r'\[(.*?)\]'
     matches = re.findall(pattern, response, re.DOTALL)
     
     if matches:
