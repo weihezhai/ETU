@@ -16,9 +16,11 @@ def generate_prompt(question, filtered_paths):
     
     # Create the prompt according to the specified format
     prompt = (
-        "Based on your knowledge or the supportive reasoning paths, please answer the given question. "
-        "Place all of your answers between the [ANS][/ANS] tags. "
-        "Your answer should only contain the answers to the question. "
+        # "Based on your knowledge or the flawed supportive reasoning paths, please answer the given question. "
+        # "Place your answers between the [ANS][/ANS] tags. "
+        # "Your answers should only contain the answers to the question. "
+        # "If you cannot find the answer, please say 'I don't know'. "
+        "Based on the reasoning paths, please answer the given question. Please keep the answer as simple as possible and return all the possible answers as a list."
         "\nReasoning Paths:\n" + path_str + 
         "\nQuestion:\n" + question
     )

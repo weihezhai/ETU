@@ -41,7 +41,7 @@ def test_single_prompt(model_path, prompt):
         outputs = model.generate(
             inputs.input_ids,
             max_new_tokens=256,
-            temperature=0.7,
+            temperature=0.5,
             top_p=0.9,
             do_sample=True
         )
