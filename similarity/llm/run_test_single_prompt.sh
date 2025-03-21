@@ -60,13 +60,15 @@ echo ""
 echo -e "${BLUE}Running test with a direct prompt...${NC}"
 
 # Custom prompt
-PROMPT="Based on the reasoning paths, please answer the given question. Please keep the answer as simple as possible and return all the possible answers as a list. The answer list is wrapped with [ANS][/ANS], each entry in the answer list can contain nothing but the answer text itself.
-Reasoning Paths:
-Lou Seal -> mascot.team -> sports_championship_event.champion -> 2014 World Series
-Lou Seal -> mascot.team -> sports_team.championships -> 2012 World Series
-
+PROMPT="Based on your knowledge or the flawed supportive reasoning paths, please answer the given question. 
+Place your answers between the [ANS][/ANS] tags. 
+Your answers should only contain the answers to the question. 
+If you cannot find the answer, please say 'I don't know'. 
+Supportive Paths:
+New York University -> organization.founders -> Mordecai Manuel Noah
 Question:
-Lou Seal is the mascot for the team that last won the World Series when?"
+What founder of New York University had a position in the 4th United States Congress?
+Answer:"
 
 python /mnt/parscratch/users/acr24wz/ETU/similarity/llm/test_single_prompt.py \
   --model "$MODEL_PATH" \

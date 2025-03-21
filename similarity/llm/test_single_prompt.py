@@ -40,9 +40,10 @@ def test_single_prompt(model_path, prompt):
     with torch.no_grad():
         outputs = model.generate(
             inputs.input_ids,
-            max_new_tokens=256,
-            temperature=0.5,
+            max_new_tokens=512,
+            temperature=0.2,
             top_p=0.9,
+            repetition_penalty=1.2,
             do_sample=True
         )
     

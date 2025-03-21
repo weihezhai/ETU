@@ -30,7 +30,7 @@ def test_prompts_with_llm(model_path, input_file, output_file, batch_size=1, max
         model_path, 
         device_map="auto",
         torch_dtype="auto",
-        pad_token_id=tokenizer.pad_token_id  # Explicitly pass pad_token_id
+        pad_token_id=tokenizer.pad_token_id,  # Explicitly pass pad_token_id
         use_safetensors=True
     )
     

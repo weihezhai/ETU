@@ -53,7 +53,7 @@ A JSON object mapping question IDs to lists of sorted relations:
 
 ## Output Format
 
-The output is a JSONL file with the same structure as the source file, but with an additional field `filtered_path_by_relation_similarity` containing only paths that include one of the top k relations.
+The output is a JSONL file with the same structure as the source file, but with an additional field `filtered_path_by_relation_similarity` containing only paths that include one of the top k relations. If no paths match the top k relations, the original paths are used instead. This ensures that `filtered_path_by_relation_similarity` is never empty.
 
 ```json
 {
@@ -75,4 +75,4 @@ python filter_paths_by_relation.py \
   --k 20
 ```
 
-This will use the top 20 relations from sorted_relation.json to filter paths in no_middle_entity.jsonl and save the results to filtered_paths.jsonl. 
+This will use the top 20 relations from sorted_relation.json to filter paths in no_middle_entity.jsonl and save the results to filtered_paths.jsonl.

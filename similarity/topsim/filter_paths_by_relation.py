@@ -64,12 +64,16 @@ def filter_paths_by_top_relations(source_file, sorted_relations_file, output_fil
             
             # Add filtered paths to the result
             item_copy = item.copy()
-            item_copy['filtered_path_by_relation_similarity'] = filtered_paths
+            # If filtered paths is empty, use the original paths instead
+            if not filtered_paths:
+                item_copy['filtered_path_by_relation_similarity'] = item['paths']
+            else:
+                item_copy['filtered_path_by_relation_similarity'] = filtered_paths
             results.append(item_copy)
         else:
-            # If no top relations found, keep the item unchanged with empty filtered paths
+            # If no top relations found, use the original paths
             item_copy = item.copy()
-            item_copy['filtered_path_by_relation_similarity'] = []
+            item_copy['filtered_path_by_relation_similarity'] = item['paths']
             results.append(item_copy)
     
     # Write results to output file
@@ -88,4 +92,4 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    filter_paths_by_top_relations(args.source, args.relations, args.output, args.k) 
+    filter_paths_by_top_relations(args.source, args.relations, args.output, args.k)

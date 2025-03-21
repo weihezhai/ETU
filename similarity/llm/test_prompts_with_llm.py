@@ -89,8 +89,9 @@ def test_prompts_with_llm(model_path, input_file, output_file, batch_size=1, max
                         input_ids=inputs.input_ids,
                         attention_mask=inputs.attention_mask,
                         max_new_tokens=512,
-                        temperature=0.4,
+                        temperature=0.2,
                         top_p=0.9,
+                        repetition_penalty=1.2,
                         do_sample=True,
                         pad_token_id=tokenizer.pad_token_id
                     )

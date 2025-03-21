@@ -11,7 +11,7 @@ def test_single_prompt(model_path, prompt):
     model = AutoModelForCausalLM.from_pretrained(
         model_path, 
         device_map="auto",
-        torch_dtype="auto"
+        torch_dtype="auto",
         use_safetensors=True
     )
     

@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+import argparse
+import json
+import torch
+from transformers import AutoModelForCausalLM, LlamaTokenizer
+
+def test_single_prompt(model_path, prompt):
+    """Test a single prompt with the Llama model and print the result"""
+    print("Loading model and tokenizer...")
+    tokenizer = LlamaTokenizer.from_pretrained(model_path)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_path, 
+        device_map="auto",
+        torch_dtype="auto",
+        use_safetensors=True
+    )
+    
+    print("\nPrompt:")
+    print(prompt)
+    
+    # Generate response from the model
+    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    
+    print("\nGenerating response...")
+    with torch.no_grad():
+        outputs = model.generate(
+            inputs.input_ids,
+            max_new_tokens=512,
+            temperature=0.2,
+            top_p=0.9,
+            do_sample=True,
+            repetition_penalty=1.2,
+            eos_token_id=tokenizer.eos_token_id
+        )
+    
+    # Decode the response
+    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    
+    print("\nResponse:")
+    print(response)
+
+def main():
+    parser = argparse.ArgumentParser(description='Test a single prompt with Llama model')
+    parser.add_argument('--model', type=str, required=True, help='Path to the local model')
+    parser.add_argument('--input-file', type=str, help='Path to a JSON file containing a sample with a prompt')
+    parser.add_argument('--sample-index', type=int, default=0, help='Index of the sample to use (if file contains multiple)')
+    parser.add_argument('--prompt', type=str, help='Direct prompt to test (alternative to file input)')
+    
+    args = parser.parse_args()
+    
+    if not args.input_file and not args.prompt:
+        print("Error: Either --input-file or --prompt must be provided")
+        return
+    
+    prompt = args.prompt
+    
+    if args.input_file:
+        # Read prompt from file
+        with open(args.input_file, 'r', encoding='utf-8') as f:
+            try:
+                # Try to read as JSONL
+                samples = []
+                for line in f:
+                    samples.append(json.loads(line.strip()))
+                
+                if args.sample_index >= len(samples):
+                    print(f"Error: Sample index {args.sample_index} is out of range (0-{len(samples)-1})")
+                    return
+                
+                sample = samples[args.sample_index]
+                prompt = sample.get('prompt', '')
+                
+            except json.JSONDecodeError:
+                # Try to read as single JSON
+                f.seek(0)
+                sample = json.load(f)
+                prompt = sample.get('prompt', '')
+    
+    if not prompt:
+        print("Error: No prompt found")
+        return
+    
+    test_single_prompt(args.model, prompt)
+
+if __name__ == "__main__":
+    main()
