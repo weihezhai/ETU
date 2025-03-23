@@ -14,13 +14,13 @@ mkdir -p /data/home/mpx602/projects/ETU/ETU/rog/evaluation_results
 
 # Get all prompt files
 # FILES=($(ls /data/home/mpx602/projects/ETU/ETU/rog/topk_paths_prompts_rog/top*_sim_filtered_paths_with_prompts.jsonl))
-PROCESSED_FILE="/data/home/mpx602/projects/ETU/ETU/rog/topk_paths_prompts_rog/top15_sim_filtered_paths_with_prompts.jsonl"
-
+# PROCESSED_FILE="/data/home/mpx602/projects/ETU/ETU/rog/topk_paths_prompts_rog/top15_sim_filtered_paths_with_prompts.jsonl"
+PROCESSED_FILE="/data/home/mpx602/projects/ETU/ETU/GNN-RAG/llm/results/KGQA-GNN-RAG-RA/rearev-lmsr/RoG-cwq/RoG/test/results_gen_rule_path_RoG-cwq_RoG_test_predictions_3_False_jsonl/False/predictions.jsonl"
 # Get the specific file for this array task
 
 filename=$(basename "$PROCESSED_FILE")
 base_filename="${filename%_with_prompts.jsonl}"
-output="/data/home/mpx602/projects/ETU/ETU/rog/evaluation_results/${base_filename}_llm_results_04.json"
+output="/data/home/mpx602/projects/ETU/ETU/rog/evaluation_results/${base_filename}_llm_results_rog.json"
 
 echo -e "${BLUE}Evaluating $filename...${NC}"
 

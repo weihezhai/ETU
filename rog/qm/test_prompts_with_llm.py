@@ -3,6 +3,7 @@ import json
 import argparse
 import os
 import torch
+import re
 from pathlib import Path
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -55,14 +56,23 @@ def test_prompts_with_llm(model_path, input_file, output_file, batch_size=1, max
             question = sample.get('question', '')
             prompt = sample.get('prompt', '')
             
+            # Preprocess the prompt: remove instruction markers and add "Answer:"
+            # Remove "[INST] <<SYS>>\n<</SYS>>" from the beginning
+            prompt = re.sub(r'^\[INST\] <<SYS>>\n<</SYS>>', '', prompt)
+            
+            # Remove "[/INST]" from the end
+            prompt = re.sub(r'\[/INST\]$', '', prompt)
+            
+            # Add "Answer:" at the end
+            prompt = prompt.rstrip() + " Answer:"
+            
             # Generate response from the model
             inputs = tokenizer(prompt, return_tensors="pt", padding=True).to(model.device)
-            
             with torch.no_grad():
                 outputs = model.generate(
                     inputs.input_ids,
                     max_new_tokens=512,
-                    temperature=0.4,
+                    temperature=0.2,
                     top_p=0.9,
                     do_sample=True,
                     repetition_penalty=1.2,

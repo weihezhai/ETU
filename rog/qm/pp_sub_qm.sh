@@ -9,7 +9,7 @@
 ## $ -l h=sbg4
 #$ -l rocky
 # $ -l cluster=andrena   
-#$ -N rog_test_single_prompt
+#$ -N rog_llm_prompt
 
 # module load gcc
 source /data/home/mpx602/projects/py311/bin/activate
