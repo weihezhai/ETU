@@ -4,9 +4,9 @@
 # Usage: ./process_json_files.sh --input-dir INPUT_DIR --output-dir OUTPUT_DIR [--top-k TOP_K]
 
 # Default value for top-k
-TOP_K=15
-INPUT_DIR="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/evaluation_results"
-OUTPUT_DIR="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/evaluation_results_cleaned/$TOP_K"
+TOP_K=5
+INPUT_DIR="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/generation_results"
+OUTPUT_DIR="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/generation_results_cleaned/$TOP_K"
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do

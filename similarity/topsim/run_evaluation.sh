@@ -4,7 +4,7 @@
 # Usage: ./run_evaluation.sh --cleaned-dir CLEANED_DIR --ground-truth GROUND_TRUTH --output-dir OUTPUT_DIR
 
 # Default values
-CLEANED_DIR="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/evaluation_results_cleaned"
+CLEANED_DIR="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/generation_results_cleaned"
 GROUND_TRUTH="/data/home/mpx602/projects/ETU/ETU/fppl/all_ppl_path_with_gt_only_relation/path_ppl_scores_explicit_reasoning.jsonl"
 OUTPUT_DIR="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/evaluation_metrics"
 

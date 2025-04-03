@@ -4,16 +4,51 @@ import numpy as np
 from pathlib import Path
 from typing import Dict, List, Any
 
-
 def load_jsonl(file_path: str) -> List[Dict[str, Any]]:
-    """Load data from a JSONL file."""
+    """Load data from a JSONL file, with fallback for malformed JSONL files."""
     data = []
-    with open(file_path, 'r', encoding='utf-8') as f:
-        for line in f:
-            if line.strip():
-                data.append(json.loads(line))
+    try:
+        # First try: standard JSONL format (one JSON object per line)
+        with open(file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                if line.strip():
+                    data.append(json.loads(line))
+        
+        # If we successfully loaded data, return it
+        if data:
+            return data
+    except json.JSONDecodeError:
+        # If the above fails, try reading the entire file as a single JSON
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+                parsed_data = json.loads(content)
+                
+                # Handle both array and single object formats
+                if isinstance(parsed_data, list):
+                    return parsed_data
+                else:
+                    return [parsed_data]
+        except json.JSONDecodeError as e:
+            # If that also fails, try an even more lenient approach for pretty-printed JSON
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    # Join all lines and try to parse the entire file
+                    content = f.read()
+                    # Sometimes there might be separate JSON objects with newlines between them
+                    # This is a simple heuristic to handle that case
+                    fixed_content = "[" + content.replace("}\n{", "},{") + "]"
+                    parsed_data = json.loads(fixed_content)
+                    return parsed_data
+            except json.JSONDecodeError:
+                # If all parsing attempts fail, raise a more descriptive error
+                raise ValueError(f"Failed to parse file {file_path}. The file must be either:\n"
+                                f"1. A valid JSONL file (one JSON object per line)\n"
+                                f"2. A valid JSON array of objects\n"
+                                f"3. A single valid JSON object\n"
+                                f"Original error: {e}")
+    
     return data
-
 
 def save_jsonl(data: List[Dict[str, Any]], file_path: str) -> None:
     """Save data to a JSONL file."""

@@ -30,6 +30,12 @@ def evaluate_results(cleaned_results_file, ground_truth_file):
     hit_count = 0
     h_at_1_count = 0
     
+    # Metrics for precision, recall, F1
+    total_precision = 0.0
+    total_recall = 0.0
+    total_f1 = 0.0
+    valid_questions = 0  # Count of questions with ground truth
+    
     # Results for detailed analysis
     results = []
     
@@ -47,6 +53,7 @@ def evaluate_results(cleaned_results_file, ground_truth_file):
             print(f"Warning: No ground truth found for question ID {question_id}")
             continue
         
+        valid_questions += 1
         processed_results = entry.get("processed_results", [])
         
         # Calculate Hit (any match)
@@ -68,6 +75,22 @@ def evaluate_results(cleaned_results_file, ground_truth_file):
                     h_at_1 = True
                     break
         
+        # Calculate Precision, Recall, F1
+        true_positives = 0
+        for pred in processed_results:
+            for gt in gt_answers:
+                if string_overlap(pred, gt):
+                    true_positives += 1
+                    break
+        
+        precision = true_positives / len(processed_results) if processed_results else 0
+        recall = min(1.0, true_positives / len(gt_answers)) if gt_answers else 0
+        f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+        
+        total_precision += precision
+        total_recall += recall
+        total_f1 += f1
+        
         if hit:
             hit_count += 1
         if h_at_1:
@@ -78,6 +101,9 @@ def evaluate_results(cleaned_results_file, ground_truth_file):
             "id": question_id,
             "hit": hit,
             "h_1": h_at_1,
+            "precision": precision,
+            "recall": recall,
+            "f1": f1,
             "predictions": processed_results,
             "ground_truth": gt_answers
         })
@@ -86,12 +112,21 @@ def evaluate_results(cleaned_results_file, ground_truth_file):
     hit_rate = hit_count / total_questions if total_questions > 0 else 0
     h_at_1_rate = h_at_1_count / total_questions if total_questions > 0 else 0
     
+    # Calculate average precision, recall, F1
+    avg_precision = total_precision / valid_questions if valid_questions > 0 else 0
+    avg_recall = total_recall / valid_questions if valid_questions > 0 else 0
+    avg_f1 = total_f1 / valid_questions if valid_questions > 0 else 0
+    
     metrics = {
         "total_questions": total_questions,
+        "valid_questions": valid_questions,
         "hit_count": hit_count,
         "hit_rate": hit_rate,
         "h_at_1_count": h_at_1_count,
-        "h_at_1_rate": h_at_1_rate
+        "h_at_1_rate": h_at_1_rate,
+        "precision": avg_precision,
+        "recall": avg_recall,
+        "f1": avg_f1
     }
     
     return metrics, results
@@ -110,6 +145,9 @@ def main():
     print(f"Total questions: {metrics['total_questions']}")
     print(f"Hit@K: {metrics['hit_count']} ({metrics['hit_rate']:.4f})")
     print(f"Hit@1: {metrics['h_at_1_count']} ({metrics['h_at_1_rate']:.4f})")
+    print(f"Precision: {metrics['precision']:.4f}")
+    print(f"Recall: {metrics['recall']:.4f}")
+    print(f"F1 Score: {metrics['f1']:.4f}")
     
     # Save detailed results if output path is provided
     if args.output:

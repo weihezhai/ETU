@@ -3,9 +3,9 @@
 # Script to run ppl_percentile.py on all JSONL files in a directory
 
 # Default values
-INPUT_DIR=""
-OUTPUT_DIR=""
-PERCENTILE=15
+INPUT_DIR="/data/home/mpx602/projects/ETU/ETU/fppl/res"
+OUTPUT_DIR="/data/home/mpx602/projects/ETU/ETU/fppl/res_filtered_percent/75"
+PERCENTILE=75
 
 # Function to display usage
 show_usage() {
@@ -85,7 +85,7 @@ find "$INPUT_DIR" -type f -name "*.jsonl" | while read -r file; do
     echo "Output to: $output_file"
     
     # Run the Python script
-    python fppl/ppl_percentile.py "$file" "$output_file" --percentile "$PERCENTILE"
+    python /data/home/mpx602/projects/ETU/ETU/fppl/ppl_percentile.py "$file" "$output_file" --percentile "$PERCENTILE"
     
     echo "---------------------------------------------------"
     
