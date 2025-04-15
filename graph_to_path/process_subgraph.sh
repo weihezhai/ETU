@@ -1,8 +1,26 @@
 #!/bin/bash
+#SBATCH --partition=gpu
+#SBATCH --qos=gpu
+#SBATCH --gres=gpu:1
+#SBATCH --mem=82G
+#SBATCH --cpus-per-task=12
+#SBATCH --mail-user=wzhai2@sheffield.ac.uk
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --job-name=train_subgraph_pruning
+#SBATCH --output=./logs/train_subgraph_pruning_%A_%a.out
+#SBATCH --time=0-24:00:00
+##SBATCH --array=0-8  # Process 9 files (indices 0-8)
+
+# Load necessary modules
+module load Anaconda3/2024.02-1
+module load cuDNN/8.9.2.26-CUDA-12.1.1
+
+# Activate your conda environment
+source activate etu
 
 # Define file paths relative to the script's location or workspace root
-SCRIPT_DIR="/Users/rickzhai/Documents/GitHub/ETU/ETU/graph_to_path"
-SRC_DIR="/Users/rickzhai/Documents/GitHub/ETU/ETU/src" # Assumes the script is in graph_to_path, adjust if needed
+SCRIPT_DIR="/mnt/parscratch/users/acr24wz/ETU/graph_to_path"
+SRC_DIR="/mnt/parscratch/users/acr24wz/src/src" # Assumes the script is in graph_to_path, adjust if needed
 PYTHON_SCRIPT="$SCRIPT_DIR/process_subgraph.py"
 SUBGRAPH_FILE="$SRC_DIR/train_subgraph.json"
 KB_MAP_FILE="$SRC_DIR/entities.json"

@@ -9,7 +9,7 @@
 #SBATCH --job-name=llm_evaluation
 #SBATCH --output=./logs/llm_evaluation_%A_%a.out
 #SBATCH --time=0-24:00:00
-#SBATCH --array=0-8  # Process 9 files (indices 0-8)
+##SBATCH --array=0-8  # Process 9 files (indices 0-8)
 
 # Load necessary modules
 module load Anaconda3/2024.02-1
