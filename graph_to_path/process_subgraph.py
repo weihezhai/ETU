@@ -146,7 +146,7 @@ def process_subgraphs(subgraph_file, kb_id_map_file, golden_relations_file, outp
     # Load necessary data files
     subgraph_data = load_json(subgraph_file, is_json_lines=True) # Explicitly True (or default)
     kb_id_map = load_json(kb_id_map_file, is_json_lines=False) # This file is a single JSON object
-    golden_relations_data = load_json(golden_relations_file, is_json_lines=True) # Explicitly True (or default)
+    golden_relations_data = load_json(golden_relations_file, is_json_lines=False) # This should also be a single JSON object
 
     results = []
     processed_count = 0
