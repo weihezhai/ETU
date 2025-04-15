@@ -4,9 +4,9 @@
 # Usage: ./run_evaluation.sh --cleaned-dir CLEANED_DIR --ground-truth GROUND_TRUTH --output-dir OUTPUT_DIR
 
 # Default values
-CLEANED_DIR="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/generation_results_cleaned"
-GROUND_TRUTH="/data/home/mpx602/projects/ETU/ETU/fppl/all_ppl_path_with_gt_only_relation/path_ppl_scores_explicit_reasoning.jsonl"
-OUTPUT_DIR="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/evaluation_metrics"
+CLEANED_DIR="./generation_results_cleaned/15/15answers"
+GROUND_TRUTH="/Users/rickzhai/Documents/GitHub/ETU/ETU/fppl/all_ppl_path_with_gt_only_relation/path_ppl_scores_explicit_reasoning.jsonl"
+OUTPUT_DIR="./evaluation_metrics/first_3"
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -63,8 +63,8 @@ if [ -d "$CLEANED_DIR" ] && [ "$(find "$CLEANED_DIR" -mindepth 1 -type d | wc -l
           
           echo "Evaluating $filename..."
           
-          # Run the Python evaluation script
-          python3 /data/home/mpx602/projects/ETU/ETU/similarity/topsim/evaluate_results.py \
+          # Run the Python evaluation script using a relative path
+          python3 ./evaluate_results_firstk.py \
             --cleaned "$cleaned_file" \
             --ground-truth "$GROUND_TRUTH" \
             --output "$output_file"
@@ -86,7 +86,7 @@ else
       echo "Evaluating $filename..."
       
       # Run the Python evaluation script
-      python3 /data/home/mpx602/projects/ETU/ETU/similarity/topsim/evaluate_results.py \
+      python3 ./evaluate_results_firstk.py \
         --cleaned "$cleaned_file" \
         --ground-truth "$GROUND_TRUTH" \
         --output "$output_file"
