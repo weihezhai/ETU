@@ -10,30 +10,55 @@ import os
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def load_json(filepath):
-    """Loads data from a JSON file."""
+def load_json(filepath, is_json_lines=True):
+    """Loads data from a JSON file. Handles JSON Lines or single JSON object."""
     logging.info(f"Loading JSON data from: {filepath}")
     if not os.path.exists(filepath):
         logging.error(f"File not found: {filepath}")
         raise FileNotFoundError(f"File not found: {filepath}")
-    data = []
+
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
-            for line_num, line in enumerate(f, 1):
-                line = line.strip() # Remove leading/trailing whitespace
-                if not line: # Skip empty lines
-                    continue
+            if is_json_lines:
+                data = []
+                for line_num, line in enumerate(f, 1):
+                    line = line.strip() # Remove leading/trailing whitespace
+                    if not line: # Skip empty lines
+                        continue
+                    try:
+                        data.append(json.loads(line))
+                        # Log progress every 100 lines
+                        if line_num % 100 == 0:
+                            logging.info(f"  Loaded {line_num} lines from {filepath}...")
+                    except json.JSONDecodeError as e:
+                        logging.error(f"Error decoding JSON line {line_num} in {filepath}: {e}")
+                        logging.error(f"Problematic line content: {line[:100]}...") # Log first 100 chars
+                        raise # Re-raise after logging details
+                logging.info(f"Successfully loaded {len(data)} objects (JSON Lines format) from: {filepath}")
+                return data
+            else:
+                # Load the entire file as a single JSON object
                 try:
-                    data.append(json.loads(line))
-                    # Log progress every 100 lines
-                    if line_num % 100 == 0:
-                        logging.info(f"  Loaded {line_num} lines from {filepath}...")
+                    data = json.load(f)
+                    object_type = type(data).__name__
+                    # Attempt to get a meaningful size (e.g., number of keys for dict)
+                    try:
+                        size = len(data)
+                        logging.info(f"Successfully loaded 1 object (type: {object_type}, size: {size}) from: {filepath}")
+                    except TypeError: # Handle types without len() like int, bool
+                        logging.info(f"Successfully loaded 1 object (type: {object_type}) from: {filepath}")
+                    return data
                 except json.JSONDecodeError as e:
-                    logging.error(f"Error decoding JSON on line {line_num} in {filepath}: {e}")
-                    logging.error(f"Problematic line content: {line[:100]}...") # Log first 100 chars
+                    logging.error(f"Error decoding single JSON object in {filepath}: {e}")
+                    # Attempt to read a snippet for context if possible (might fail on large files)
+                    try:
+                        f.seek(0)
+                        snippet = f.read(200)
+                        logging.error(f"File snippet (first 200 chars): {snippet}...")
+                    except Exception:
+                        pass
                     raise # Re-raise after logging details
-        logging.info(f"Successfully loaded {len(data)} objects from: {filepath}")
-        return data
+
     except Exception as e:
         logging.error(f"An unexpected error occurred while loading {filepath}: {e}")
         raise
@@ -119,9 +144,9 @@ def process_subgraphs(subgraph_file, kb_id_map_file, golden_relations_file, outp
     logging.info("Starting subgraph processing...")
 
     # Load necessary data files
-    subgraph_data = load_json(subgraph_file) # Expected: list of entries
-    kb_id_map = load_json(kb_id_map_file) # Expected: {"kb_id_str": entity_int_id}
-    golden_relations_data = load_json(golden_relations_file) # Expected: {"entry_id_str": [rel_id1, ...]}
+    subgraph_data = load_json(subgraph_file, is_json_lines=True) # Explicitly True (or default)
+    kb_id_map = load_json(kb_id_map_file, is_json_lines=False) # This file is a single JSON object
+    golden_relations_data = load_json(golden_relations_file, is_json_lines=True) # Explicitly True (or default)
 
     results = []
     processed_count = 0
