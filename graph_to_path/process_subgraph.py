@@ -28,7 +28,7 @@ def load_json(filepath, is_json_lines=True):
                     try:
                         data.append(json.loads(line))
                         # Log progress every 100 lines
-                        if line_num % 100 == 0:
+                        if line_num % 1000 == 0:
                             logging.info(f"  Loaded {line_num} lines from {filepath}...")
                     except json.JSONDecodeError as e:
                         logging.error(f"Error decoding JSON line {line_num} in {filepath}: {e}")
