@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --partition=gpu          # Or a suitable CPU partition if preferred
-#SBATCH --qos=gpu                # Match partition QOS
-#SBATCH --gres=gpu:1             # Might not need GPU, but keeps consistency
+##SBATCH --partition=gpu          # Or a suitable CPU partition if preferred
+##SBATCH --qos=gpu                # Match partition QOS
+##SBATCH --gres=gpu:1             # Might not need GPU, but keeps consistency
 #SBATCH --mem=82G                # Adjust memory if needed, grounding might be memory intensive with large maps
 #SBATCH --cpus-per-task=12       # Adjust CPU count if needed
 #SBATCH --mail-user=wzhai2@sheffield.ac.uk
