@@ -35,13 +35,13 @@ def analyze_entities(json_file_path: Path):
                         total_entries = 1
                         count = _extract_entity_count(data)
                         if count is not None:
-                        entity_counts.append(count)
-                        entries_with_entities += 1
+                            entity_counts.append(count)
+                            entries_with_entities += 1
                         else:
                             print(f"Warning: Single entry file missing/invalid 'subgraph' or 'entities': ID {data.get('id', 'N/A')}")
                 else:
-                        print(f"Error: Unexpected JSON structure in {json_file_path}. Expected a list or a single object.")
-                        return
+                    print(f"Error: Unexpected JSON structure in {json_file_path}. Expected a list or a single object.")
+                    return
 
             except json.JSONDecodeError:
                 # If loading as a single array fails, try JSON Lines format (one JSON object per line)
