@@ -30,7 +30,7 @@ PYTHON_SCRIPT="$ETU_DIR/graph_to_path/ground_paths.py"
 CLEANED_PATHS_FILE="$OUTPUT_DIR/train_output_cleaned.json"
 ENTITIES_MAP_FILE="$SRC_DATA_DIR/entities.json"
 RELATIONS_MAP_FILE="$SRC_DATA_DIR/relations.json"
-ENTITY_LABELS_FILE="$SRC_DATA_DIR/CWQ_all_label_map.json" # Ensure this path is correct
+ENTITY_LABELS_FILE="$SRC_DATA_DIR/entities_names.json" # Ensure this path is correct
 
 # Output file
 GROUNDED_OUTPUT_FILE="$OUTPUT_DIR/train_output_grounded.json"
