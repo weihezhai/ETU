@@ -1,4 +1,3 @@
-# graph_to_path/ground_triples.py
 import json
 import argparse
 import logging
@@ -19,8 +18,8 @@ def load_json_data(filepath):
         with open(filepath, 'r', encoding='utf-8') as f:
             data = json.load(f)
         object_type = type(data).__name__
-        size = len(data) if hasattr(data, '__len__') else 'N/A'
-        logging.info(f"Successfully loaded data (type: {object_type}, size: {size}) from: {filepath}")
+        # Don't log size here as we don't know the structure yet
+        logging.info(f"Successfully loaded data (type: {object_type}) from: {filepath}")
         return data
     except json.JSONDecodeError as e:
         logging.error(f"Error decoding JSON in {filepath}: {e}")
@@ -86,8 +85,8 @@ def save_grounded_triples(grounded_list, filepath):
         raise
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Ground integer ID triples to human-readable text.")
-    parser.add_argument("--input_triples_file", required=True, help="Path to the input JSON file containing a list of triples [h, r, t].")
+    parser = argparse.ArgumentParser(description="Ground integer ID triples from a specific JSON structure to human-readable text.")
+    parser.add_argument("--input_subgraph_file", required=True, help="Path to the input JSON file containing a subgraph structure (like from process_subgraph.py). Expects 'subgraph': {'tuples': [[h,r,t],... ] }.")
     parser.add_argument("--entities_map_file", required=True, help="Path to the entity MID to integer ID mapping JSON file (e.g., entities.json).")
     parser.add_argument("--relations_map_file", required=True, help="Path to the relation text to integer ID mapping JSON file (e.g., relations.json).")
     parser.add_argument("--entity_labels_file", required=True, help="Path to the entity MID to human-readable label mapping JSON file (e.g., entities_names.json).")
@@ -100,10 +99,30 @@ if __name__ == "__main__":
         logging.getLogger().setLevel(logging.DEBUG)
 
     # Load data
-    input_triples = load_json_data(args.input_triples_file)
+    input_data = load_json_data(args.input_subgraph_file)
     entities_map = load_json_data(args.entities_map_file)
     relations_map = load_json_data(args.relations_map_file)
     entity_labels_map = load_json_data(args.entity_labels_file)
+
+    # --- Extract triples from the expected structure ---
+    input_triples = []
+    if isinstance(input_data, dict) and 'subgraph' in input_data and \
+       isinstance(input_data['subgraph'], dict) and 'tuples' in input_data['subgraph'] and \
+       isinstance(input_data['subgraph']['tuples'], list):
+        input_triples = input_data['subgraph']['tuples']
+        logging.info(f"Extracted {len(input_triples)} triples from input file's ['subgraph']['tuples'].")
+    else:
+        logging.error("Input JSON file does not have the expected structure: {'subgraph': {'tuples': [...]}}")
+        # Or, if you want to support both list-of-triples and the subgraph structure:
+        # if isinstance(input_data, list):
+        #     logging.info("Input file is a list. Assuming it's a list of triples.")
+        #     input_triples = input_data
+        # else:
+        #     logging.error("Input JSON file is not a list of triples and does not have the expected structure: {'subgraph': {'tuples': [...]}}")
+        #     exit(1) # Exit if structure is wrong
+        exit(1)
+    # --- ---
+
 
     # Create inverse maps
     int_to_mid_map = create_inverse_map(entities_map)
@@ -124,4 +143,4 @@ if __name__ == "__main__":
     # Save results
     save_grounded_triples(grounded_triples_list, args.output_file)
 
-    logging.info("Script finished.") 
+    logging.info("Script finished.")

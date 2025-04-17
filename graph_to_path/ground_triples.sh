@@ -53,7 +53,7 @@ mkdir -p "$(dirname "$GROUNDED_TRIPLES_OUTPUT_FILE")"
 # Run the Python script
 echo "Running Python script: $PYTHON_SCRIPT"
 python "$PYTHON_SCRIPT" \
-    --input_triples_file "$INPUT_TRIPLES_FILE" \
+    --input_subgraph_file "$INPUT_TRIPLES_FILE" \
     --entities_map_file "$ENTITIES_MAP_FILE" \
     --relations_map_file "$RELATIONS_MAP_FILE" \
     --entity_labels_file "$ENTITY_LABELS_FILE" \
