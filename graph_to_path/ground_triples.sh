@@ -25,8 +25,8 @@ PYTHON_SCRIPT="$ETU_DIR/graph_to_path/ground_triples.py"
 
 # --- INPUT/OUTPUT ---
 # !!! PLEASE MODIFY THESE TWO LINES with your actual file paths !!!
-INPUT_TRIPLES_FILE="$SRC_DATA_DIR/your_input_triples.json" # e.g., $SRC_DATA_DIR/a.json
-GROUNDED_TRIPLES_OUTPUT_FILE="$OUTPUT_DIR/your_output_grounded_triples.json"
+INPUT_TRIPLES_FILE="$ETU_DIR/graph_to_path/a.json" # e.g., $SRC_DATA_DIR/a.json
+GROUNDED_TRIPLES_OUTPUT_FILE="$OUTPUT_DIR/a_grounded_triples.json"
 # --- ---
 
 # Mapping files
