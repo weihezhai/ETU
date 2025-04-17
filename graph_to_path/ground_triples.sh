@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --partition=cpu          # CPU partition should be sufficient
+##SBATCH --partition=cpu          # CPU partition should be sufficient
 #SBATCH --mem=32G                # Adjust memory if needed, depends on map sizes
 #SBATCH --cpus-per-task=8        # Adjust CPU count if needed
 #SBATCH --mail-user=wzhai2@sheffield.ac.uk
