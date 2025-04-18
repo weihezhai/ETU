@@ -2,7 +2,7 @@
 ##SBATCH --partition=gpu
 ##SBATCH --qos=gpu
 ##SBATCH --gres=gpu:1 # Note: NER/Graph processing is CPU-bound, GPU might be underutilized unless Spacy uses it.
-#SBATCH --mem=82G
+#SBATCH --mem=96G
 #SBATCH --cpus-per-task=12  # Requesting 12 CPUs for the task
 #SBATCH --mail-user=wzhai2@sheffield.ac.uk
 #SBATCH --mail-type=BEGIN,END,FAIL
