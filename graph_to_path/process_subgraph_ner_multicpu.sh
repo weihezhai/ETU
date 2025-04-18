@@ -21,7 +21,7 @@ source activate etu
 # Define file paths relative to the script's location or workspace root
 SCRIPT_DIR="/mnt/parscratch/users/acr24wz/ETU/graph_to_path"
 SRC_DIR="/mnt/parscratch/users/acr24wz/src/src"
-PYTHON_SCRIPT="$SCRIPT_DIR/process_subgraph_ner.py" # Make sure this matches the python script filename
+PYTHON_SCRIPT="$SCRIPT_DIR/process_subgraph_ner_multicpu.py" # Make sure this matches the python script filename
 SUBGRAPH_FILE="$SRC_DIR/train_subgraph.json"
 KB_MAP_FILE="$SRC_DIR/entities.json" # Maps KB ID ('Qxxx') -> integer ID
 ENTITY_LABELS_FILE="$SRC_DIR/entities_names.json" # Maps KB ID 'Qxxx' -> 'Label'
