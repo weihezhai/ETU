@@ -5,7 +5,7 @@
 #SBATCH --mail-user=wzhai2@sheffield.ac.uk
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --job-name=ground_triples
-#SBATCH --output=./logs/ground_triples_%A.out # Log file name
+#SBATCH --output=./logs/count_%A.out # Log file name
 #SBATCH --time=0-01:00:00        # Adjust time limit (should be quick for moderate files)
 
 # Load necessary modules
