@@ -13,7 +13,7 @@
 
 # Load necessary modules
 module load Anaconda3/2024.02-1
-module load cuDNN/8.9.2.26-CUDA-12.1.1 # May not be strictly necessary if Spacy doesn't use GPU heavily
+# module load cuDNN/8.9.2.26-CUDA-12.1.1 # May not be strictly necessary if Spacy doesn't use GPU heavily
 
 # Activate your conda environment
 source activate etu
