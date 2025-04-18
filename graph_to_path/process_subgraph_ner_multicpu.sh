@@ -53,7 +53,7 @@ python "$PYTHON_SCRIPT" \
   --golden_rels_file "$GOLDEN_RELS_FILE" \
   --output_file "$OUTPUT_FILE" \
   --max_hops "$MAX_HOPS" \
-  --num_workers "$NUM_WORKERS" \
+  --num_workers 6 \
   --spacy_model "$SPACY_MODEL"
   # --debug # Uncomment for detailed logging (can be very verbose)
 
