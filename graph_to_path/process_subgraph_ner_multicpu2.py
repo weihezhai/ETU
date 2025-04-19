@@ -204,10 +204,10 @@ def process_single_entry(entry, kb_id_to_int_id_map, golden_relations_data, max_
 
         # Basic check
         if not entry_id or not answers_info or not subgraph_triples:
-            # logging.warning(f"Skipping entry due to missing critical data: id={entry_id}...") # Reduce log noise
+            logging.warning(f"Skipping entry due to missing critical data: id={entry_id}...") # Reduce log noise
             return None, True # Indicate skipped
 
-        # logging.info(f"Processing entry ID: {entry_id}") # Reduce log noise
+        logging.info(f"Processing entry ID: {entry_id}") # Reduce log noise
 
         # 1. Use only original source nodes (NER removed)
         final_source_nodes = list(set(original_source_nodes)) # Use original entities directly, ensure uniqueness
