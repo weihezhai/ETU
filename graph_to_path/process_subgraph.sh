@@ -21,7 +21,7 @@ source activate etu
 # Define file paths relative to the script's location or workspace root
 SCRIPT_DIR="/mnt/parscratch/users/acr24wz/ETU/graph_to_path"
 SRC_DIR="/mnt/parscratch/users/acr24wz/src/src" # Assumes the script is in graph_to_path, adjust if needed
-PYTHON_SCRIPT="$SCRIPT_DIR/process_subgraph.py" # This script is now multicore capable
+PYTHON_SCRIPT="$SCRIPT_DIR/process_subgraph_multicpu.py" # This script is now multicore capable
 SUBGRAPH_FILE="$SRC_DIR/train_subgraph.json"
 KB_MAP_FILE="$SRC_DIR/entities.json" # Maps KB ID ('Qxxx') -> integer ID
 GOLDEN_RELS_FILE="$SRC_DIR/gold_relations.json"
