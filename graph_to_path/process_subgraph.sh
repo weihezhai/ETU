@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mail-user=wzhai2@sheffield.ac.uk
 #SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH --job-name=train_subgraph_ground_truth_ner
-#SBATCH --output=./logs/train_subgraph_ground_truth_ner_%A_%a.out
+#SBATCH --job-name=train_subgraph_bidirectional
+#SBATCH --output=./logs/train_subgraph_bidirectional_%A_%a.out
 #SBATCH --time=0-24:00:00
 ##SBATCH --array=0-8  # Process 9 files (indices 0-8)
 
