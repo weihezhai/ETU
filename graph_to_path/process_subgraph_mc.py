@@ -70,7 +70,7 @@ def load_json(filepath, is_json_lines=True):
 # --- build_graph remains the same ---
 def build_graph(triples):
     """Builds an undirected networkx MultiGraph from triples."""
-    G = nx.MultiGraph() # Changed from MultiDiGraph to MultiGraph
+    G = nx.MultiDiGraph() # Changed from MultiDiGraph to MultiGraph
     # logging.debug(f"Building undirected graph from {len(triples)} triples.") # Reduced verbosity
     for head, rel, tail in triples:
         G.add_edge(head, tail, key=rel, relation_id=rel)
