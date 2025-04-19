@@ -39,7 +39,7 @@ MAX_HOPS=4
 # SPACY_MODEL="en_core_web_lg" # REMOVED - No longer needed
 
 # Use the number of CPUs allocated by SLURM for the number of workers
-NUM_WORKERS=8 # Default to 4 if SLURM_CPUS_PER_TASK is not set
+NUM_WORKERS=6 # Default to 4 if SLURM_CPUS_PER_TASK is not set
 
 # Create output directory if it doesn't exist
 mkdir -p "$OUTPUT_DIR"
