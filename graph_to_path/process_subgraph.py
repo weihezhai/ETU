@@ -64,14 +64,15 @@ def load_json(filepath, is_json_lines=True):
         raise
 
 def build_graph(triples):
-    """Builds a networkx MultiDiGraph from triples."""
-    G = nx.MultiDiGraph()
-    logging.debug(f"Building graph from {len(triples)} triples.")
+    """Builds an undirected networkx MultiGraph from triples."""
+    G = nx.MultiGraph() # Changed from MultiDiGraph to MultiGraph
+    logging.debug(f"Building undirected graph from {len(triples)} triples.")
     for head, rel, tail in triples:
         # Add edge with relation_id as an attribute and also as the key
         # This helps distinguish parallel edges and retrieve relation easily
+        # In MultiGraph, the edge (u, v) is the same as (v, u)
         G.add_edge(head, tail, key=rel, relation_id=rel)
-    logging.debug(f"Graph built with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges.")
+    logging.debug(f"Undirected graph built with {G.number_of_nodes()} nodes and {G.number_of_edges()} edges.")
     return G
 
 def find_paths_bfs(G, source_node, target_node, max_hops):
