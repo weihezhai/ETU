@@ -57,7 +57,6 @@ echo "Output File: $OUTPUT_FILE"
 python "$PYTHON_SCRIPT" \
   --subgraph_file "$SUBGRAPH_FILE" \
   --kb_map_file "$KB_MAP_FILE" \
-  # --entity_labels_file "$ENTITY_LABELS_FILE" \ # REMOVED argument
   --golden_rels_file "$GOLDEN_RELS_FILE" \
   --output_file "$OUTPUT_FILE" \
   --max_hops "$MAX_HOPS" \
