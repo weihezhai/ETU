@@ -27,13 +27,13 @@ OUTPUT_DIR="$SRC_DATA_DIR/output"
 PYTHON_SCRIPT="$ETU_DIR/graph_to_path/ground_paths.py"
 
 # Input files
-CLEANED_PATHS_FILE="$OUTPUT_DIR/train_output_cleaned.json"
+CLEANED_PATHS_FILE="$OUTPUT_DIR/train_output_cleaned_more.json"
 ENTITIES_MAP_FILE="$SRC_DATA_DIR/entities.json"
 RELATIONS_MAP_FILE="$SRC_DATA_DIR/relations.json"
 ENTITY_LABELS_FILE="$SRC_DATA_DIR/entities_names.json" # Ensure this path is correct
 
 # Output file
-GROUNDED_OUTPUT_FILE="$OUTPUT_DIR/train_output_grounded.json"
+GROUNDED_OUTPUT_FILE="$OUTPUT_DIR/train_output_grounded_more.json"
 
 # Optional flags (e.g., add --debug for verbose logging)
 EXTRA_ARGS=""
