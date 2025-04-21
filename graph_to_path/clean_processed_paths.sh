@@ -26,7 +26,7 @@ INPUT_JSON="/mnt/parscratch/users/acr24wz/src/src/output/train_output.json"
 OUTPUT_JSON="/mnt/parscratch/users/acr24wz/src/src/output/train_output_cleaned_more.json"
 
 # Python script to execute
-PYTHON_SCRIPT="/mnt/parscratch/users/acr24wz/ETU/graph_to_path/clean_processed_paths_mp.py"
+PYTHON_SCRIPT="/mnt/parscratch/users/acr24wz/ETU/graph_to_path/clean_processed_paths_more.py"
 
 # Optional flags (e.g., add --debug for verbose logging)
 EXTRA_ARGS=""
