@@ -3,7 +3,7 @@ import json
 import argparse
 import logging
 import os
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
