@@ -31,10 +31,9 @@ def clean_path_data(data):
     Cleans the processed path data:
     1. Removes entries with no paths found.
     2. For each starting entity, keeps all paths of the minimum hop count.
-    3. Keeps any path (regardless of length) containing >1 distinct golden relations.
     Logs detailed statistics about the process.
     """
-    logging.info("Starting path data cleaning and refinement...")
+    logging.info("Starting path data cleaning and refinement (shortest path per source only)...")
     cleaned_data = []
 
     # --- Statistics Initialization ---
@@ -46,14 +45,13 @@ def clean_path_data(data):
     initial_paths_by_hop = Counter()
     kept_paths_total_unique = 0
     kept_paths_by_hop = Counter()
-    kept_paths_shortest_criteria = 0 # Paths kept *at least* because they were shortest
-    kept_paths_multi_gold_criteria = 0 # Paths kept *at least* because they had >1 gold rels
+    # Removed stats related to multi-gold rule
     # --------------------------------
 
     for entry in data:
         entry_id = entry.get('id', 'N/A')
         paths_dict = entry.get('paths', {})
-        gold_relations_set = set(entry.get('gold_relations', []))
+        # gold_relations_set = set(entry.get('gold_relations', [])) # No longer needed for filtering logic
 
         # --- Stat: Count initial paths ---
         current_entry_initial_paths = 0
@@ -76,10 +74,10 @@ def clean_path_data(data):
 
         kept_paths_set = set() # Use set of tuples to store unique paths to keep
         paths_by_source = defaultdict(lambda: defaultdict(list)) # {source: {hop: [paths]}}
-        kept_reason_multi_gold = set() # Store path tuples kept due to multi-gold
-        kept_reason_shortest = set() # Store path tuples kept due to shortest
+        # Removed kept_reason_multi_gold
+        # kept_reason_shortest = set() # Still useful for debugging/potential future stats
 
-        # --- Iterate through paths to group by source and check golden rel condition ---
+        # --- Iterate through paths just to group them by source and hop ---
         for hop_key, paths_list in paths_dict.items():
             if not paths_list:
                 continue
@@ -97,15 +95,7 @@ def clean_path_data(data):
                 # Group path by source and hop count
                 paths_by_source[start_node][hop_count].append(path_tuple)
 
-                # --- 3. Check for paths with >1 golden relations ---
-                if len(gold_relations_set) > 1:
-                    path_relations = set(path[i] for i in range(1, len(path), 2))
-                    common_golden_rels = path_relations.intersection(gold_relations_set)
-                    if len(common_golden_rels) > 1:
-                        if path_tuple not in kept_paths_set:
-                             logging.debug(f"Entry {entry_id}: Keeping path {path_tuple} (multiple golden relations: {common_golden_rels})")
-                             kept_paths_set.add(path_tuple)
-                             kept_reason_multi_gold.add(path_tuple) # Track reason
+                # --- REMOVED: Check for paths with >1 golden relations ---
 
 
         # --- 2. Find and keep shortest paths for each source entity ---
@@ -116,13 +106,11 @@ def clean_path_data(data):
             shortest_paths_for_source = hop_paths_dict[min_hops]
 
             for path_tuple in shortest_paths_for_source:
+                 # Keep all paths that are the shortest for this specific start_node
                  if path_tuple not in kept_paths_set:
                      logging.debug(f"Entry {entry_id}: Keeping path {path_tuple} (shortest path for source {start_node} at {min_hops} hops)")
                      kept_paths_set.add(path_tuple)
-                     kept_reason_shortest.add(path_tuple) # Track reason
-                 elif path_tuple in kept_reason_multi_gold:
-                     # If it was already kept for multi-gold, mark it as shortest too
-                     kept_reason_shortest.add(path_tuple)
+                     # kept_reason_shortest.add(path_tuple) # Keep track if needed
 
 
         # --- Reconstruct the entry if paths were kept ---
@@ -143,6 +131,7 @@ def clean_path_data(data):
                  except: pass
 
             final_paths_output = OrderedDict()
+            # Ensure all original hop keys are present for consistency, even if empty
             for k in range(1, max(original_max_hops, max_hop_found) + 1):
                  hop_key = f'{k}hop'
                  final_paths_output[hop_key] = new_paths_dict.get(hop_key, [])
@@ -151,21 +140,19 @@ def clean_path_data(data):
             entry['paths'] = final_paths_output
             cleaned_data.append(entry)
             entries_processed_count += 1
-            # --- Stat: Count total kept paths and by criteria ---
+            # --- Stat: Count total kept paths ---
             num_kept_this_entry = len(kept_paths_set)
             kept_paths_total_unique += num_kept_this_entry
-            kept_paths_shortest_criteria += len(kept_reason_shortest)
-            kept_paths_multi_gold_criteria += len(kept_reason_multi_gold)
-            # Note: A path can be counted in both shortest and multi-gold if it meets both
+            # Removed multi-gold stats increments
 
-            logging.debug(f"Entry {entry_id}: Kept {num_kept_this_entry} unique paths after filtering.")
+            logging.debug(f"Entry {entry_id}: Kept {num_kept_this_entry} unique paths after shortest-path filtering.")
         else:
-            logging.debug(f"Entry {entry_id}: Removed (no paths met keeping criteria).")
+            logging.debug(f"Entry {entry_id}: Removed (no paths met shortest-path criteria).")
             entries_removed_no_kept_paths += 1
 
 
-    # --- Final Statistics Logging ---
-    logging.info("="*30 + " Cleaning Statistics " + "="*30)
+    # --- Final Statistics Logging (Simplified) ---
+    logging.info("="*30 + " Cleaning Statistics (Shortest Path per Source) " + "="*30)
     logging.info(f"Total entries received: {total_entries_in}")
     logging.info(f"Entries removed (had 0 paths initially): {entries_removed_no_initial_paths}")
     logging.info(f"Entries removed (no paths met criteria): {entries_removed_no_kept_paths}")
@@ -175,7 +162,7 @@ def clean_path_data(data):
     logging.info(f"Total initial paths across all entries: {initial_paths_total}")
     logging.info(f"Initial path distribution by hop: {dict(initial_paths_by_hop)}")
     logging.info("-" * 70)
-    logging.info(f"Total unique paths kept across final entries: {kept_paths_total_unique}")
+    logging.info(f"Total unique paths kept across final entries (shortest per source): {kept_paths_total_unique}")
     logging.info(f"Kept path distribution by hop: {dict(kept_paths_by_hop)}")
     if entries_processed_count > 0:
         avg_paths_per_kept_entry = kept_paths_total_unique / entries_processed_count
@@ -183,15 +170,8 @@ def clean_path_data(data):
     else:
         logging.info("Average paths per kept entry: N/A (0 entries kept)")
     logging.info("-" * 70)
-    logging.info(f"Paths kept (at least partially) due to being shortest: {kept_paths_shortest_criteria}")
-    logging.info(f"Paths kept (at least partially) due to having >1 golden relation: {kept_paths_multi_gold_criteria}")
-    # Calculate paths kept *only* for one reason (optional, requires set difference)
-    only_shortest = len(kept_reason_shortest - kept_reason_multi_gold)
-    only_multi_gold = len(kept_reason_multi_gold - kept_reason_shortest)
-    both_reasons = len(kept_reason_shortest.intersection(kept_reason_multi_gold))
-    logging.info(f"  - Paths kept *only* because shortest: {only_shortest}")
-    logging.info(f"  - Paths kept *only* because >1 golden relations: {only_multi_gold}")
-    logging.info(f"  - Paths kept for *both* reasons: {both_reasons}")
+    # Removed logging specific to multi-gold criteria
+    logging.info(f"Paths kept represent the shortest path found for each respective starting entity.")
     logging.info("="*70)
 
     logging.info(f"Cleaning complete. Kept {entries_processed_count} entries. Removed {entries_removed_no_initial_paths + entries_removed_no_kept_paths} entries.")
