@@ -20,10 +20,10 @@ source activate etu
 
 # === Configuration ===
 # Input file: The JSON output from process_subgraph.py
-INPUT_JSON="/mnt/parscratch/users/acr24wz/src/src/output/train_output_mp.json"
+INPUT_JSON="/mnt/parscratch/users/acr24wz/src/src/output/train_output.json"
 
 # Output file: Where to save the cleaned JSON data
-OUTPUT_JSON="/mnt/parscratch/users/acr24wz/src/src/output/train_output_cleaned_mp.json"
+OUTPUT_JSON="/mnt/parscratch/users/acr24wz/src/src/output/train_output_cleaned_more.json"
 
 # Python script to execute
 PYTHON_SCRIPT="/mnt/parscratch/users/acr24wz/ETU/graph_to_path/clean_processed_paths_mp.py"
