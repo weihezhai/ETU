@@ -31,9 +31,11 @@ def clean_path_data(data):
     Cleans the processed path data:
     1. Removes entries with no paths found.
     2. For each starting entity, keeps all paths of the minimum hop count.
+    3. Adds a filter for 4-hop paths: they must contain at least two entities
+       that are also source entities within the same entry.
     Logs detailed statistics about the process.
     """
-    logging.info("Starting path data cleaning and refinement (shortest path per source only)...")
+    logging.info("Starting path data cleaning and refinement...")
     cleaned_data = []
 
     # --- Statistics Initialization ---
@@ -45,15 +47,17 @@ def clean_path_data(data):
     initial_paths_by_hop = Counter()
     kept_paths_total_unique = 0
     kept_paths_by_hop = Counter()
+    four_hop_paths_considered_mention_rule = 0 # New Stat
+    four_hop_paths_filtered_mention_rule = 0 # New Stat
     # Removed stats related to multi-gold rule
     # --------------------------------
 
     for entry in data:
         entry_id = entry.get('id', 'N/A')
         paths_dict = entry.get('paths', {})
-        # gold_relations_set = set(entry.get('gold_relations', [])) # No longer needed for filtering logic
 
-        # --- Stat: Count initial paths ---
+        # --- Collect all unique source entities for this entry ---
+        all_source_entities_in_entry = set()
         current_entry_initial_paths = 0
         for hop_key, paths_list in paths_dict.items():
              count = len(paths_list)
@@ -63,6 +67,10 @@ def clean_path_data(data):
                  try:
                      hop_count = int(hop_key.replace('hop', ''))
                      initial_paths_by_hop[hop_count] += count
+                     # Collect source entities
+                     for path in paths_list:
+                         if path:
+                             all_source_entities_in_entry.add(path[0])
                  except ValueError:
                      pass # Ignore malformed keys for stats
 
@@ -75,9 +83,8 @@ def clean_path_data(data):
         kept_paths_set = set() # Use set of tuples to store unique paths to keep
         paths_by_source = defaultdict(lambda: defaultdict(list)) # {source: {hop: [paths]}}
         # Removed kept_reason_multi_gold
-        # kept_reason_shortest = set() # Still useful for debugging/potential future stats
 
-        # --- Iterate through paths just to group them by source and hop ---
+        # --- Group paths by source and hop ---
         for hop_key, paths_list in paths_dict.items():
             if not paths_list:
                 continue
@@ -91,26 +98,37 @@ def clean_path_data(data):
                 if not path: continue
                 start_node = path[0]
                 path_tuple = tuple(path)
-
-                # Group path by source and hop count
                 paths_by_source[start_node][hop_count].append(path_tuple)
 
-                # --- REMOVED: Check for paths with >1 golden relations ---
-
-
-        # --- 2. Find and keep shortest paths for each source entity ---
+        # --- 2. Find and keep shortest paths for each source, applying 4-hop filter ---
         for start_node, hop_paths_dict in paths_by_source.items():
             if not hop_paths_dict: continue
 
             min_hops = min(hop_paths_dict.keys())
             shortest_paths_for_source = hop_paths_dict[min_hops]
 
-            for path_tuple in shortest_paths_for_source:
-                 # Keep all paths that are the shortest for this specific start_node
-                 if path_tuple not in kept_paths_set:
-                     logging.debug(f"Entry {entry_id}: Keeping path {path_tuple} (shortest path for source {start_node} at {min_hops} hops)")
-                     kept_paths_set.add(path_tuple)
-                     # kept_reason_shortest.add(path_tuple) # Keep track if needed
+            if min_hops == 4:
+                # Apply the new filter for 4-hop paths
+                for path_tuple in shortest_paths_for_source:
+                    four_hop_paths_considered_mention_rule += 1
+                    path_nodes = path_tuple[::2] # Extract nodes (at even indices)
+                    # Count intersections with all source entities, excluding the path's own start node
+                    # Ensure we compare against the full set of source entities for the *entry*
+                    mentioned_source_entities = {node for node in path_nodes[1:] if node in all_source_entities_in_entry}
+
+                    if len(mentioned_source_entities) >= 2:
+                        if path_tuple not in kept_paths_set:
+                            logging.debug(f"Entry {entry_id}: Keeping 4-hop path {path_tuple} (shortest for {start_node}, >=2 other sources mentioned)")
+                            kept_paths_set.add(path_tuple)
+                    else:
+                        logging.debug(f"Entry {entry_id}: Filtering 4-hop path {path_tuple} (shortest for {start_node}, mentions {len(mentioned_source_entities)} other sources, required >=2)")
+                        four_hop_paths_filtered_mention_rule += 1
+            else:
+                # Keep all shortest paths (non-4-hop)
+                for path_tuple in shortest_paths_for_source:
+                     if path_tuple not in kept_paths_set:
+                         logging.debug(f"Entry {entry_id}: Keeping path {path_tuple} (shortest path for source {start_node} at {min_hops} hops)")
+                         kept_paths_set.add(path_tuple)
 
 
         # --- Reconstruct the entry if paths were kept ---
@@ -151,18 +169,18 @@ def clean_path_data(data):
             entries_removed_no_kept_paths += 1
 
 
-    # --- Final Statistics Logging (Simplified) ---
-    logging.info("="*30 + " Cleaning Statistics (Shortest Path per Source) " + "="*30)
+    # --- Final Statistics Logging (Updated) ---
+    logging.info("="*30 + " Cleaning Statistics " + "="*30)
     logging.info(f"Total entries received: {total_entries_in}")
     logging.info(f"Entries removed (had 0 paths initially): {entries_removed_no_initial_paths}")
-    logging.info(f"Entries removed (no paths met criteria): {entries_removed_no_kept_paths}")
+    logging.info(f"Entries removed (no paths met criteria after filtering): {entries_removed_no_kept_paths}")
     logging.info(f"Total entries removed: {entries_removed_no_initial_paths + entries_removed_no_kept_paths}")
     logging.info(f"Entries kept: {entries_processed_count}")
     logging.info("-" * 70)
     logging.info(f"Total initial paths across all entries: {initial_paths_total}")
     logging.info(f"Initial path distribution by hop: {dict(initial_paths_by_hop)}")
     logging.info("-" * 70)
-    logging.info(f"Total unique paths kept across final entries (shortest per source): {kept_paths_total_unique}")
+    logging.info(f"Total unique paths kept across final entries (shortest per source + 4-hop rule): {kept_paths_total_unique}")
     logging.info(f"Kept path distribution by hop: {dict(kept_paths_by_hop)}")
     if entries_processed_count > 0:
         avg_paths_per_kept_entry = kept_paths_total_unique / entries_processed_count
@@ -171,7 +189,13 @@ def clean_path_data(data):
         logging.info("Average paths per kept entry: N/A (0 entries kept)")
     logging.info("-" * 70)
     # Removed logging specific to multi-gold criteria
-    logging.info(f"Paths kept represent the shortest path found for each respective starting entity.")
+    logging.info("--- 4-Hop Path Filter Statistics ---")
+    logging.info(f"Total 4-hop paths considered by mention rule: {four_hop_paths_considered_mention_rule}")
+    logging.info(f"4-hop paths filtered out by mention rule (<2 source mentions): {four_hop_paths_filtered_mention_rule}")
+    kept_4_hop_mention = four_hop_paths_considered_mention_rule - four_hop_paths_filtered_mention_rule
+    logging.info(f"4-hop paths kept after mention rule: {kept_4_hop_mention}")
+    logging.info(f"Note: Kept paths represent the shortest path for each source,")
+    logging.info(f"      with the additional constraint for 4-hop paths.")
     logging.info("="*70)
 
     logging.info(f"Cleaning complete. Kept {entries_processed_count} entries. Removed {entries_removed_no_initial_paths + entries_removed_no_kept_paths} entries.")
