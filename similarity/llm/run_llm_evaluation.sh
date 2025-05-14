@@ -8,7 +8,7 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --job-name=llm_evaluation
 #SBATCH --output=./logs/llm_evaluation_%A_%a.out
-#SBATCH --time=0-24:00:00
+#SBATCH --time=0-10:00:00
 ##SBATCH --array=0-8  # Process 9 files (indices 0-8)
 
 # Load necessary modules
