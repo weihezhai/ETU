@@ -30,7 +30,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Create a directory for results
-mkdir -p /mnt/parscratch/users/acr24wz/ETU/__webqsp__/icl/llm_gen_results
+# mkdir -p /mnt/parscratch/users/acr24wz/ETU/__webqsp__/icl/llm_gen_results
 
 # Get all prompt files
 
@@ -43,7 +43,7 @@ output="/mnt/parscratch/users/acr24wz/ETU/__webqsp__/icl/llm_gen_results/llm_gen
 # MAX_SAMPLES="--max-samples 10"
 MAX_SAMPLES=""
 
-python /mnt/parscratch/users/acr24wz/ETU/__webqsp__/icl/llm_gen_results/test_prompts_with_llm.py \
+python /mnt/parscratch/users/acr24wz/ETU/__webqsp__/icl/test_prompts_with_llm.py \
   --model "$MODEL_PATH" \
   --input "$input" \
   --output "$output" \
