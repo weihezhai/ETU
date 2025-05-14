@@ -1,0 +1,92 @@
+{
+  "total_questions": 1579,
+  "questions_with_different_paths": 746,
+  "percentage_questions_changed": 47.24509183027232,
+  "avg_original_paths_per_question": 8.327422419252692,
+  "avg_filtered_paths_per_question": 4.269791006966434,
+  "path_reduction_percentage": 48.72613886987604,
+  "avg_original_path_length": 3.571374248992319,
+  "avg_filtered_path_length": 3.462919015129042,
+  "most_common_relations": [
+    [
+      "location.containedby",
+      460
+    ],
+    [
+      "person.profession",
+      363
+    ],
+    [
+      "actor.film",
+      346
+    ],
+    [
+      "performance.actor",
+      308
+    ],
+    [
+      "country.languages_spoken",
+      262
+    ],
+    [
+      "human_language.countries_spoken_in",
+      262
+    ],
+    [
+      "performance.film",
+      242
+    ],
+    [
+      "travel_destination.tourist_attractions",
+      238
+    ],
+    [
+      "citytown.postal_codes",
+      204
+    ],
+    [
+      "person.nationality",
+      199
+    ],
+    [
+      "film_character.portrayed_in_films",
+      185
+    ],
+    [
+      "location.time_zones",
+      169
+    ],
+    [
+      "education.institution",
+      168
+    ],
+    [
+      "written_work.author",
+      147
+    ],
+    [
+      "film.starring",
+      123
+    ],
+    [
+      "topic.notable_types",
+      121
+    ],
+    [
+      "performance.character",
+      116
+    ],
+    [
+      "person.education",
+      115
+    ],
+    [
+      "sports_team_roster.team",
+      109
+    ],
+    [
+      "influence_node.influenced_by",
+      100
+    ]
+  ]
+}

@@ -4,7 +4,7 @@
 INPUT_FILE="/data/home/mpx602/projects/ETU/ETU/similarity/sim_res/path_ppl_scores_explicit_reasoning_with_sim.jsonl"
 GROUND_TRUTH="/data/home/mpx602/projects/ETU/ETU/fppl/all_ppl_path_with_gt_only_relation/path_ppl_scores_explicit_reasoning.jsonl"
 OUTPUT_DIR="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/last_entity_ans_path_ordered_by_gt_rel_sim/gt_relation"
-TOP_K=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+TOP_K=50
 GT_RELATIONS_FILE="/data/home/mpx602/projects/ETU/ETU/similarity/topsim/last_entity_ans_path_ordered_by_filtered_rel_sim/gt_relation_test.json"
 
 # Display help
