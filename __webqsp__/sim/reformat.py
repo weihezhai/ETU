@@ -9,10 +9,10 @@ def reformat_paths(input_file, output_file):
         input_file: Path to the input JSONL file (web_filtered_paths.jsonl)
         output_file: Path to save the reformatted output
     """
-    reformatted_data = []
-    
-    with open(input_file, 'r', encoding='utf-8') as f:
-        for line in f:
+    with open(input_file, 'r', encoding='utf-8') as f_in, \
+         open(output_file, 'w', encoding='utf-8') as f_out:
+        
+        for line in f_in:
             entry = json.loads(line.strip())
             
             # Create new reformatted entry
@@ -35,12 +35,8 @@ def reformat_paths(input_file, output_file):
                     "path_str": path_str
                 })
             
-            reformatted_data.append(new_entry)
-    
-    # Write the reformatted data to the output file
-    with open(output_file, 'w', encoding='utf-8') as f:
-        for entry in reformatted_data:
-            f.write(json.dumps(entry, indent=4) + "\n")
+            # Write as standard JSONL (no indentation)
+            f_out.write(json.dumps(new_entry) + "\n")
     
     print(f"Reformatted data saved to {output_file}")
 

@@ -36,7 +36,7 @@ mkdir -p ./logs
 #   "Answer the following question based on your knowledge."
 # )
 SYSTEM_PROMPTS=(
-  "Answer the following question based on your knowledge and the possibly correct supportive reasoning path."
+  "Answer the following question based on your knowledge."
   )
 # Get all input files - adjust the path as needed
 INPUT_DIR="/data/home/mpx602/projects/ETU/ETU/info_gain/input_jsonl"
