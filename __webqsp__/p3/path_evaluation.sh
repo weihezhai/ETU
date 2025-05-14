@@ -56,6 +56,6 @@ eval python /mnt/parscratch/users/acr24wz/ETU/__webqsp__/p3/path_evaluation.py \
   --model \"$MODEL_PATH\" \
   --input \"$INPUT_FILE\" \
   --output \"$OUTPUT_FILE\" \
-  $PROMPT_ARGS
+  --system-prompts "Answer the following question based on your knowledge and the possibly correct supportive reasoning path."
   
 echo -e "${GREEN}Completed evaluation of $INPUT_FILE! Results saved to $OUTPUT_FILE${NC}" 
