@@ -4,7 +4,7 @@
 PREDICTIONS_FILE="/data/home/mpx602/projects/ETU/ETU/clean_trajectories.jsonl"
 OUTPUT_FILE="grounded_paths.json"
 SAMPLE_SIZE=100
-API_KEY="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"
+API_KEY=""
 
 # Function to display help
 show_help() {
